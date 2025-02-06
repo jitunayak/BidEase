@@ -38,7 +38,7 @@ export default function profile() {
             }}
           />
           <TouchableOpacity>
-            <Text style={{ color: Colors.primary, fontSize: 16 }}>
+            <Text style={{ color: Colors.primary, fontSize: 14 }}>
               Edit Profile
             </Text>
           </TouchableOpacity>
@@ -64,8 +64,8 @@ export default function profile() {
         >
           <View
             style={{
-              gap: 16,
-              padding: 16,
+              gap: 14,
+              padding: 14,
               borderWidth: 0.5,
               borderColor: Colors.border,
               borderRadius: 8,
@@ -83,7 +83,7 @@ export default function profile() {
               <Text
                 style={{
                   color: Colors.text,
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 Jitu Nayak
@@ -101,7 +101,7 @@ export default function profile() {
               <Text
                 style={{
                   color: Colors.text,
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 093 123 4567
@@ -119,7 +119,7 @@ export default function profile() {
               <Text
                 style={{
                   color: Colors.text,
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               >
                 jitu.nayak@ahouse.in
@@ -140,7 +140,7 @@ export default function profile() {
               fontSize: 20,
               marginBottom: 8,
               fontWeight: "500",
-              marginTop: 16,
+              marginTop: 14,
             }}
           >
             Individual e-KYC
@@ -149,7 +149,7 @@ export default function profile() {
           {/* Aadhar Card */}
           <View
             style={{
-              padding: 16,
+              padding: 14,
               inset: 0,
               borderWidth: 0.6,
               borderRadius: 8,
@@ -167,9 +167,7 @@ export default function profile() {
             >
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <Octicons name="id-badge" size={20} color={Colors.primary} />
-                <Text style={{ color: Colors.text, fontSize: 16 }}>
-                  Aadhar Card
-                </Text>
+                <Text style={{ color: Colors.text }}>Aadhar Card</Text>
               </View>
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <Octicons
@@ -180,21 +178,17 @@ export default function profile() {
                 <Text style={{ color: Colors.success }}>Verified</Text>
               </View>
             </View>
-            <Text style={{ color: Colors.secondary, fontSize: 16 }}>
-              XXXX-XXXX-1234
-            </Text>
+            <Text style={{ color: Colors.secondary }}>XXXX-XXXX-1234</Text>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Octicons name="upload" size={20} color={Colors.primary} />
-              <Text style={{ color: Colors.primary, fontSize: 16 }}>
-                Upload Document
-              </Text>
+              <Text style={{ color: Colors.primary }}>Upload Document</Text>
             </View>
           </View>
 
           {/* PAN Verification */}
           <View
             style={{
-              padding: 16,
+              padding: 14,
               inset: 0,
               borderWidth: 0.6,
               borderRadius: 8,
@@ -212,41 +206,35 @@ export default function profile() {
             >
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <Octicons name="file" size={20} color={Colors.primary} />
-                <Text style={{ color: Colors.text, fontSize: 16 }}>
-                  PAN Card
-                </Text>
+                <Text style={{ color: Colors.text }}>PAN Card</Text>
               </View>
               <View style={{ flexDirection: "row", gap: 8 }}>
                 <Octicons name="clock" size={20} color={Colors.pending} />
                 <Text style={{ color: Colors.pending }}>Pending</Text>
               </View>
             </View>
-            <Text style={{ color: Colors.secondary, fontSize: 16 }}>
-              ABCDE124F
-            </Text>
+            <Text style={{ color: Colors.secondary }}>ABCDE124F</Text>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Octicons name="upload" size={20} color={Colors.primary} />
-              <Text style={{ color: Colors.primary, fontSize: 16 }}>
-                Upload Document
-              </Text>
+              <Text style={{ color: Colors.primary }}>Upload Document</Text>
             </View>
           </View>
         </View>
 
         {/* Credit Limit */}
-        <View style={{ width: "100%", gap: 16, padding: 8, marginTop: 16 }}>
+        <View style={{ width: "100%", gap: 14, padding: 8, marginTop: 14 }}>
           <Text style={{ color: Colors.text, fontSize: 20, fontWeight: "500" }}>
             Credit Limit
           </Text>
           <View
             style={{
-              padding: 16,
+              padding: 14,
               inset: 0,
               borderWidth: 0.6,
               borderRadius: 8,
               width: "100%",
               borderColor: Colors.border,
-              gap: 16,
+              gap: 14,
             }}
           >
             <View
@@ -257,7 +245,7 @@ export default function profile() {
               }}
             >
               <View style={{ flexDirection: "column", gap: 8 }}>
-                <Text style={{ color: Colors.secondary, fontSize: 16 }}>
+                <Text style={{ color: Colors.secondary, fontSize: 14 }}>
                   Current Credit Limit
                 </Text>
                 <Text
@@ -286,10 +274,10 @@ export default function profile() {
                   gap: 8,
                 }}
               >
-                <Text style={{ color: Colors.secondary, fontSize: 16 }}>
+                <Text style={{ color: Colors.secondary, fontSize: 14 }}>
                   Available
                 </Text>
-                <Text style={{ color: Colors.secondary, fontSize: 16 }}>
+                <Text style={{ color: Colors.secondary, fontSize: 14 }}>
                   ₹10000
                 </Text>
               </View>
@@ -300,10 +288,10 @@ export default function profile() {
                   gap: 8,
                 }}
               >
-                <Text style={{ color: Colors.secondary, fontSize: 16 }}>
+                <Text style={{ color: Colors.secondary, fontSize: 14 }}>
                   Used
                 </Text>
-                <Text style={{ color: Colors.secondary, fontSize: 16 }}>
+                <Text style={{ color: Colors.secondary, fontSize: 14 }}>
                   ₹5000
                 </Text>
               </View>
@@ -311,14 +299,14 @@ export default function profile() {
             <TouchableOpacity
               style={{
                 backgroundColor: Colors.primary,
-                padding: 16,
+                padding: 14,
                 borderRadius: 8,
                 width: "auto",
                 alignItems: "center",
                 marginTop: 12,
               }}
             >
-              <Text style={{ color: Colors.background, fontSize: 16 }}>
+              <Text style={{ color: Colors.background, fontSize: 14 }}>
                 Request limit increase
               </Text>
             </TouchableOpacity>
