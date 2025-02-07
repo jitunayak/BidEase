@@ -3,7 +3,7 @@ import { Image, Text, View } from "react-native";
 
 export default function Banner() {
   return (
-    <View style={{ margin: 8, borderRadius: 16, position: "relative" }}>
+    <View style={{ borderRadius: 16, position: "relative" }}>
       <Image
         style={{
           width: "100%",
