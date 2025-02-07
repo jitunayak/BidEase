@@ -35,8 +35,8 @@ export default function RootLayout() {
       <Stack.Screen
         name="search"
         options={{
-          headerBackTitle: "",
-          title: "",
+          headerBackTitle: " ",
+          headerTitle: "",
           headerRight: () => (
             <TextInput
               placeholder="Search"

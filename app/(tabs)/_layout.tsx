@@ -10,7 +10,8 @@ function RootLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "",
+          title: "Home",
+          headerTitle: "",
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : "gray"}
