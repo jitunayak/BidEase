@@ -1,21 +1,61 @@
 import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import React from "react";
-
+import { Image, Text, View } from "react-native";
 function RootLayout() {
+  const router = useRouter();
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: Colors.primary }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "",
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : "gray"}
               name="home"
               size={22}
             />
+          ),
+          headerLeft: () => (
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+            >
+              <Image
+                style={{
+                  width: 30,
+                  height: 30,
+                  marginLeft: 10,
+                  marginBottom: 5,
+                }}
+                source={require("../../assets/images/logo.png")}
+              />
+              <Text style={{ fontSize: 22, fontWeight: "bold" }}>BidEase</Text>
+            </View>
+          ),
+          headerRight: () => (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 24,
+                marginRight: 12,
+              }}
+            >
+              <Octicons
+                name="search"
+                size={22}
+                color={Colors.text}
+                onPress={() => router.navigate("/search")}
+              />
+              <Octicons
+                name="bell"
+                size={22}
+                color={Colors.text}
+                onPress={() => router.navigate("/notifications")}
+              />
+            </View>
           ),
         }}
       />

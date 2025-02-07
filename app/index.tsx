@@ -20,6 +20,12 @@ export default function Index() {
           router.navigate("/login");
         }}
       />
+      <Button
+        title="Home"
+        onPress={() => {
+          router.navigate("/(tabs)");
+        }}
+      />
     </View>
   );
 }
