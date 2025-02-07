@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constanst";
+import { Colors } from "@/src/Constant";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";

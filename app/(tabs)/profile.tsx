@@ -1,7 +1,7 @@
 import CreditLimit from "@/src/components/CreditLimit";
 import IndividualKYC from "@/src/components/IndividualKYC";
 import PersonalInfo from "@/src/components/PersonalInfo";
-import { Colors } from "@/src/Constanst";
+import { Colors } from "@/src/Constant";
 import React from "react";
 import { ScrollView, View } from "react-native";
 

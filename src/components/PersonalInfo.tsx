@@ -1,7 +1,7 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Colors } from "../Constanst";
+import { Colors } from "../Constant";
 
 export default function PersonalInfo() {
   return (
