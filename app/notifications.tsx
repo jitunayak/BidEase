@@ -13,7 +13,7 @@ export default function notifications() {
         gap: 16,
       }}
     >
-      <Octicons name="bell" size={48} color={Colors.pending} />
+      <Octicons name="bell" size={48} color={Colors.secondary} />
       <Text>Nothing missed!</Text>
     </View>
   );

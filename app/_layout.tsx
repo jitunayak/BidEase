@@ -28,6 +28,8 @@ export default function RootLayout() {
         options={{
           headerBackTitle: "Home",
           title: "Notifications",
+          headerBackButtonDisplayMode: "minimal",
+          presentation: "modal",
         }}
       />
       <Stack.Screen
@@ -35,6 +37,7 @@ export default function RootLayout() {
         options={{
           headerBackTitle: "back",
           headerTitle: "Search for assets",
+          headerBackButtonDisplayMode: "minimal",
         }}
       />
     </Stack>
