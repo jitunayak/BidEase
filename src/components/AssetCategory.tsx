@@ -14,7 +14,6 @@ export default function AssetCategory() {
         gap: 32,
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 24,
         marginHorizontal: 16,
       }}
     >

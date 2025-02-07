@@ -1,6 +1,4 @@
-import { Colors } from "@/src/Constant";
 import { Stack } from "expo-router";
-import { TextInput } from "react-native";
 
 export default function RootLayout() {
   return (
@@ -35,22 +33,8 @@ export default function RootLayout() {
       <Stack.Screen
         name="search"
         options={{
-          headerBackTitle: " ",
-          headerTitle: "",
-          headerRight: () => (
-            <TextInput
-              placeholder="Search"
-              clearButtonMode="always"
-              style={{
-                borderWidth: 1,
-                borderColor: Colors.border,
-                borderRadius: 8,
-                padding: 8,
-                width: "106%",
-                marginRight: 16,
-              }}
-            />
-          ),
+          headerBackTitle: "back",
+          headerTitle: "Search for assets",
         }}
       />
     </Stack>

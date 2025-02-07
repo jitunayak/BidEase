@@ -14,6 +14,7 @@ export default function AssetCard() {
         borderColor: Colors.border,
         borderRadius: 16,
         marginRight: 8,
+        backgroundColor: Colors.background,
       }}
     >
       <Image
