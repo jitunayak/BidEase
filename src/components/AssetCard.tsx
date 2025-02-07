@@ -1,10 +1,23 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ImageSourcePropType,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Colors } from "../Constant";
 import Title from "./Title";
 
-export default function AssetCard() {
+type Props = {
+  title: string;
+  bid: number;
+  time: string;
+  image: ImageSourcePropType;
+};
+
+export default function AssetCard(props: Props) {
   return (
     <View
       style={{
@@ -18,7 +31,7 @@ export default function AssetCard() {
       }}
     >
       <Image
-        source={require("../../assets/images/asset1.png")}
+        source={props.image}
         style={{
           width: 300,
           height: 160,
@@ -27,7 +40,7 @@ export default function AssetCard() {
         }}
       />
       <View style={{ padding: 8, gap: 8 }}>
-        <Title value="Mercedes Benz AMG" />
+        <Title value={props.title} />
         <View
           style={{
             flexDirection: "row",
@@ -40,13 +53,13 @@ export default function AssetCard() {
             <Text
               style={{ color: Colors.primary, fontWeight: "700", fontSize: 20 }}
             >
-              ₹32,50,000
+              ₹{props.bid.toLocaleString()}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", gap: 8 }}>
             <Octicons name="clock" size={18} color={Colors.error} />
-            <Text style={{ color: Colors.error }}>1hr 30m</Text>
+            <Text style={{ color: Colors.error }}>{props.time}</Text>
           </View>
         </View>
         <TouchableOpacity
