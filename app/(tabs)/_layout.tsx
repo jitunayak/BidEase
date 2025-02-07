@@ -20,6 +20,33 @@ function RootLayout() {
         }}
       />
       <Tabs.Screen
+        name="live"
+        options={{
+          title: "Live",
+          tabBarIcon: (tab) => (
+            <Octicons
+              color={tab.focused ? Colors.primary : "gray"}
+              name="flame"
+              size={22}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="wishlist"
+        options={{
+          title: "Wishlist",
+          tabBarIcon: (tab) => (
+            <Octicons
+              color={tab.focused ? Colors.primary : "gray"}
+              name="heart"
+              size={22}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Profile",

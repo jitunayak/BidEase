@@ -39,7 +39,7 @@ export default function Login() {
         <View style={styles.phoneNumberInput}>
           <Text style={{ fontSize: 12, color: "gray" }}>Phone Number</Text>
           <TextInput
-            style={{ fontSize: 18, paddingTop: 8 }}
+            style={{ fontSize: 18, paddingTop: 8, letterSpacing: 1 }}
             keyboardType="phone-pad"
           />
         </View>
