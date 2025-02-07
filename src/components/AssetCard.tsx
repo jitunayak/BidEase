@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import { Colors } from "../Constant";
-import Title from "./Title";
 
 type Props = {
   title: string;
@@ -39,8 +38,8 @@ export default function AssetCard(props: Props) {
           borderTopRightRadius: 16,
         }}
       />
-      <View style={{ padding: 8, gap: 8 }}>
-        <Title value={props.title} />
+      <View style={{ padding: 12, gap: 8 }}>
+        <Text style={{ color: Colors.text, fontSize: 16 }}>{props.title}</Text>
         <View
           style={{
             flexDirection: "row",
@@ -57,8 +56,8 @@ export default function AssetCard(props: Props) {
             </Text>
           </View>
 
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <Octicons name="clock" size={18} color={Colors.error} />
+          <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+            <Octicons name="clock" size={16} color={Colors.error} />
             <Text style={{ color: Colors.error }}>{props.time}</Text>
           </View>
         </View>

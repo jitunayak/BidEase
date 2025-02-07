@@ -14,7 +14,7 @@ export default function AssetCategory() {
         gap: 32,
         justifyContent: "space-between",
         alignItems: "center",
-        marginHorizontal: 16,
+        marginHorizontal: 32,
       }}
     >
       <FilledRoundIcon

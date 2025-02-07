@@ -1,5 +1,6 @@
 import CreditLimit from "@/src/components/CreditLimit";
 import IndividualKYC from "@/src/components/IndividualKYC";
+import LogOut from "@/src/components/LogOut";
 import PersonalInfo from "@/src/components/PersonalInfo";
 import { Colors } from "@/src/Constant";
 import React from "react";
@@ -23,6 +24,7 @@ export default function profile() {
         <PersonalInfo />
         <IndividualKYC />
         <CreditLimit />
+        <LogOut />
       </View>
     </ScrollView>
   );

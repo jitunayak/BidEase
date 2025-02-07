@@ -36,8 +36,11 @@ export default function index() {
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, padding: 8, gap: 16 }}>
         <Banner />
-        <View style={{ gap: 24 }}>
-          <Title value="Categories" />
+        <View style={{ gap: 16 }}>
+          <Title
+            value="Categories"
+            style={{ marginLeft: 8, marginBottom: 8 }}
+          />
           <AssetCategory />
           <View
             style={{
@@ -71,11 +74,6 @@ export default function index() {
             snapToInterval={300}
             horizontal
           />
-
-          {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <AssetCard />
-            <AssetCard />
-          </ScrollView> */}
         </View>
       </View>
     </ScrollView>
