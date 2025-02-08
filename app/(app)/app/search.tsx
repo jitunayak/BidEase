@@ -34,6 +34,7 @@ export default function search() {
             fontSize: 18,
             flex: 1,
           }}
+          placeholderTextColor={Colors.secondary}
         />
       </View>
 
