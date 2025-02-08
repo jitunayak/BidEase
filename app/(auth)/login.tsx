@@ -1,7 +1,7 @@
 import { Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import * as Haptics from "expo-haptics";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -101,7 +101,14 @@ export default function Login() {
               paddingHorizontal: 20,
             }}
           >
-            By continuing, you agree to our Terms of Service and Privacy Policy
+            By continuing, you agree to our{" "}
+            <Link
+              style={{ color: Colors.primary }}
+              href="https://www.ahouse.in/privacy-policy"
+            >
+              Terms of Service <Text style={{ color: "gray" }}>and</Text>{" "}
+              Privacy Policy
+            </Link>
           </Text>
         </View>
       </KeyboardAvoidingView>
