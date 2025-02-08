@@ -92,7 +92,7 @@ export default function PersonalInfo() {
                 fontSize: 14,
               }}
             >
-              {storage.getString("phoneNumber")}
+              {storage.get("user.phone_number")}
             </Text>
           </View>
 

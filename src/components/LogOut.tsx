@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { Colors } from "../Constant";
+import { storage } from "../hooks/storage";
 
 export default function LogOut() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function LogOut() {
         paddingBottom: 16,
       }}
       onPress={() => {
+        storage.remove("user.phone_number");
         router.navigate("/login");
       }}
     >

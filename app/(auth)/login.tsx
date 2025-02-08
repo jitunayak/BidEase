@@ -20,7 +20,7 @@ export default function Login() {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleLogin = () => {
-    storage.set("phoneNumber", phoneNumber);
+    storage.set("user.phone_number", phoneNumber);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     router.navigate("/otp-screen");
   };
