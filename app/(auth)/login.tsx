@@ -62,11 +62,15 @@ export default function Login() {
                 paddingTop: 8,
               }}
             >
-              <Text>+91{"   "}</Text>
+              <Text
+                style={{ fontSize: 18, letterSpacing: 1, color: Colors.text }}
+              >
+                +91{"   "}
+              </Text>
               <TextInput
                 placeholder="1234567890"
                 placeholderTextColor={Colors.border}
-                style={{ fontSize: 18, letterSpacing: 1 }}
+                style={{ fontSize: 18, letterSpacing: 1, color: Colors.text }}
                 keyboardType="phone-pad"
                 value={phoneNumber}
                 onChangeText={(e) => {
