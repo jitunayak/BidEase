@@ -1,5 +1,8 @@
+import { Colors } from "@/src/Constant";
+import { storage } from "@/src/hooks/storage";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -14,6 +17,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const router = useRouter();
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const handleLogin = () => {
+    storage.set("phoneNumber", phoneNumber);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.navigate("/otp-screen");
+  };
   return (
     <View
       style={{
@@ -21,7 +31,7 @@ export default function Login() {
         justifyContent: "flex-start",
         alignItems: "center",
         display: "flex",
-        backgroundColor: "white",
+        backgroundColor: Colors.background,
       }}
     >
       <SafeAreaView />
@@ -47,13 +57,26 @@ export default function Login() {
             <TextInput
               style={{ fontSize: 18, paddingTop: 8, letterSpacing: 1 }}
               keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={(e) => {
+                if (e.length <= 10) {
+                  setPhoneNumber(e);
+                }
+              }}
             />
           </View>
           <TouchableOpacity
-            style={styles.button}
+            disabled={phoneNumber.length < 10}
+            style={
+              phoneNumber.length < 10
+                ? {
+                    ...styles.button,
+                    backgroundColor: Colors.border,
+                  }
+                : styles.button
+            }
             onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              router.navigate("/otp-screen");
+              handleLogin();
             }}
           >
             <Text style={{ color: "white" }}>Continue</Text>

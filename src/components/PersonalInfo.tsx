@@ -2,6 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
+import { storage } from "../hooks/storage";
 
 export default function PersonalInfo() {
   return (
@@ -91,7 +92,7 @@ export default function PersonalInfo() {
                 fontSize: 14,
               }}
             >
-              093 123 4567
+              {storage.getString("phoneNumber")}
             </Text>
           </View>
 
