@@ -40,7 +40,7 @@ export default function OtpScreen() {
           alignItems: "center",
         }}
         onPress={() => {
-          router.push("/(tabs)");
+          router.navigate("/(app)/(tabs)");
         }}
       >
         <Text style={{ color: Colors.background }}>Verify</Text>

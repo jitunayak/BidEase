@@ -30,7 +30,7 @@ function RootLayout() {
                   marginLeft: 10,
                   marginBottom: 5,
                 }}
-                source={require("../../assets/images/logo.png")}
+                source={require("@/assets/images/logo.png")}
               />
               <Text style={{ fontSize: 22, fontWeight: "bold" }}>BidEase</Text>
             </View>
@@ -48,13 +48,13 @@ function RootLayout() {
                 name="search"
                 size={22}
                 color={Colors.text}
-                onPress={() => router.navigate("/search")}
+                onPress={() => router.navigate("/(app)/app/search")}
               />
               <Octicons
                 name="bell"
                 size={22}
                 color={Colors.text}
-                onPress={() => router.navigate("/notifications")}
+                onPress={() => router.navigate("/(app)/app/notifications")}
               />
             </View>
           ),

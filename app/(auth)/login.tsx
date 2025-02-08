@@ -32,7 +32,7 @@ export default function Login() {
         <View>
           <View style={{ alignItems: "center", marginTop: 50 }}>
             <Image
-              source={require("../assets/images/logo.png")}
+              source={require("@/assets/images/logo.png")}
               style={{ width: 60, height: 60 }}
             />
             <Text style={styles.title}>Welcome to BidEase</Text>

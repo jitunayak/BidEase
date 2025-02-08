@@ -1,45 +1,17 @@
-import { Stack } from "expo-router";
+import { Slot, useRouter } from "expo-router";
+import { useEffect } from "react";
 
 export default function RootLayout() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/(auth)/login");
+  });
+
   return (
-    <Stack screenOptions={{}}>
-      {/* Optionally configure static options outside the route.*/}
-      <Stack.Screen
-        name="login"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="otp-screen"
-        options={{
-          title: "Enter OTP",
-          headerBackTitle: "Re-enter",
-        }}
-      />
-      <Stack.Screen
-        name="(tabs)"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="notifications"
-        options={{
-          headerBackTitle: "Home",
-          title: "Notifications",
-          headerBackButtonDisplayMode: "minimal",
-          presentation: "modal",
-        }}
-      />
-      <Stack.Screen
-        name="search"
-        options={{
-          headerBackTitle: "back",
-          headerTitle: "Search for assets",
-          headerBackButtonDisplayMode: "minimal",
-        }}
-      />
-    </Stack>
+    // <Stack>
+    //   <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+    //   <Stack.Screen name="(app)" options={{ headerShown: false }} />
+    // </Stack>
+    <Slot />
   );
 }
