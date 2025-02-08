@@ -40,7 +40,7 @@ export default function OtpScreen() {
       <TouchableOpacity
         style={{
           backgroundColor:
-            otp.length == OTP_LENGTH ? Colors.primary : Colors.secondary,
+            otp.length == OTP_LENGTH ? Colors.primary : Colors.border,
           padding: 16,
           borderRadius: 8,
           width: "100%",

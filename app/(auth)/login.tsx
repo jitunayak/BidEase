@@ -54,16 +54,28 @@ export default function Login() {
         <View style={{ marginBottom: 50, marginTop: 50, padding: 8 }}>
           <View style={styles.phoneNumberInput}>
             <Text style={{ fontSize: 12, color: "gray" }}>Phone Number</Text>
-            <TextInput
-              style={{ fontSize: 18, paddingTop: 8, letterSpacing: 1 }}
-              keyboardType="phone-pad"
-              value={phoneNumber}
-              onChangeText={(e) => {
-                if (e.length <= 10) {
-                  setPhoneNumber(e);
-                }
+
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingTop: 8,
               }}
-            />
+            >
+              <Text>+91{"   "}</Text>
+              <TextInput
+                placeholder="1234567890"
+                placeholderTextColor={Colors.border}
+                style={{ fontSize: 18, letterSpacing: 1 }}
+                keyboardType="phone-pad"
+                value={phoneNumber}
+                onChangeText={(e) => {
+                  if (e.length <= 10) {
+                    setPhoneNumber(e);
+                  }
+                }}
+              />
+            </View>
           </View>
           <TouchableOpacity
             disabled={phoneNumber.length < 10}
