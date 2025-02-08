@@ -2,6 +2,8 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import {
   Image,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TextInput,
@@ -23,46 +25,51 @@ export default function Login() {
       }}
     >
       <SafeAreaView />
-      <View>
-        <View style={{ alignItems: "center", marginTop: 50 }}>
-          <Image
-            source={require("../assets/images/logo.png")}
-            style={{ width: 60, height: 60 }}
-          />
-          <Text style={styles.title}>Welcome to BidEase</Text>
-          <Text style={styles.secondaryText}>
-            Secure banking auctions at your fingertips
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1 }}
+      >
+        <View>
+          <View style={{ alignItems: "center", marginTop: 50 }}>
+            <Image
+              source={require("../assets/images/logo.png")}
+              style={{ width: 60, height: 60 }}
+            />
+            <Text style={styles.title}>Welcome to BidEase</Text>
+            <Text style={styles.secondaryText}>
+              Secure banking auctions at your fingertips
+            </Text>
+          </View>
+        </View>
+        <View style={{ marginBottom: 50, marginTop: 50, padding: 8 }}>
+          <View style={styles.phoneNumberInput}>
+            <Text style={{ fontSize: 12, color: "gray" }}>Phone Number</Text>
+            <TextInput
+              style={{ fontSize: 18, paddingTop: 8, letterSpacing: 1 }}
+              keyboardType="phone-pad"
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+              router.navigate("/otp-screen");
+            }}
+          >
+            <Text style={{ color: "white" }}>Continue</Text>
+          </TouchableOpacity>
+          <Text
+            style={{
+              marginTop: 10,
+              color: "gray",
+              fontSize: 12,
+              paddingHorizontal: 20,
+            }}
+          >
+            By continuing, you agree to our Terms of Service and Privacy Policy
           </Text>
         </View>
-      </View>
-      <View style={{ marginBottom: 50, marginTop: 50, padding: 8 }}>
-        <View style={styles.phoneNumberInput}>
-          <Text style={{ fontSize: 12, color: "gray" }}>Phone Number</Text>
-          <TextInput
-            style={{ fontSize: 18, paddingTop: 8, letterSpacing: 1 }}
-            keyboardType="phone-pad"
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            router.navigate("/otp-screen");
-          }}
-        >
-          <Text style={{ color: "white" }}>Continue</Text>
-        </TouchableOpacity>
-        <Text
-          style={{
-            marginTop: 10,
-            color: "gray",
-            fontSize: 12,
-            paddingHorizontal: 20,
-          }}
-        >
-          By continuing, you agree to our Terms of Service and Privacy Policy
-        </Text>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
