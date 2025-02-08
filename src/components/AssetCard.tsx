@@ -1,3 +1,4 @@
+import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import {
@@ -7,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Colors } from "../Constant";
 
 type Props = {
   title: string;
