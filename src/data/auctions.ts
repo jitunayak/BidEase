@@ -101,6 +101,7 @@ export const liveAuctions = [
     title: "Luxury Villa",
     image: require("@/assets/images/asset2.png"),
     emd: 960000,
+    date: "2025-08-22",
     location: "Pundicherry, Kerala",
     isWishListed: true,
   },

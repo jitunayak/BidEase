@@ -28,6 +28,7 @@ export default function Live() {
     <GestureHandlerRootView>
       <View style={{ paddingHorizontal: 8, flex: 1 }}>
         <SafeAreaView style={{ marginVertical: 4 }} />
+
         <FlatList
           data={wishListedAuctions}
           keyExtractor={(item) => item.id}

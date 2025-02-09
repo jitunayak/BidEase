@@ -1,4 +1,5 @@
 import { Colors } from "@/src/Constant";
+import { wishListedAuctions } from "@/src/data/auctions";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
@@ -64,12 +65,28 @@ function RootLayout() {
         name="live"
         options={{
           title: "Live",
-          headerTitle: "Live Auctions",
+          headerTitle: "",
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : "gray"}
               name="flame"
               size={22}
+            />
+          ),
+          headerSearchBarOptions: {
+            inputType: "text",
+            placeholder: "Search for live auctions",
+            cancelButtonText: "Clear",
+          },
+          headerLeft: () => (
+            <Octicons
+              name="chevron-left"
+              size={24}
+              color={Colors.text}
+              style={{ marginLeft: 12 }}
+              onPress={() => {
+                router.back();
+              }}
             />
           ),
         }}
@@ -87,6 +104,7 @@ function RootLayout() {
               size={22}
             />
           ),
+          tabBarBadge: wishListedAuctions.length,
         }}
       />
       <Tabs.Screen
