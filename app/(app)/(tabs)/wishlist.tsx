@@ -5,7 +5,14 @@ import { VStack } from "@/src/ui/VStack";
 import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
 import React, { useMemo, useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const WishlistItem = ({ item }: { item: (typeof wishListedAuctions)[0] }) => {
   return (
@@ -50,7 +57,7 @@ const WishlistItem = ({ item }: { item: (typeof wishListedAuctions)[0] }) => {
 };
 
 export default function Wishlist() {
-  const [monthRangeFilter, setMonthRangeFilter] = useState(1);
+  const [monthRangeFilter, setMonthRangeFilter] = useState(3);
 
   const filteredAuctions = useMemo(
     () =>
@@ -68,6 +75,7 @@ export default function Wishlist() {
 
   return (
     <View style={{ padding: 8, flex: 1 }}>
+      <SafeAreaView style={{ marginVertical: 16 }} />
       <HStack justifyContent="flex-start">
         {[3, 6, 12].map((item) => (
           <TouchableOpacity

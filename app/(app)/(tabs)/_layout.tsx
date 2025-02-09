@@ -78,6 +78,7 @@ function RootLayout() {
         name="wishlist"
         options={{
           title: "Wishlist",
+          headerShown: false,
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : "gray"}
