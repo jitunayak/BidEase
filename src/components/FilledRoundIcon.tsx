@@ -1,16 +1,21 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
 
 export default function FilledRoundIcon({
   icon,
   title,
+  color,
+  onPress = () => {},
 }: {
   icon: React.ReactNode;
   title?: string;
+  color?: string;
+  onPress?: () => void;
 }) {
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => onPress()}
       style={{
         position: "relative",
         justifyContent: "center",
@@ -29,7 +34,7 @@ export default function FilledRoundIcon({
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: Colors.primary,
+            backgroundColor: color ?? Colors.primary,
             opacity: 0.1,
             position: "absolute",
             zIndex: 1,
@@ -42,6 +47,6 @@ export default function FilledRoundIcon({
         {icon}
       </View>
       <Text style={{ zIndex: 2 }}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }

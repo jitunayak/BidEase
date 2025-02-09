@@ -4,11 +4,10 @@ import Banner from "@/src/components/Banner";
 import Link from "@/src/components/Link";
 import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
-import { liveAuctions } from "@/src/data/auctions";
+import { liveAuctionsLarge } from "@/src/data/auctions";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { FlatList, ScrollView, View } from "react-native";
-
 
 export default function index() {
   return (
@@ -38,7 +37,7 @@ export default function index() {
           </View>
 
           <FlatList
-            data={liveAuctions}
+            data={liveAuctionsLarge}
             renderItem={({ item }) => (
               <AssetCard
                 bid={item.bid}

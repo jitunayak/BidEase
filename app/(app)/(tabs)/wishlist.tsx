@@ -1,60 +1,16 @@
+import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { HStack } from "@/src/ui/HStack";
-import { VStack } from "@/src/ui/VStack";
-import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
 import React, { useMemo, useState } from "react";
 import {
   FlatList,
-  Image,
   SafeAreaView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-
-const WishlistItem = ({ item }: { item: (typeof wishListedAuctions)[0] }) => {
-  return (
-    <TouchableOpacity
-      disabled={dayjs(item.date).isBefore(new Date())}
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-        padding: 8,
-        borderColor: Colors.border,
-        borderWidth: 0.6,
-        borderRadius: 8,
-        opacity: dayjs(item.date).isBefore(new Date()) ? 0.5 : 1,
-      }}
-    >
-      <HStack>
-        <Image
-          source={item.image}
-          style={{ width: 140, height: 120, borderRadius: 8 }}
-        />
-        <VStack alignItems="flex-start">
-          <HStack justifyContent="space-between">
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-              {item.title}
-            </Text>
-            <Octicons name="heart-fill" size={16} color={Colors.error} />
-          </HStack>
-          <Text>EMD : {item.emd.toLocaleString()}</Text>
-          <Text style={{ color: Colors.primary }}>
-            Starting : {item.bid.toLocaleString()}
-          </Text>
-          <HStack alignItems="center" justifyContent="flex-start">
-            <Octicons name="location" size={16} color={Colors.secondary} />
-            <Text>{item.location}</Text>
-          </HStack>
-          <Text>{dayjs(item.date).format("MMM DD, YYYY")}</Text>
-        </VStack>
-      </HStack>
-    </TouchableOpacity>
-  );
-};
 
 export default function Wishlist() {
   const [monthRangeFilter, setMonthRangeFilter] = useState(3);
@@ -101,9 +57,9 @@ export default function Wishlist() {
       </HStack>
 
       <FlatList
-        data={filteredAuctions}
+        data={filteredAuctions.filter((item) => item.isWishListed)}
         keyExtractor={(item) => item.id}
-        renderItem={WishlistItem}
+        renderItem={AssetCompactCard}
         ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
       />
     </View>
