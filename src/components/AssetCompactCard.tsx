@@ -22,8 +22,9 @@ export default function AssetCompactCard({
         padding: 8,
         borderColor: Colors.border,
         borderWidth: 0.6,
-        borderRadius: 8,
+        borderRadius: 12,
         opacity: dayjs(item.date).isBefore(new Date()) ? 0.5 : 1,
+        backgroundColor: Colors.background,
       }}
     >
       <HStack>

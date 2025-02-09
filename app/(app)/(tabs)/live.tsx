@@ -5,9 +5,14 @@ import { wishListedAuctions } from "@/src/data/auctions";
 import { HStack } from "@/src/ui/HStack";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Live() {
   const [active, setActive] = React.useState(1);
@@ -19,8 +24,8 @@ export default function Live() {
 
   return (
     <GestureHandlerRootView>
-      <SafeAreaView style={{ marginTop: 60 }} />
       <View style={{ paddingHorizontal: 8, flex: 1 }}>
+        <SafeAreaView style={{ marginVertical: 4 }} />
         <FlatList
           data={wishListedAuctions}
           keyExtractor={(item) => item.id}

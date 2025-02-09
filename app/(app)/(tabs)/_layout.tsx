@@ -64,7 +64,7 @@ function RootLayout() {
         name="live"
         options={{
           title: "Live",
-          headerShown: false,
+          headerTitle: "Live Auctions",
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : "gray"}
