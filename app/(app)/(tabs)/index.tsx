@@ -4,33 +4,12 @@ import Banner from "@/src/components/Banner";
 import Link from "@/src/components/Link";
 import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
+import { liveAuctions } from "@/src/data/auctions";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { FlatList, ScrollView, View } from "react-native";
 
-const liveAuctions = [
-  {
-    id: "1",
-    bid: 4550000,
-    title: "Mercedes Benz AMG",
-    time: "1 hour ago",
-    image: require("@/assets/images/asset1.png"),
-  },
-  {
-    id: "2",
-    bid: 320000,
-    title: "Beach side villa",
-    time: "2:30 hours ago",
-    image: require("@/assets/images/asset2.png"),
-  },
-  {
-    id: "3",
-    bid: 560000,
-    title: "Office space in Patia",
-    time: "2 hours ago",
-    image: require("@/assets/images/asset3.png"),
-  },
-];
+
 export default function index() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>

@@ -21,7 +21,13 @@ export const VStack = (props: Props & ViewProps) => {
   } = props;
   return (
     <View
-      style={{ flexDirection: "column", alignItems, justifyContent, gap }}
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        alignItems,
+        justifyContent,
+        gap,
+      }}
       {...rest}
     >
       {children}

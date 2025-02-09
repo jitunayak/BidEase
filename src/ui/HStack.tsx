@@ -21,7 +21,13 @@ export const HStack = (props: Props & ViewProps) => {
   } = props;
   return (
     <View
-      style={{ flexDirection: "row", alignItems, justifyContent, gap }}
+      style={{
+        width: "100%",
+        flexDirection: "row",
+        alignItems,
+        justifyContent,
+        gap,
+      }}
       {...rest}
     >
       {children}
