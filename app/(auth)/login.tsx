@@ -73,10 +73,9 @@ export default function Login() {
                 style={{ fontSize: 18, letterSpacing: 1, color: Colors.text }}
                 keyboardType="phone-pad"
                 value={phoneNumber}
+                maxLength={10}
                 onChangeText={(e) => {
-                  if (e.length <= 10) {
-                    setPhoneNumber(e);
-                  }
+                  setPhoneNumber(e);
                 }}
               />
             </View>
