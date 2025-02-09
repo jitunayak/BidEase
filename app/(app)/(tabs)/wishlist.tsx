@@ -13,7 +13,7 @@ import {
 } from "react-native";
 
 export default function Wishlist() {
-  const [monthRangeFilter, setMonthRangeFilter] = useState(3);
+  const [monthRangeFilter, setMonthRangeFilter] = useState(12);
 
   const filteredAuctions = useMemo(
     () =>
