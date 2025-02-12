@@ -1,7 +1,7 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
-import { wishListedAuctions } from "@/src/data/auctions";
+import { liveAuctions } from "@/src/data/auctions";
 import Button from "@/src/ui/Button";
 import { HStack } from "@/src/ui/HStack";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
@@ -30,7 +30,7 @@ export default function Live() {
         <SafeAreaView style={{ marginVertical: 4 }} />
 
         <FlatList
-          data={wishListedAuctions}
+          data={liveAuctions}
           keyExtractor={(item) => item.id}
           renderItem={AssetCompactCard}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
