@@ -30,6 +30,7 @@ export default function Live() {
         <SafeAreaView style={{ marginVertical: 4 }} />
 
         <FlatList
+          // showsVerticalScrollIndicator={false}
           data={liveAuctions}
           keyExtractor={(item) => item.id}
           renderItem={AssetCompactCard}

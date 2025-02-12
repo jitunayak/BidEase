@@ -1,10 +1,9 @@
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import Octicons from "@expo/vector-icons/Octicons";
-import { BlurView } from "expo-blur";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 function RootLayout() {
   const router = useRouter();
@@ -12,18 +11,18 @@ function RootLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
-        tabBarStyle: {
-          position: "absolute",
-        },
-        tabBarBackground: () => (
-          <BlurView
-            intensity={100}
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: "transparent",
-            }}
-          />
-        ),
+        // tabBarStyle: {
+        //   position: "absolute",
+        // },
+        // tabBarBackground: () => (
+        //   <BlurView
+        //     intensity={100}
+        //     style={{
+        //       ...StyleSheet.absoluteFillObject,
+        //       backgroundColor: "transparent",
+        //     }}
+        //   />
+        // ),
       }}
     >
       <Tabs.Screen
