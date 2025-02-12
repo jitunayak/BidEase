@@ -57,7 +57,7 @@ export default function NotificationPreference() {
       </View>
       <View style={styles.group}>
         <View style={styles.item}>
-          <Octicons name="bell" size={24} color="black" />
+          <Octicons name="comment" size={24} color="black" />
           <VStack alignItems="flex-start">
             <Text style={{ fontWeight: "500", fontSize: 16 }}>
               SMS Notification
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 16,
   },
   group: {
     padding: 8,
