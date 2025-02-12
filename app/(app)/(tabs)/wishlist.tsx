@@ -32,16 +32,22 @@ export default function Wishlist() {
   return (
     <View style={{ padding: 8, flex: 1 }}>
       <SafeAreaView style={{ marginVertical: 16 }} />
-      <HStack justifyContent="flex-start">
+      <HStack
+        justifyContent="flex-start"
+        style={{ paddingHorizontal: 8 }}
+        gap={8}
+      >
         {[3, 6, 12].map((item) => (
           <TouchableOpacity
             onPress={() => setMonthRangeFilter(item)}
             style={{
               backgroundColor:
-                item === monthRangeFilter ? Colors.primary : Colors.border,
+                item === monthRangeFilter ? Colors.primary : Colors.background,
               padding: 10,
               borderRadius: 16,
               marginBottom: 8,
+              borderWidth: 0.5,
+              borderColor: Colors.border,
             }}
           >
             <Text

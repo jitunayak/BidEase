@@ -6,8 +6,7 @@ import React from "react";
 import { StyleSheet, Switch, Text, View } from "react-native";
 
 export default function NotificationPreference() {
-  const { get, set, getBoolean } = storage;
-  console.log(getBoolean("notification.app"));
+  const { set, getBoolean } = storage;
   const [preferences, setPreferences] = React.useState({
     app: !!getBoolean("notification.app"),
     email: !!getBoolean("notification.email"),

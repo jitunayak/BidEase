@@ -1,5 +1,6 @@
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
+import { notifications } from "@/src/data/notifications";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
@@ -68,12 +69,34 @@ function RootLayout() {
                 color={Colors.text}
                 onPress={() => router.navigate("/(app)/app/search")}
               />
-              <Octicons
-                name="bell"
-                size={22}
-                color={Colors.text}
-                onPress={() => router.navigate("/(app)/app/notification")}
-              />
+              <View style={{ position: "relative" }}>
+                <Octicons
+                  name="bell"
+                  size={22}
+                  color={Colors.text}
+                  onPress={() => router.navigate("/(app)/app/notification")}
+                />
+
+                {notifications.length > 0 && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      right: -8,
+                      top: -10,
+                      backgroundColor: "red",
+                      borderRadius: 10,
+                      width: 20,
+                      height: 20,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={{ color: "white", fontSize: 14 }}>
+                      {notifications.filter((n) => !n.read).length}
+                    </Text>
+                  </View>
+                )}
+              </View>
             </View>
           ),
         }}

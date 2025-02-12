@@ -1,11 +1,11 @@
 import AssetCard from "@/src/components/AssetCard";
 import AssetCategory from "@/src/components/AssetCategory";
 import Banner from "@/src/components/Banner";
-import Link from "@/src/components/Link";
 import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
 import { liveAuctionsLarge } from "@/src/data/auctions";
 import Octicons from "@expo/vector-icons/Octicons";
+import { Link } from "expo-router";
 import React from "react";
 import { FlatList, ScrollView, View } from "react-native";
 
@@ -33,7 +33,9 @@ export default function index() {
               <Title value="Live Auctions" />
               <Octicons name="flame" size={14} color={Colors.error} />
             </View>
-            <Link value="See All" />
+            <Link href={"/live"} style={{ color: Colors.primary }}>
+              See All
+            </Link>
           </View>
 
           <FlatList

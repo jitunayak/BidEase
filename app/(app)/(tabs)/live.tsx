@@ -28,23 +28,14 @@ export default function Live() {
     <GestureHandlerRootView>
       <View style={{ paddingHorizontal: 8, flex: 1 }}>
         <SafeAreaView style={{ marginVertical: 4 }} />
-
         <FlatList
-          // showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={liveAuctions}
           keyExtractor={(item) => item.id}
           renderItem={AssetCompactCard}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         />
 
-        {/* <View style={{ paddingBottom: 16 }}>
-          <Button
-            title="Filter"
-            variant="secondary"
-            onPress={() => {}}
-            isLoading={false}
-          />
-        </View> */}
         <BottomSheet
           ref={bottomSheetRef}
           onChange={handleSheetChanges}
