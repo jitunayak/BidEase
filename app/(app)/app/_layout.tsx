@@ -1,6 +1,7 @@
 import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Stack, useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -13,24 +14,29 @@ export default function RootLayout() {
           title: "Notifications",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
-            <Octicons
-              name="chevron-left"
-              size={24}
-              color="black"
+            <TouchableOpacity
               onPress={() => {
                 router.back();
               }}
-            />
+            >
+              <Octicons name="chevron-left" size={24} color="black" />
+            </TouchableOpacity>
           ),
           headerRight: () => (
-            <Octicons
-              name="gear"
-              size={20}
-              color={Colors.text}
-              onPress={() =>
-                router.navigate("/(app)/app/notification-preference")
-              }
-            />
+            <TouchableOpacity
+              onPress={() => {
+                router.navigate("/(app)/app/search");
+              }}
+            >
+              <Octicons
+                name="gear"
+                size={20}
+                color={Colors.text}
+                onPress={() =>
+                  router.navigate("/(app)/app/notification-preference")
+                }
+              />
+            </TouchableOpacity>
           ),
         }}
       />
@@ -41,14 +47,13 @@ export default function RootLayout() {
           headerTitle: "Search for assets",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
-            <Octicons
-              name="chevron-left"
-              size={24}
-              color="black"
+            <TouchableOpacity
               onPress={() => {
                 router.back();
               }}
-            />
+            >
+              <Octicons name="chevron-left" size={24} color="black" />
+            </TouchableOpacity>
           ),
         }}
       />
@@ -60,14 +65,13 @@ export default function RootLayout() {
           headerTitle: "Notification Preferences",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
-            <Octicons
-              name="chevron-left"
-              size={24}
-              color="black"
+            <TouchableOpacity
               onPress={() => {
                 router.back();
               }}
-            />
+            >
+              <Octicons name="chevron-left" size={24} color="black" />
+            </TouchableOpacity>
           ),
         }}
       />

@@ -5,7 +5,7 @@ import Badge from "@/src/ui/Badge";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 function RootLayout() {
   const router = useRouter();
@@ -64,20 +64,18 @@ function RootLayout() {
                 marginRight: 12,
               }}
             >
-              <Octicons
-                name="search"
-                size={22}
-                color={Colors.text}
+              <TouchableOpacity
                 onPress={() => router.navigate("/(app)/app/search")}
-              />
-              <Badge count={notifications.filter((n) => !n.read).length}>
-                <Octicons
-                  name="bell"
-                  size={22}
-                  color={Colors.text}
-                  onPress={() => router.navigate("/(app)/app/notification")}
-                />
-              </Badge>
+              >
+                <Octicons name="search" size={22} color={Colors.text} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => router.navigate("/(app)/app/notification")}
+              >
+                <Badge count={notifications.filter((n) => !n.read).length}>
+                  <Octicons name="bell" size={22} color={Colors.text} />
+                </Badge>
+              </TouchableOpacity>
             </View>
           ),
         }}
@@ -100,15 +98,18 @@ function RootLayout() {
             cancelButtonText: "Clear",
           },
           headerLeft: () => (
-            <Octicons
-              name="chevron-left"
-              size={24}
-              color={Colors.text}
-              style={{ marginLeft: 12 }}
+            <TouchableOpacity
               onPress={() => {
                 router.back();
               }}
-            />
+            >
+              <Octicons
+                name="chevron-left"
+                size={24}
+                color={Colors.text}
+                style={{ marginLeft: 12 }}
+              />
+            </TouchableOpacity>
           ),
         }}
       />
