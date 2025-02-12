@@ -72,7 +72,7 @@ function RootLayout() {
                 name="bell"
                 size={22}
                 color={Colors.text}
-                onPress={() => router.navigate("/(app)/app/notifications")}
+                onPress={() => router.navigate("/(app)/app/notification")}
               />
             </View>
           ),

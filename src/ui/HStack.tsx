@@ -1,4 +1,4 @@
-import { View, ViewProps } from "react-native";
+import { View, ViewProps, ViewStyle } from "react-native";
 
 type Props = {
   children: React.ReactNode;
@@ -10,6 +10,7 @@ type Props = {
     | "space-between"
     | "space-around";
   gap?: number;
+  style?: ViewStyle;
 };
 export const HStack = (props: Props & ViewProps) => {
   const {
@@ -17,6 +18,7 @@ export const HStack = (props: Props & ViewProps) => {
     alignItems = "center",
     justifyContent = "space-between",
     gap = 8,
+    style,
     ...rest
   } = props;
   return (
@@ -27,6 +29,7 @@ export const HStack = (props: Props & ViewProps) => {
         alignItems,
         justifyContent,
         gap,
+        ...(style || {}),
       }}
       {...rest}
     >
