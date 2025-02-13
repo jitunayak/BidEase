@@ -35,7 +35,6 @@ export default function Live() {
           renderItem={AssetCompactCard}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         />
-
         <BottomSheet
           ref={bottomSheetRef}
           onChange={handleSheetChanges}

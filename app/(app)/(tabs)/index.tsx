@@ -1,58 +1,44 @@
 import AssetCard from "@/src/components/AssetCard";
 import AssetCategory from "@/src/components/AssetCategory";
 import Banner from "@/src/components/Banner";
-import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
 import { liveAuctionsLarge } from "@/src/data/auctions";
+import { HStack } from "@/src/ui/HStack";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Link } from "expo-router";
 import React from "react";
-import { FlatList, ScrollView, View } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 
 export default function index() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, padding: 8, gap: 16 }}>
         <Banner />
-        <View style={{ gap: 16 }}>
-          <Title
-            value="Categories"
-            style={{ marginLeft: 8, marginBottom: 8 }}
-          />
+        <View style={{ gap: 24 }}>
           <AssetCategory />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 8,
-            }}
-          >
+          <HStack>
             <View
               style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
             >
-              <Title value="Live Auctions" />
+              <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                Live Auctions
+              </Text>
               <Octicons name="flame" size={14} color={Colors.error} />
             </View>
             <Link href={"/live"} style={{ color: Colors.primary }}>
               See All
             </Link>
-          </View>
+          </HStack>
 
           <FlatList
             data={liveAuctionsLarge}
-            renderItem={({ item }) => (
-              <AssetCard
-                bid={item.bid}
-                title={item.title}
-                time={item.time}
-                image={item.image}
-              />
-            )}
+            renderItem={({ item }) => <AssetCard {...item} />}
             keyExtractor={(item) => item.id}
             snapToAlignment="center"
             decelerationRate={"fast"}
             snapToInterval={300}
             horizontal
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>

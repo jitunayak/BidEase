@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 type Props = {
+  id: string;
   title: string;
   bid: number;
   time: string;
