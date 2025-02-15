@@ -43,7 +43,7 @@ export default function Wishlist() {
             style={{
               backgroundColor:
                 item === monthRangeFilter ? Colors.primary : Colors.background,
-              padding: 10,
+              padding: 8,
               borderRadius: 16,
               marginBottom: 8,
               borderWidth: 0.5,
@@ -52,6 +52,8 @@ export default function Wishlist() {
           >
             <Text
               style={{
+                fontSize: 12,
+                fontWeight: "500",
                 color:
                   item === monthRangeFilter ? Colors.background : Colors.text,
               }}

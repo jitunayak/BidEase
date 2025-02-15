@@ -108,6 +108,7 @@ export default function Notification() {
           { value: "read", name: "Read" },
         ].map((item) => (
           <TouchableOpacity
+            key={item.value}
             onPress={() => setSelectedTab(item.value)}
             style={{
               padding: 8,
