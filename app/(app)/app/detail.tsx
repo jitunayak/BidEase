@@ -26,9 +26,16 @@ const bidLiveData = [
     amount: "₹70,000",
   },
 ];
-export const AuctionInfo = ({ children }: { children: React.ReactNode }) => {
+export const Container = ({ children }: { children: React.ReactNode }) => {
   return (
-    <View style={{ padding: 12, gap: 12, backgroundColor: Colors.background }}>
+    <View
+      style={{
+        padding: 16,
+        marginVertical: 8,
+        gap: 12,
+        backgroundColor: Colors.background,
+      }}
+    >
       {children}
     </View>
   );
@@ -36,7 +43,7 @@ export const AuctionInfo = ({ children }: { children: React.ReactNode }) => {
 
 export const AuctionDetails = () => {
   return (
-    <AuctionInfo>
+    <Container>
       <Text style={{ color: Colors.text, fontSize: 20, fontWeight: "700" }}>
         Rare Vintage Rolex Daytona - 1960s
       </Text>
@@ -78,7 +85,7 @@ export const AuctionDetails = () => {
           </Text>
         </View>
       </View>
-    </AuctionInfo>
+    </Container>
   );
 };
 
@@ -90,7 +97,6 @@ export const AuctionQuickBidOptions = () => {
         width: "100%",
         backgroundColor: Colors.background,
         borderRadius: 8,
-        marginTop: 8,
         // borderWidth: 1,
         // borderColor: Colors.border,
       }}
@@ -226,7 +232,7 @@ const AuctionHistoryItem = (props: {
 };
 export const AuctionHistory = () => {
   return (
-    <AuctionInfo>
+    <Container>
       <Text
         style={{
           color: Colors.text,
@@ -247,7 +253,7 @@ export const AuctionHistory = () => {
           />
         )}
       />
-    </AuctionInfo>
+    </Container>
   );
 };
 
@@ -255,7 +261,7 @@ export const TimeLeft = () => {
   return (
     <HStack
       justifyContent="flex-start"
-      style={{ paddingVertical: 8, paddingLeft: 12, gap: 8 }}
+      style={{ marginTop: 8, paddingLeft: 12, gap: 8 }}
     >
       <Octicons name="stopwatch" size={18} color={Colors.error} />
       <Text
