@@ -1,5 +1,6 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { Colors } from "../Constant";
@@ -12,8 +13,12 @@ export default function AssetCompactCard({
 }: {
   item: (typeof wishListedAuctions)[0];
 }) {
+  const router = useRouter();
   return (
     <TouchableOpacity
+      onPress={() => {
+        router.navigate(`/(app)/app/detail`);
+      }}
       disabled={dayjs(item.date).isBefore(new Date())}
       style={{
         flexDirection: "row",

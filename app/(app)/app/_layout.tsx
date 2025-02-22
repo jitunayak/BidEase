@@ -75,6 +75,28 @@ export default function RootLayout() {
           ),
         }}
       />
+
+      <Stack.Screen
+        name="detail"
+        options={{
+          headerBackTitle: "back",
+          headerTitle: "Asset Detail",
+          headerRight: () => (
+            <TouchableOpacity>
+              <Octicons name="share" size={20} color={Colors.text} />
+            </TouchableOpacity>
+          ),
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                router.back();
+              }}
+            >
+              <Octicons name="chevron-left" size={20} color={Colors.text} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack>
   );
 }

@@ -15,11 +15,14 @@ type Props = {
   bid: number;
   time: string;
   image: ImageSourcePropType;
+  onPress: () => void;
 };
 
 export default function AssetCard(props: Props) {
   return (
-    <View
+    <TouchableOpacity
+      key={props.id}
+      onPress={() => props.onPress()}
       style={{
         gap: 8,
         width: 300,
@@ -80,6 +83,6 @@ export default function AssetCard(props: Props) {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

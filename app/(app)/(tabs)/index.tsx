@@ -5,11 +5,12 @@ import { Colors } from "@/src/Constant";
 import { liveAuctionsLarge } from "@/src/data/auctions";
 import { HStack } from "@/src/ui/HStack";
 import Octicons from "@expo/vector-icons/Octicons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, ScrollView, Text, View } from "react-native";
 
 export default function index() {
+  const router = useRouter();
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, padding: 8, gap: 16 }}>
@@ -32,7 +33,14 @@ export default function index() {
 
           <FlatList
             data={liveAuctionsLarge}
-            renderItem={({ item }) => <AssetCard {...item} />}
+            renderItem={({ item }) => (
+              <AssetCard
+                {...item}
+                onPress={() => {
+                  router.navigate(`/(app)/app/detail`);
+                }}
+              />
+            )}
             keyExtractor={(item) => item.id}
             snapToAlignment="center"
             decelerationRate={"fast"}
