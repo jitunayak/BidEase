@@ -32,7 +32,9 @@ export default function Live() {
           showsVerticalScrollIndicator={false}
           data={liveAuctions}
           keyExtractor={(item) => item.id}
-          renderItem={AssetCompactCard}
+          renderItem={(item) => (
+            <AssetCompactCard item={item.item} compact={false} />
+          )}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         />
         <BottomSheet

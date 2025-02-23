@@ -68,8 +68,12 @@ export default function Wishlist() {
       <FlatList
         data={filteredAuctions.filter((item) => item.isWishListed)}
         keyExtractor={(item) => item.id}
-        renderItem={AssetCompactCard}
+        renderItem={(item) => (
+          <AssetCompactCard item={item.item} compact={true} />
+        )}
         ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+        numColumns={2}
+        columnWrapperStyle={{ gap: 8 }}
       />
     </View>
   );
