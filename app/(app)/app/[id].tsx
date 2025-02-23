@@ -13,19 +13,19 @@ const bidLiveData = [
     id: "1",
     name: "John Doe",
     time: "5 minutes ago",
-    amount: "₹1,00,000",
+    amount: "1,00,000",
   },
   {
     id: "2",
     name: "Mark Smith",
     time: "12 minutes ago",
-    amount: "₹90,000",
+    amount: "90,000",
   },
   {
     id: "3",
     name: "Jane Johnson ",
     time: "18 minutes ago",
-    amount: "₹70,000",
+    amount: "70,000",
   },
 ];
 export const Container = ({ children }: { children: React.ReactNode }) => {

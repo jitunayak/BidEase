@@ -64,9 +64,9 @@ export default function AssetCompactCard({
                 color={Colors.error}
               />
             </HStack>
-            <Text>EMD : {item.emd.toLocaleString()}</Text>
+            <Text>EMD : ₹{item.emd.toLocaleString()}</Text>
             <Text style={{ color: Colors.primary }}>
-              Starting : {item.bid.toLocaleString()}
+              Starting : ₹{item.bid.toLocaleString()}
             </Text>
             <HStack alignItems="center" justifyContent="flex-start">
               <Octicons name="location" size={16} color={Colors.secondary} />
