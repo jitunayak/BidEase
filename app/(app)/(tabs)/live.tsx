@@ -1,9 +1,9 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import Title from "@/src/components/Title";
 import { Colors } from "@/src/Constant";
 import { liveAuctions } from "@/src/data/auctions";
 import Button from "@/src/ui/Button";
 import { HStack } from "@/src/ui/HStack";
+import Title from "@/src/ui/Title";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef } from "react";
 import {
@@ -60,6 +60,7 @@ export default function Live() {
                 <HStack justifyContent="flex-start">
                   {["vehicles", "lands", "properties", "gold"].map((item) => (
                     <TouchableOpacity
+                      key={item}
                       style={{
                         backgroundColor: Colors.background,
                         padding: 12,
@@ -92,6 +93,7 @@ export default function Live() {
                     "> 300000",
                   ].map((item) => (
                     <TouchableOpacity
+                      key={item}
                       style={{
                         backgroundColor: Colors.background,
                         padding: 10,
@@ -125,6 +127,7 @@ export default function Live() {
                     "Bangalore",
                   ].map((item) => (
                     <TouchableOpacity
+                      key={item}
                       style={{
                         backgroundColor: Colors.background,
                         padding: 10,

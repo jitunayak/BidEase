@@ -24,18 +24,11 @@ export default function RootLayout() {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => {
-                router.navigate("/(app)/app/search");
-              }}
+              onPress={() =>
+                router.navigate("/(app)/app/notification-preference")
+              }
             >
-              <Octicons
-                name="gear"
-                size={20}
-                color={Colors.text}
-                onPress={() =>
-                  router.navigate("/(app)/app/notification-preference")
-                }
-              />
+              <Octicons name="gear" size={20} color={Colors.text} />
             </TouchableOpacity>
           ),
         }}

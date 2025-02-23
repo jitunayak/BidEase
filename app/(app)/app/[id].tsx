@@ -248,6 +248,7 @@ export const AuctionHistory = () => {
       {bidLiveData.map((item) => {
         return (
           <AuctionHistoryItem
+            key={item.id}
             id={item.id}
             amount={item.amount}
             name={item.name}
