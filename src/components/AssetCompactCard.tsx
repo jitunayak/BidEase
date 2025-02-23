@@ -24,7 +24,6 @@ export default function AssetCompactCard({
           alignItems: "center",
           gap: 8,
           flex: 1,
-          padding: 8,
           borderColor: Colors.border,
           borderWidth: 0.6,
           borderRadius: 12,
@@ -33,14 +32,30 @@ export default function AssetCompactCard({
           maxWidth: compact ? "50%" : "auto",
         }}
       >
-        <View style={{ flexDirection: compact ? "column" : "row", gap: 8 }}>
+        <View
+          style={{
+            flexDirection: compact ? "column" : "row",
+            gap: 8,
+            padding: 8,
+          }}
+        >
           <Image
             source={item.image}
-            style={{ width: 140, height: 120, borderRadius: 8 }}
+            style={{
+              width: compact ? "auto" : 140,
+              height: 120,
+              borderRadius: 8,
+            }}
           />
           <VStack alignItems="flex-start">
             <HStack justifyContent="space-between">
-              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 16,
+                  maxWidth: compact ? "50%" : "auto",
+                }}
+              >
                 {item.title}
               </Text>
               <Octicons

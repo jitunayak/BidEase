@@ -2,12 +2,13 @@ import { Colors } from "@/src/Constant";
 import { notifications } from "@/src/data/notifications";
 import { INotification } from "@/src/types/INotification";
 import { HStack } from "@/src/ui/HStack";
+import { Tabs } from "@/src/ui/Tab";
 import { VStack } from "@/src/ui/VStack";
 import Octicons from "@expo/vector-icons/Octicons";
 import Color from "color"; // Install this library: npm install color
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 
 const notificationColor = (type: INotification["type"]) => {
   switch (type) {
@@ -97,40 +98,16 @@ export default function Notification() {
         </>
       )}
 
-      <HStack
-        style={{ paddingHorizontal: 4 }}
-        gap={16}
-        justifyContent="flex-start"
+      <Tabs
+        defaultValue="all"
+        value={selectedTab}
+        onChange={setSelectedTab}
+        style={{ width: "100%", paddingHorizontal: 16 }}
       >
-        {[
-          { value: "all", name: "All" },
-          { value: "unread", name: "Unread" },
-          { value: "read", name: "Read" },
-        ].map((item) => (
-          <TouchableOpacity
-            key={item.value}
-            onPress={() => setSelectedTab(item.value)}
-            style={{
-              padding: 8,
-              borderColor: Colors.primary,
-              borderWidth: 0,
-              borderBottomWidth: selectedTab === item.value ? 2 : 0,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                color:
-                  selectedTab === item.value
-                    ? Colors.primary
-                    : Colors.secondary,
-              }}
-            >
-              {item.name}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </HStack>
+        <Tabs.Item value="all">All</Tabs.Item>
+        <Tabs.Item value="unread">Unread</Tabs.Item>
+        <Tabs.Item value="read">Read</Tabs.Item>
+      </Tabs>
 
       <FlatList
         data={notifications.filter((item) => {
