@@ -1,4 +1,5 @@
 import { Colors } from "@/src/Constant";
+import { liveAuctionsLarge } from "@/src/data/auctions";
 import Button from "@/src/ui/Button";
 import { HStack } from "@/src/ui/HStack";
 import { VStack } from "@/src/ui/VStack";
@@ -42,11 +43,11 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const AuctionDetails = () => {
+export const AuctionDetails = (props: { name?: string }) => {
   return (
     <Container>
       <Text style={{ color: Colors.text, fontSize: 20, fontWeight: "700" }}>
-        Rare Vintage Rolex Daytona - 1960s
+        {props.name || "Rare Vintage Rolex Daytona - 1960s"}
       </Text>
 
       <Text style={{ color: Colors.secondary, fontSize: 14 }}>
@@ -286,7 +287,7 @@ export default function Detail() {
     >
       <View style={{ flex: 1 }}>
         <Image
-          source={require("@/assets/images/asset2.png")}
+          source={liveAuctionsLarge.at(Number(id) - 1)?.image}
           style={{
             width: "100%",
             height: 260,
@@ -294,7 +295,7 @@ export default function Detail() {
         />
 
         <TimeLeft />
-        <AuctionDetails />
+        <AuctionDetails name={liveAuctionsLarge.at(Number(id) - 1)?.title} />
         <AuctionQuickBidOptions />
         <AuctionHistory />
 
