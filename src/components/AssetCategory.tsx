@@ -8,7 +8,7 @@ import FilledRoundIcon from "./FilledRoundIcon";
 
 export default function AssetCategory() {
   return (
-    <View>
+    <View style={{ backgroundColor: Colors.background, paddingVertical: 16 }}>
       <Text
         style={{
           marginLeft: 8,
@@ -17,7 +17,7 @@ export default function AssetCategory() {
           fontWeight: "600",
         }}
       >
-        Category
+        Categories
       </Text>
       <View
         style={{

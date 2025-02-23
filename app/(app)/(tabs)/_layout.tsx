@@ -3,6 +3,7 @@ import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
 import Badge from "@/src/ui/Badge";
 import Octicons from "@expo/vector-icons/Octicons";
+import * as Haptics from "expo-haptics";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
@@ -11,8 +12,14 @@ function RootLayout() {
   const router = useRouter();
   return (
     <Tabs
+      screenListeners={{
+        tabPress: () => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        },
+      }}
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
+
         // tabBarStyle: {
         //   position: "absolute",
         // },

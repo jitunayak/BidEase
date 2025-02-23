@@ -16,7 +16,7 @@ export default function index() {
       <View style={{ flex: 1, padding: 8, gap: 16 }}>
         <Banner />
         <View style={{ gap: 24 }}>
-          <AssetCategory />
+          {/* <AssetCategory /> */}
           <HStack>
             <View
               style={{ flexDirection: "row", gap: 8, alignItems: "center" }}
@@ -48,6 +48,7 @@ export default function index() {
             horizontal
             showsHorizontalScrollIndicator={false}
           />
+          <AssetCategory />
         </View>
       </View>
     </ScrollView>
