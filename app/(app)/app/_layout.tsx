@@ -80,7 +80,7 @@ export default function RootLayout() {
         name="[id]"
         options={{
           headerBackTitle: "back",
-          headerTitle: "Asset Detail",
+          headerTitle: "",
           headerRight: () => (
             <TouchableOpacity>
               <Octicons name="share" size={20} color={Colors.text} />

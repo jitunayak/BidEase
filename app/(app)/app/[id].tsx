@@ -207,7 +207,7 @@ const AuctionHistoryItem = (props: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingVertical: 8,
+        paddingVertical: 4,
       }}
     >
       <View style={{ flexDirection: "row", gap: 8 }}>

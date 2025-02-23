@@ -1,3 +1,4 @@
+import * as Haptics from "expo-haptics";
 import React from "react";
 import { Text, TouchableOpacity, View, ViewStyle } from "react-native";
 import { Colors } from "../Constant";
@@ -45,7 +46,10 @@ export const Tabs = ({
     return (
       <TouchableOpacity
         key={value}
-        onPress={() => setSelectedTab(value)}
+        onPress={() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          setSelectedTab(value);
+        }}
         style={{
           paddingHorizontal: 4,
           paddingVertical: 8,
