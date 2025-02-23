@@ -1,3 +1,4 @@
+import * as Haptics from "expo-haptics";
 import React from "react";
 import {
   ActivityIndicator,
@@ -36,7 +37,10 @@ export default function Button(props: IProps) {
         backgroundColor:
           props.variant === "primary" ? Colors.primary : Colors.border,
       }}
-      onPress={props.onPress}
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        props.onPress();
+      }}
     >
       <View>{props.leftIcon}</View>
       {props.isLoading ? (
