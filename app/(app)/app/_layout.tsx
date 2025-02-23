@@ -77,7 +77,7 @@ export default function RootLayout() {
       />
 
       <Stack.Screen
-        name="detail"
+        name="[id]"
         options={{
           headerBackTitle: "back",
           headerTitle: "Asset Detail",

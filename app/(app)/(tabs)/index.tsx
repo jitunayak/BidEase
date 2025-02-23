@@ -37,7 +37,7 @@ export default function index() {
               <AssetCard
                 {...item}
                 onPress={() => {
-                  router.navigate(`/(app)/app/detail`);
+                  router.navigate(`/(app)/app/${item.id}`);
                 }}
               />
             )}

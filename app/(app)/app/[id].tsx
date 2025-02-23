@@ -3,8 +3,9 @@ import Button from "@/src/ui/Button";
 import { HStack } from "@/src/ui/HStack";
 import { VStack } from "@/src/ui/VStack";
 import Octicons from "@expo/vector-icons/Octicons";
+import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 
 const bidLiveData = [
   {
@@ -93,7 +94,6 @@ export const AuctionQuickBidOptions = () => {
   return (
     <View
       style={{
-        gap: 8,
         width: "100%",
         backgroundColor: Colors.background,
         borderRadius: 8,
@@ -102,7 +102,7 @@ export const AuctionQuickBidOptions = () => {
       }}
     >
       <View
-        style={{ width: "100%", marginTop: 16, padding: 16, flex: 1, gap: 4 }}
+        style={{ width: "100%", marginTop: 8, padding: 20, flex: 1, gap: 4 }}
       >
         <Text style={{ color: Colors.secondary }}>Current Bid</Text>
         <Text
@@ -168,26 +168,27 @@ export const AuctionQuickBidOptions = () => {
             <Text style={{ color: Colors.text }}>₹3,00,000</Text>
           </View>
         </View>
-
-        <VStack
-          style={{
-            width: "100%",
-          }}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Button variant="primary" onPress={() => {}} title="Place bid" />
-          <Text
-            style={{
-              color: Colors.secondary,
-              fontSize: 12,
-              textAlign: "center",
-            }}
-          >
-            By placing a bid, you agree to our Terms of Service
-          </Text>
-        </VStack>
       </View>
+      <VStack
+        style={{
+          width: "100%",
+          paddingBottom: 16,
+          paddingHorizontal: 8,
+        }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button variant="primary" onPress={() => {}} title="Place bid" />
+        <Text
+          style={{
+            color: Colors.secondary,
+            fontSize: 12,
+            textAlign: "center",
+          }}
+        >
+          By placing a bid, you agree to our Terms of Service
+        </Text>
+      </VStack>
     </View>
   );
 };
@@ -200,6 +201,7 @@ const AuctionHistoryItem = (props: {
 }) => {
   return (
     <View
+      id={props.id}
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
@@ -242,17 +244,16 @@ export const AuctionHistory = () => {
       >
         Bidding History
       </Text>
-      <FlatList
-        data={bidLiveData}
-        renderItem={(item) => (
+      {bidLiveData.map((item) => {
+        return (
           <AuctionHistoryItem
-            id={item.item.id}
-            amount={item.item.amount}
-            name={item.item.name}
-            time={item.item.time}
+            id={item.id}
+            amount={item.amount}
+            name={item.name}
+            time={item.time}
           />
-        )}
-      />
+        );
+      })}
     </Container>
   );
 };
@@ -277,6 +278,7 @@ export const TimeLeft = () => {
 };
 
 export default function Detail() {
+  const { id } = useLocalSearchParams();
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

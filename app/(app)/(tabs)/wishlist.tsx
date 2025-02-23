@@ -39,6 +39,7 @@ export default function Wishlist() {
       >
         {[3, 6, 12].map((item) => (
           <TouchableOpacity
+            id={item.toString()}
             onPress={() => setMonthRangeFilter(item)}
             style={{
               backgroundColor:
