@@ -5,7 +5,7 @@ type IProps = {
   count: number;
   children: React.ReactNode;
 };
-export default function Badge(props: IProps) {
+export function Badge(props: IProps) {
   return (
     <View>
       {props.children}

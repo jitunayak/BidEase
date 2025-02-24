@@ -1,8 +1,6 @@
 import { Colors } from "@/src/Constant";
 import { liveAuctionsLarge } from "@/src/data/auctions";
-import Button from "@/src/ui/Button";
-import { HStack } from "@/src/ui/HStack";
-import { VStack } from "@/src/ui/VStack";
+import { Button, HStack, VStack } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";

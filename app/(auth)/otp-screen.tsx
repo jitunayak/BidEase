@@ -18,8 +18,8 @@ export default function OtpScreen() {
         focusColor={Colors.primary}
         onTextChange={(text) => {
           setOtp(text);
-          if (text.length == OTP_LENGTH) {
-            router.navigate("/(app)/(tabs)");
+          if (text.length === OTP_LENGTH) {
+            router.navigate("/(app)/(tabs)/home");
           }
         }}
         theme={{
@@ -40,16 +40,16 @@ export default function OtpScreen() {
       <TouchableOpacity
         style={{
           backgroundColor:
-            otp.length == OTP_LENGTH ? Colors.primary : Colors.border,
+            otp.length === OTP_LENGTH ? Colors.primary : Colors.border,
           padding: 16,
           borderRadius: 8,
           width: "100%",
           display: "flex",
           alignItems: "center",
         }}
-        disabled={otp.length != OTP_LENGTH}
+        disabled={otp.length !== OTP_LENGTH}
         onPress={() => {
-          router.navigate("/(app)/(tabs)");
+          router.navigate("/(app)/(tabs)/home");
         }}
       >
         <Text style={{ color: Colors.background }}>Verify</Text>

@@ -20,7 +20,7 @@ type IProps = {
   rightIcon?: React.ReactNode;
 };
 
-export default function Button(props: IProps) {
+export function Button(props: IProps) {
   return (
     <TouchableOpacity
       style={{

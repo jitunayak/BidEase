@@ -1,9 +1,8 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { Colors } from "@/src/Constant";
 import { liveAuctions } from "@/src/data/auctions";
-import Button from "@/src/ui/Button";
+import { Button, EText } from "@/src/ui";
 import { HStack } from "@/src/ui/HStack";
-import Title from "@/src/ui/Title";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import React, { useCallback, useRef } from "react";
 import {
@@ -56,7 +55,7 @@ export default function Live() {
 
             <ScrollView>
               <View style={{ gap: 16, paddingHorizontal: 8 }}>
-                <Title value="Type" />
+                <EText variant="title">Type</EText>
                 <HStack justifyContent="flex-start">
                   {["vehicles", "lands", "properties", "gold"].map((item) => (
                     <TouchableOpacity
@@ -84,7 +83,7 @@ export default function Live() {
                   ))}
                 </HStack>
 
-                <Title value="Price Range" />
+                <EText variant="title">Price Range</EText>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                   {[
                     "< 10000",
@@ -114,7 +113,7 @@ export default function Live() {
                     </TouchableOpacity>
                   ))}
                 </View>
-                <Title value="Location" style={{ marginBottom: 16 }} />
+                <EText style={{ marginBottom: 16 }}>Location</EText>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                   {[
                     "Odisha",

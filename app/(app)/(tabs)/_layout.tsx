@@ -1,7 +1,7 @@
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
-import Badge from "@/src/ui/Badge";
+import { Badge } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
 import * as Haptics from "expo-haptics";
 import { Tabs, useRouter } from "expo-router";
@@ -35,7 +35,7 @@ function RootLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "Home",
           headerTitle: "",

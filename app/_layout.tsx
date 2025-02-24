@@ -6,7 +6,7 @@ export default function RootLayout() {
   const router = useRouter();
   useEffect(() => {
     if (storage.get("user.phone_number") != null) {
-      router.replace("/(app)/(tabs)");
+      router.replace("/(app)/(tabs)/home");
       return;
     }
     router.replace("/(auth)/login");

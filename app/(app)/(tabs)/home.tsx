@@ -1,15 +1,16 @@
 import AssetCard from "@/src/components/AssetCard";
 import AssetCategory from "@/src/components/AssetCategory";
+import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Banner from "@/src/components/Banner";
 import { Colors } from "@/src/Constant";
-import { liveAuctionsLarge } from "@/src/data/auctions";
-import { HStack } from "@/src/ui/HStack";
+import { liveAuctionsLarge, wishListedAuctions } from "@/src/data/auctions";
+import { EText, HStack } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, ScrollView, Text, View } from "react-native";
 
-export default function index() {
+export default function Home() {
   const router = useRouter();
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -49,6 +50,20 @@ export default function index() {
             showsHorizontalScrollIndicator={false}
           />
           <AssetCategory />
+
+          <EText variant="title" style={{ marginLeft: 8 }}>
+            Wishlists
+          </EText>
+          <FlatList
+            data={wishListedAuctions.filter((item) => item.isWishListed)}
+            keyExtractor={(item) => item.id}
+            renderItem={(item) => (
+              <AssetCompactCard item={item.item} compact={true} />
+            )}
+            ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+            numColumns={2}
+            columnWrapperStyle={{ gap: 8 }}
+          />
         </View>
       </View>
     </ScrollView>

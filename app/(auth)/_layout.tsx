@@ -1,8 +1,6 @@
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  const router = useRouter();
-
   return (
     <Stack initialRouteName="login">
       <Stack.Screen name="login" options={{ headerShown: false }} />
