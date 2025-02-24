@@ -18,9 +18,9 @@ export function Badge(props: IProps) {
             backgroundColor: "red",
             borderRadius: 10,
             width: 20,
-            height: 20,
             justifyContent: "center",
             alignItems: "center",
+            aspectRatio: 1,
           }}
         >
           <Text style={{ color: "white", fontSize: 14 }}>{props.count}</Text>
