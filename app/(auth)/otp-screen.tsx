@@ -19,7 +19,7 @@ export default function OtpScreen() {
         onTextChange={(text) => {
           setOtp(text);
           if (text.length === OTP_LENGTH) {
-            router.navigate("/(app)/(tabs)/home");
+            router.navigate("/(app)/(tabs)");
           }
         }}
         theme={{
@@ -49,7 +49,7 @@ export default function OtpScreen() {
         }}
         disabled={otp.length !== OTP_LENGTH}
         onPress={() => {
-          router.navigate("/(app)/(tabs)/home");
+          router.navigate("/(app)/(tabs)");
         }}
       >
         <Text style={{ color: Colors.background }}>Verify</Text>
