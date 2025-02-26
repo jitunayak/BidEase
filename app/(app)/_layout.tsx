@@ -1,5 +1,7 @@
 import Link from "@/src/components/Link";
+import Octicons from "@expo/vector-icons/Octicons";
 import { Stack, useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -24,6 +26,25 @@ export default function RootLayout() {
           headerLeft: () => {
             return <Link value="Cancel" onPress={() => router.back()} />;
           },
+        }}
+      />
+
+      <Stack.Screen
+        name="notification-preference"
+        options={{
+          presentation: "modal",
+          headerBackTitle: "back",
+          headerTitle: "Notification Preferences",
+          headerBackButtonDisplayMode: "minimal",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                router.back();
+              }}
+            >
+              <Octicons name="chevron-left" size={24} color="black" />
+            </TouchableOpacity>
+          ),
         }}
       />
     </Stack>

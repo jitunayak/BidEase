@@ -25,9 +25,7 @@ export default function RootLayout() {
           ),
           headerRight: () => (
             <TouchableOpacity
-              onPress={() =>
-                router.navigate("/(app)/app/notification-preference")
-              }
+              onPress={() => router.navigate("/(app)/notification-preference")}
             >
               <Octicons name="gear" size={20} color={Colors.text} />
             </TouchableOpacity>
@@ -39,24 +37,6 @@ export default function RootLayout() {
         options={{
           headerBackTitle: "back",
           headerTitle: "Search for assets",
-          headerBackButtonDisplayMode: "minimal",
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                router.back();
-              }}
-            >
-              <Octicons name="chevron-left" size={24} color="black" />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-
-      <Stack.Screen
-        name="notification-preference"
-        options={{
-          headerBackTitle: "back",
-          headerTitle: "Notification Preferences",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
             <TouchableOpacity
