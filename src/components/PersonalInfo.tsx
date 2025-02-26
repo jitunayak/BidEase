@@ -1,10 +1,12 @@
 import Octicons from "@expo/vector-icons/Octicons";
+import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
 import { storage } from "../hooks/storage";
 
 export default function PersonalInfo() {
+  const router = useRouter();
   return (
     <>
       <View
@@ -26,7 +28,11 @@ export default function PersonalInfo() {
             alignSelf: "center",
           }}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            router.navigate("/(app)/edit-profile");
+          }}
+        >
           <Text style={{ color: Colors.primary, fontSize: 14 }}>
             Edit Profile
           </Text>

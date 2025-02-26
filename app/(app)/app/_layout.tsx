@@ -12,6 +12,7 @@ export default function RootLayout() {
         options={{
           headerBackTitle: "Home",
           title: "Notifications",
+
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
             <TouchableOpacity

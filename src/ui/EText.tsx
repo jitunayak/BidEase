@@ -1,3 +1,4 @@
+import * as AppleColors from "@bacons/apple-colors";
 import React from "react";
 import { Text, TextStyle } from "react-native";
 
@@ -25,11 +26,26 @@ export function EText({
     }
   };
 
+  const textColor = () => {
+    switch (variant) {
+      case "title":
+        return AppleColors.label;
+      case "subtitle":
+        return AppleColors.secondaryLabel;
+      case "body":
+        return AppleColors.label;
+      case "label":
+        return AppleColors.secondaryLabel;
+      default:
+        return AppleColors.label;
+    }
+  };
   return (
     <Text
       style={{
         fontSize: getFontSize(),
         fontWeight: variant === "title" ? "500" : "400",
+        color: textColor(),
         ...style,
       }}
     >
