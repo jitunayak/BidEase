@@ -1,7 +1,8 @@
 import Link from "@/src/components/Link";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 
 export default function RootLayout() {
+  const router = useRouter();
   return (
     <Stack>
       <Stack.Screen
@@ -21,7 +22,7 @@ export default function RootLayout() {
             return <Link value="Save" />;
           },
           headerLeft: () => {
-            return <Link value="Cancel" />;
+            return <Link value="Cancel" onPress={() => router.back()} />;
           },
         }}
       />
