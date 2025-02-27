@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { uiStyles } from "../Theme";
 type Props = {
   id: string;
   title: string;
@@ -22,9 +23,9 @@ export default function AssetCard(props: Props) {
   return (
     <View>
       <BlurView
-        intensity={90}
+        intensity={100}
         style={{
-          width: 301,
+          width: 300,
           height: 140,
           position: "absolute",
           bottom: 0,
@@ -97,7 +98,7 @@ export default function AssetCard(props: Props) {
           bottom: 0,
           zIndex: 1,
           overflow: "hidden",
-          opacity: 0.5,
+          opacity: 0.3,
         }}
       />
 
@@ -111,8 +112,9 @@ export default function AssetCard(props: Props) {
           borderWidth: 0.6,
           borderColor: Colors.border,
           borderRadius: 16,
-          marginRight: 8,
+          marginRight: 16,
           backgroundColor: Colors.background,
+          ...uiStyles.shadow,
         }}
       >
         <Image

@@ -41,9 +41,10 @@ export default function Home() {
           keyExtractor={(item) => item.id}
           snapToAlignment="center"
           decelerationRate={"fast"}
-          snapToInterval={300}
+          snapToInterval={320}
           horizontal
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 8 }}
         />
         <AssetCategory />
         <EText variant="title" style={{ marginLeft: 8 }}>

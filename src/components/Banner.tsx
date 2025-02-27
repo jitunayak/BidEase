@@ -1,9 +1,10 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { uiStyles } from "../Theme";
 
 export default function Banner() {
   return (
-    <View style={{ borderRadius: 16, position: "relative" }}>
+    <View style={[uiStyles.shadow, { borderRadius: 16, position: "relative" }]}>
       <Image
         style={{
           width: "100%",

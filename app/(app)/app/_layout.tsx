@@ -1,10 +1,12 @@
 import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
-import { Stack, useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Share, TouchableOpacity } from "react-native";
 
 export default function RootLayout() {
   const router = useRouter();
+  const { id } = useLocalSearchParams();
+
   return (
     <Stack>
       <Stack.Screen
@@ -56,7 +58,15 @@ export default function RootLayout() {
           headerBackTitle: "back",
           headerTitle: "",
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Share.share({
+                  message: "Check out this amazing auction!",
+                  url: `https://ahouse.in/auctions/${id}`,
+                  title: "BidEase Auction",
+                });
+              }}
+            >
               <Octicons name="share" size={20} color={Colors.text} />
             </TouchableOpacity>
           ),

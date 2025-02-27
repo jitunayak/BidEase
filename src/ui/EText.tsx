@@ -9,7 +9,7 @@ export function EText({
 }: {
   style?: TextStyle;
   children?: React.ReactNode;
-  variant?: "title" | "subtitle" | "body" | "label";
+  variant?: "title" | "subtitle" | "body" | "label" | "link";
 }) {
   const getFontSize = () => {
     switch (variant) {
@@ -36,6 +36,8 @@ export function EText({
         return AppleColors.label;
       case "label":
         return AppleColors.secondaryLabel;
+      case "link":
+        return AppleColors.systemBlue;
       default:
         return AppleColors.label;
     }

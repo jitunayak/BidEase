@@ -1,6 +1,6 @@
 import { Colors } from "@/src/Constant";
 import { liveAuctionsLarge } from "@/src/data/auctions";
-import { Button, HStack, VStack } from "@/src/ui";
+import { Button, EText, HStack, VStack } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -44,15 +44,15 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
 export const AuctionDetails = (props: { name?: string }) => {
   return (
     <Container>
-      <Text style={{ color: Colors.text, fontSize: 20, fontWeight: "700" }}>
+      <EText variant="title">
         {props.name || "Rare Vintage Rolex Daytona - 1960s"}
-      </Text>
+      </EText>
 
-      <Text style={{ color: Colors.secondary, fontSize: 14 }}>
+      <EText variant="label">
         Exceptional condition vintage Rolex Daytona from the 1960s. Original
         parts, recently serviced with full documentation. Features a pristine
         dial, original movement, and comes with box and papers.
-      </Text>
+      </EText>
       <View
         style={{
           flexDirection: "row",
@@ -68,9 +68,7 @@ export const AuctionDetails = (props: { name?: string }) => {
           }}
         >
           <Octicons name="eye" size={16} color={Colors.secondary} />
-          <Text style={{ color: Colors.secondary, fontSize: 14 }}>
-            1.2K Views
-          </Text>
+          <EText variant="label">1.2K Views</EText>
         </View>
 
         <View
@@ -80,9 +78,7 @@ export const AuctionDetails = (props: { name?: string }) => {
           }}
         >
           <Octicons name="person" size={16} color={Colors.secondary} />
-          <Text style={{ color: Colors.secondary, fontSize: 14 }}>
-            12 active bidders
-          </Text>
+          <EText variant="label">12 active bidders</EText>
         </View>
       </View>
     </Container>
@@ -101,7 +97,13 @@ export const AuctionQuickBidOptions = () => {
       }}
     >
       <View
-        style={{ width: "100%", marginTop: 8, padding: 20, flex: 1, gap: 4 }}
+        style={{
+          width: "100%",
+          marginTop: 8,
+          paddingHorizontal: 16,
+          flex: 1,
+          gap: 4,
+        }}
       >
         <Text style={{ color: Colors.secondary }}>Current Bid</Text>
         <Text
@@ -116,7 +118,6 @@ export const AuctionQuickBidOptions = () => {
 
         <View
           style={{
-            gap: 8,
             width: "100%",
             backgroundColor: Colors.background,
             borderRadius: 8,
@@ -218,10 +219,8 @@ const AuctionHistoryItem = (props: {
           }}
         />
         <View>
-          <Text style={{ color: Colors.text, fontSize: 16 }}>{props.name}</Text>
-          <Text style={{ color: Colors.secondary, fontSize: 14 }}>
-            {props.time}
-          </Text>
+          <EText variant="body">{props.name}</EText>
+          <EText variant="label">{props.time}</EText>
         </View>
       </View>
 

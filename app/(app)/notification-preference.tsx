@@ -61,7 +61,13 @@ export default function NotificationPreference() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: Colors.background }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: AppleColors.systemGroupedBackground,
+        padding: 8,
+      }}
+    >
       <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
         GET NOTIFICATIONS
       </EText>
@@ -88,22 +94,44 @@ export default function NotificationPreference() {
           onValueChange={(value) => handleToggle("sms", value)}
         />
       </View>
+      <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
+        OFFERS AND UPDATES
+      </EText>
+      <View style={styles.container}>
+        <NotificationItem
+          icon={<Octicons name="bell" size={18} color="black" />}
+          title="Latest deals and offers"
+          description="Get updated with our latest deals"
+          value={preferences.app}
+          onValueChange={(value) => handleToggle("app", value)}
+        />
+        <NotificationItem
+          icon={<Octicons name="bell" size={18} color="black" />}
+          title="Auction bidding"
+          description="Know if somebody outbids you"
+          value={preferences.app}
+          onValueChange={(value) => handleToggle("app", value)}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: AppleColors.systemGroupedBackground,
-    margin: 16,
-    padding: 16,
+    backgroundColor: Colors.background,
     gap: 16,
+    margin: 8,
     borderRadius: 8,
+    padding: 8,
   },
   item: {
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    gap: 16,
+    backgroundColor: Colors.background,
+    paddingHorizontal: 8,
+    margin: 8,
+    borderRadius: 8,
   },
 });
