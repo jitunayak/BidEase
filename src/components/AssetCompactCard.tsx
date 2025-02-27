@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
 import { Link } from "expo-router";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Colors } from "../Constant";
 import { wishListedAuctions } from "../data/auctions";
 import { HStack } from "../ui/HStack";
@@ -16,9 +16,12 @@ export default function AssetCompactCard({
   compact?: boolean;
 }) {
   return (
-    <Link href={`/(app)/app/${item.id}`} asChild>
-      <TouchableOpacity
-        disabled={dayjs(item.date).isBefore(new Date())}
+    <Link
+      href={`/(app)/app/${item.id}`}
+      asChild
+      disabled={dayjs(item.date).isBefore(new Date())}
+    >
+      <View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -75,7 +78,7 @@ export default function AssetCompactCard({
             <Text>{dayjs(item.date).format("MMM DD, YYYY")}</Text>
           </VStack>
         </View>
-      </TouchableOpacity>
+      </View>
     </Link>
   );
 }
