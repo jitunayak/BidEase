@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 export default function EditProfile() {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
   const { user, setUser } = useStore();
   const [data, setData] = useState<IUser>({
     id: user?.id || "",

@@ -59,7 +59,13 @@ export default function Home() {
       data={wishListedAuctions.filter((item) => item.isWishListed)}
       keyExtractor={(item) => item.id}
       renderItem={(item) => (
-        <AssetCompactCard item={item.item} compact={true} />
+        <AssetCompactCard
+          item={item.item}
+          compact={true}
+          onPress={() => {
+            router.navigate(`/(app)/app/${item.item.id}`);
+          }}
+        />
       )}
       ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
       numColumns={2}

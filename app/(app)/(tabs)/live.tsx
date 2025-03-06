@@ -4,6 +4,7 @@ import { liveAuctions } from "@/src/data/auctions";
 import { Button, EText } from "@/src/ui";
 import { HStack } from "@/src/ui/HStack";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { useRouter } from "expo-router";
 import React, { useCallback, useRef } from "react";
 import {
   FlatList,
@@ -16,6 +17,7 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Live() {
+  const router = useRouter();
   const [active, setActive] = React.useState(1);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -32,7 +34,13 @@ export default function Live() {
           data={liveAuctions}
           keyExtractor={(item) => item.id}
           renderItem={(item) => (
-            <AssetCompactCard item={item.item} compact={false} />
+            <AssetCompactCard
+              item={item.item}
+              compact={false}
+              onPress={() => {
+                router.push(`/(app)/app/${item.item.id}`);
+              }}
+            />
           )}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         />

@@ -3,6 +3,7 @@ import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { HStack } from "@/src/ui/HStack";
 import dayjs from "dayjs";
+import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
   FlatList,
@@ -13,6 +14,7 @@ import {
 } from "react-native";
 
 export default function Wishlist() {
+  const router = useRouter();
   const [monthRangeFilter, setMonthRangeFilter] = useState(12);
 
   const filteredAuctions = useMemo(
@@ -70,7 +72,13 @@ export default function Wishlist() {
         data={filteredAuctions.filter((item) => item.isWishListed)}
         keyExtractor={(item) => item.id}
         renderItem={(item) => (
-          <AssetCompactCard item={item.item} compact={true} />
+          <AssetCompactCard
+            item={item.item}
+            compact={true}
+            onPress={() => {
+              router.navigate(`/(app)/app/${item.item.id}`);
+            }}
+          />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         numColumns={2}
