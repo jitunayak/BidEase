@@ -26,7 +26,6 @@ export function Button(props: IProps) {
       style={{
         padding: 16,
         borderRadius: 8,
-        margin: 10,
         width: "auto",
         display: "flex",
         alignItems: "center",
@@ -36,9 +35,11 @@ export function Button(props: IProps) {
         opacity: props.disabled ? 0.8 : 1,
         backgroundColor:
           props.variant === "primary" ? Colors.primary : Colors.border,
+        ...(props.style && props.style),
       }}
       onPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        if (props.disabled || props.isLoading) return;
         props.onPress();
       }}
     >

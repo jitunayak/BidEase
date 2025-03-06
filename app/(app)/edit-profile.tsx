@@ -1,7 +1,10 @@
-import { EText } from "@/src/ui";
+import { IUser } from "@/src/hooks/user-store-slice";
+import { useStore } from "@/src/hooks/useStorage";
+import { Button, EText } from "@/src/ui";
 import { ETextInput } from "@/src/ui/TextInput";
 import Octicons from "@expo/vector-icons/Octicons";
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -12,13 +15,16 @@ import {
   View,
 } from "react-native";
 
-type IProps = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-};
 export default function EditProfile() {
-  const [image, setImage] = useState<string>();
+  const router = useRouter(); // Initialize useRouter
+  const { user, setUser } = useStore();
+  const [data, setData] = useState<IUser>({
+    id: user?.id || "",
+    name: user?.name || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    image: user?.image || "",
+  });
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -29,8 +35,19 @@ export default function EditProfile() {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setUser({ ...user, image: result.assets[0].uri ?? user?.image ?? "" });
     }
+  };
+
+  const onSubmit = () => {
+    setUser({
+      ...user,
+      id: data.id || "",
+      email: data.email || "",
+      name: data.name || "",
+      phoneNumber: data.phoneNumber || "",
+    });
+    router.dismiss();
   };
 
   return (
@@ -45,13 +62,19 @@ export default function EditProfile() {
     >
       <Image
         source={
-          image ? { uri: image } : require("../../assets/images/profile.png")
+          user?.image
+            ? { uri: user.image }
+            : require("../../assets/images/profile.png")
         }
         style={styles.thumbnail}
       />
       <TouchableOpacity
         onPress={pickImage}
-        style={{ gap: 8, flexDirection: "row", alignItems: "center" }}
+        style={{
+          gap: 8,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
       >
         <Octicons name="device-camera" size={20} color="black" />
         <EText>Upload picture</EText>
@@ -60,9 +83,27 @@ export default function EditProfile() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1, width: "100%", gap: 8 }}
       >
-        <ETextInput placeholder="Name" value="John Doe" />
-        <ETextInput placeholder="Phone number" value="+91 9876543210" />
-        <ETextInput placeholder="Email" value="H3ePZ@example.com" />
+        <ETextInput
+          placeholder="Name"
+          value={data.name}
+          onChangeText={(e) => setData((prev) => ({ ...prev, name: e }))}
+        />
+        <ETextInput
+          placeholder="Phone number"
+          value={data.phoneNumber}
+          onChangeText={(e) => setData((prev) => ({ ...prev, phoneNumber: e }))}
+        />
+        <ETextInput
+          placeholder="Email"
+          value={data.email}
+          onChangeText={(e) => setData((prev) => ({ ...prev, email: e }))}
+        />
+        <Button
+          style={{ marginTop: 8 }}
+          title="Save"
+          onPress={onSubmit}
+          variant="primary"
+        />
       </KeyboardAvoidingView>
     </View>
   );

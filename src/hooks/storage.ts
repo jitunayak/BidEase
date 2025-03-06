@@ -4,10 +4,13 @@ const store = new MMKV();
 
 export type StorageKeys =
   | "user.phone_number"
+  | "user.name"
+  | "user.email"
   | "user.token"
+  | "user.image"
   | "notification.app"
   | "notification.email"
-  | "notification.sms";
+  | "notification.sms"; 
 
 const set = (key: StorageKeys, value: string | boolean) => {
   store.set(key, value);

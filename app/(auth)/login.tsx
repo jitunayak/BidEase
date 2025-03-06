@@ -31,7 +31,7 @@ export default function Login() {
         justifyContent: "flex-start",
         alignItems: "center",
         display: "flex",
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.primary,
       }}
     >
       <SafeAreaView />
@@ -53,7 +53,9 @@ export default function Login() {
         </View>
         <View style={{ marginBottom: 50, marginTop: 50, padding: 8 }}>
           <View style={styles.phoneNumberInput}>
-            <Text style={{ fontSize: 12, color: "gray" }}>Phone Number</Text>
+            <Text style={{ fontSize: 12, color: Colors.border }}>
+              Phone Number
+            </Text>
 
             <View
               style={{
@@ -63,14 +65,22 @@ export default function Login() {
               }}
             >
               <Text
-                style={{ fontSize: 18, letterSpacing: 1, color: Colors.text }}
+                style={{
+                  fontSize: 18,
+                  letterSpacing: 1,
+                  color: Colors.background,
+                }}
               >
                 +91{"   "}
               </Text>
               <TextInput
                 placeholder="1234567890"
                 placeholderTextColor={Colors.border}
-                style={{ fontSize: 18, letterSpacing: 1, color: Colors.text }}
+                style={{
+                  fontSize: 18,
+                  letterSpacing: 1,
+                  color: Colors.background,
+                }}
                 keyboardType="phone-pad"
                 value={phoneNumber}
                 maxLength={10}
@@ -94,22 +104,24 @@ export default function Login() {
               handleLogin();
             }}
           >
-            <Text style={{ color: "white" }}>Continue</Text>
+            <Text style={{ color: Colors.primary, fontWeight: "600" }}>
+              Continue
+            </Text>
           </TouchableOpacity>
           <Text
             style={{
               marginTop: 10,
-              color: "gray",
+              color: Colors.border,
               fontSize: 12,
               paddingHorizontal: 20,
             }}
           >
             By continuing, you agree to our{" "}
             <Link
-              style={{ color: Colors.primary }}
+              style={{ color: Colors.success }}
               href="https://www.ahouse.in/privacy-policy"
             >
-              Terms of Service <Text style={{ color: "gray" }}>and</Text>{" "}
+              Terms of Service <Text style={{ color: Colors.border }}>and</Text>{" "}
               Privacy Policy
             </Link>
           </Text>
@@ -131,6 +143,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     lineHeight: 40,
     letterSpacing: 1,
+    color: Colors.background,
   },
   phoneNumberInput: {
     borderWidth: 1,
@@ -143,7 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    backgroundColor: "#0052CC",
+    backgroundColor: Colors.background,
     padding: 16,
     borderRadius: 8,
     margin: 10,
@@ -154,6 +167,6 @@ const styles = StyleSheet.create({
 
   secondaryText: {
     fontSize: 12,
-    color: "gray",
+    color: Colors.border,
   },
 });

@@ -20,9 +20,9 @@ export default function RootLayout() {
         options={{
           presentation: "modal",
           headerTitle: "Edit Profile",
-          headerRight: () => {
-            return <Link value="Save" />;
-          },
+          // headerRight: () => {
+          //   return <Link value="Save" />;
+          // },
           headerLeft: () => {
             return <Link value="Cancel" onPress={() => router.back()} />;
           },

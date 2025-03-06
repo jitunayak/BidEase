@@ -3,10 +3,11 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
-import { storage } from "../hooks/storage";
+import { useStore } from "../hooks/useStorage";
 
 export default function PersonalInfo() {
   const router = useRouter();
+  const { user } = useStore();
   return (
     <>
       <View
@@ -19,7 +20,11 @@ export default function PersonalInfo() {
         }}
       >
         <Image
-          source={require("../../assets/images/profile.png")}
+          source={
+            user?.image
+              ? { uri: user?.image }
+              : require("../../assets/images/profile.png")
+          }
           style={{
             width: 100,
             height: 100,
@@ -80,7 +85,7 @@ export default function PersonalInfo() {
                 fontSize: 14,
               }}
             >
-              Jitu Nayak
+              {user?.name}
             </Text>
           </View>
 
@@ -98,7 +103,7 @@ export default function PersonalInfo() {
                 fontSize: 14,
               }}
             >
-              {storage.get("user.phone_number")}
+              {user?.phoneNumber}
             </Text>
           </View>
 
@@ -116,7 +121,7 @@ export default function PersonalInfo() {
                 fontSize: 14,
               }}
             >
-              jitu.nayak@ahouse.in
+              {user?.email}
             </Text>
           </View>
         </View>
