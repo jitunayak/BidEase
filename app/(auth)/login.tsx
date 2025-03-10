@@ -1,5 +1,5 @@
 import { Colors } from "@/src/Constant";
-import { storage } from "@/src/hooks/storage";
+import { useStore } from "@/src/hooks/useStorage";
 import * as Haptics from "expo-haptics";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
@@ -17,10 +17,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const router = useRouter();
+  const { setUser, user } = useStore();
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleLogin = () => {
-    storage.set("user.phone_number", phoneNumber);
+    setUser({ ...user, phoneNumber: phoneNumber });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     router.navigate("/otp-screen");
   };
@@ -40,10 +41,10 @@ export default function Login() {
         style={{ flex: 1 }}
       >
         <View>
-          <View style={{ alignItems: "center", marginTop: 50 }}>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
             <Image
               source={require("@/assets/images/logo.png")}
-              style={{ width: 60, height: 60 }}
+              style={{ width: 120, height: 120 }}
             />
             <Text style={styles.title}>Welcome to BidEase</Text>
             <Text style={styles.secondaryText}>
@@ -51,7 +52,7 @@ export default function Login() {
             </Text>
           </View>
         </View>
-        <View style={{ marginBottom: 50, marginTop: 50, padding: 8 }}>
+        <View style={{ marginBottom: 50, marginTop: 30, padding: 8 }}>
           <View style={styles.phoneNumberInput}>
             <Text style={{ fontSize: 12, color: Colors.border }}>
               Phone Number

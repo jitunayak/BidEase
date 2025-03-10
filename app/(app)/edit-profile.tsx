@@ -33,6 +33,7 @@ export default function EditProfile() {
       aspect: [4, 3],
       quality: 1,
     });
+    
 
     if (!result.canceled) {
       setUser({ ...user, image: result.assets[0].uri ?? user?.image ?? "" });

@@ -1,0 +1,17 @@
+appId: com.anonymous.BidEase
+---
+- launchApp:
+    clearState: true
+- tapOn: "1234567890"
+- inputText: "7377056991"
+- tapOn: Continue
+- tapOn:
+    id: otp-input
+    index: 0
+- inputText: "1"
+- inputText: "2"
+- inputText: "3"
+- inputText: "4"
+- tapOn:
+    point: 87%,93%
+- assertVisible: "7377056991"

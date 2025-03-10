@@ -10,7 +10,9 @@
     "ios:device": "expo run:ios --device 00008101-001819692E2B001E",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "test:ui": "maestro test tests/*",
+    "test:studio": "maestro studio"
   },
   "jest": {
     "preset": "jest-expo"
