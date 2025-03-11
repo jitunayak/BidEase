@@ -1,0 +1,94 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Auction {
+  bid: Float!
+  category: String!
+  createdAt: String!
+  description: String
+  emd: Float!
+  endsAt: String!
+  id: ID!
+  images: [String!]!
+  location: String!
+  status: String!
+  title: String!
+  updatedAt: String!
+}
+
+input AuctionInput {
+  bid: Float!
+  category: String!
+  description: String
+  emd: Float!
+  endsAt: String!
+  images: [String!]!
+  location: String!
+  title: String!
+}
+
+input AuctionUpdateInput {
+  bid: Float
+  category: String
+  description: String
+  emd: Float
+  endsAt: String
+  images: [String!]
+  location: String
+  status: String
+  title: String
+}
+
+type Bank {
+  active: Boolean!
+  address: String
+  contactPerson: String!
+  email: String!
+  id: ID!
+  name: String!
+  phone: String!
+  subscriptionId: String
+}
+
+input BankInput {
+  address: String
+  contactPerson: String!
+  email: String!
+  name: String!
+  phone: String!
+}
+
+input BankUpdateInput {
+  address: String
+  contactPerson: String
+  email: String
+  name: String
+  phone: String
+}
+
+type Mutation {
+  createAuction(input: AuctionInput!): Auction!
+  createBank(input: BankInput!): Bank!
+  deleteAuction(id: ID!): Boolean!
+  toggleBankStatus(id: ID!): Bank!
+  updateAuction(id: ID!, input: AuctionUpdateInput!): Auction!
+  updateBank(id: ID!, input: BankUpdateInput!): Bank!
+}
+
+type Query {
+  auction(id: ID!): Auction
+  auctions(bidRange: [Float], category: String, location: String): [Auction!]!
+  bank(id: ID!): Bank
+  banks: [Bank!]!
+  user(id: ID!): User
+  users: [User!]!
+}
+
+type User {
+  email: String!
+  id: ID!
+  name: String!
+  role: String!
+}

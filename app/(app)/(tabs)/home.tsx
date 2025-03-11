@@ -1,17 +1,21 @@
+import { GET_AUCTIONS } from "@/graphql/auctions.query";
 import AssetCard from "@/src/components/AssetCard";
 import AssetCategory from "@/src/components/AssetCategory";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Banner from "@/src/components/Banner";
 import { Colors } from "@/src/Constant";
-import { liveAuctionsLarge, wishListedAuctions } from "@/src/data/auctions";
+import { wishListedAuctions } from "@/src/data/auctions";
 import { EText, HStack } from "@/src/ui";
+import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Link, useRouter } from "expo-router";
 import React from "react";
-import { FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 
 export default function Home() {
   const router = useRouter();
+
+  const { loading, error, data } = useQuery(GET_AUCTIONS);
 
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
@@ -28,24 +32,31 @@ export default function Home() {
             See All
           </Link>
         </HStack>
-        <FlatList
-          data={liveAuctionsLarge}
-          renderItem={({ item }) => (
-            <AssetCard
-              {...item}
-              onPress={() => {
-                router.navigate(`/(app)/app/${item.id}`);
-              }}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          snapToAlignment="center"
-          decelerationRate={"fast"}
-          snapToInterval={320}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 8 }}
-        />
+        {loading && <ActivityIndicator size="small" color={Colors.primary} />}
+        {!loading && data && (
+          <FlatList
+            data={data.auctions}
+            renderItem={({ item }) => (
+              <AssetCard
+                id={item.id}
+                bid={item.bid}
+                title={item.title}
+                time="2 hours ago"
+                image={item.images[0]}
+                onPress={() => {
+                  router.navigate(`/(app)/app/${item.id}`);
+                }}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            snapToAlignment="center"
+            decelerationRate={"fast"}
+            snapToInterval={320}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 8 }}
+          />
+        )}
         <AssetCategory />
         <EText variant="title" style={{ marginLeft: 8 }}>
           Wishlists

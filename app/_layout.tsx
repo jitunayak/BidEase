@@ -1,11 +1,14 @@
-import { storage } from "@/src/hooks/storage";
+import client from "@/src/GraphQlClient";
+import { useStore } from "@/src/hooks/useStorage";
+import { ApolloProvider } from "@apollo/client";
 import { Slot, useRouter } from "expo-router";
 import { useEffect } from "react";
 
 export default function RootLayout() {
   const router = useRouter();
+  const { user } = useStore();
   useEffect(() => {
-    if (storage.get("user.phone_number") != null) {
+    if (user?.phoneNumber != null) {
       router.replace("/(app)/(tabs)");
       return;
     }
@@ -17,6 +20,8 @@ export default function RootLayout() {
     //   <Stack.Screen name="(auth)" options={{ headerShown: false }} />
     //   <Stack.Screen name="(app)" options={{ headerShown: false }} />
     // </Stack>
-    <Slot />
+    <ApolloProvider client={client}>
+      <Slot />
+    </ApolloProvider>
   );
 }

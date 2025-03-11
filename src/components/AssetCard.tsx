@@ -2,20 +2,14 @@ import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import { BlurView } from "expo-blur";
 import React from "react";
-import {
-  Image,
-  ImageSourcePropType,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { uiStyles } from "../Theme";
 type Props = {
   id: string;
   title: string;
   bid: number;
   time: string;
-  image: ImageSourcePropType;
+  image: string;
   onPress: () => void;
 };
 
@@ -91,7 +85,7 @@ export default function AssetCard(props: Props) {
       </BlurView>
 
       <Image
-        source={props.image}
+        source={{ uri: props.image }}
         style={{
           width: 300,
           height: 140,
@@ -121,7 +115,7 @@ export default function AssetCard(props: Props) {
         }}
       >
         <Image
-          source={props.image}
+          source={{ uri: props.image }}
           style={{
             width: 300,
             height: 160,

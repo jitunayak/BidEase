@@ -6,5 +6,7 @@
   "files.exclude": {
     "android": true,
     "ios": true
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
