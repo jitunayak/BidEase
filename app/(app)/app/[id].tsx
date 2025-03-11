@@ -174,6 +174,7 @@ export const AuctionQuickBidOptions = () => {
           width: "100%",
           paddingBottom: 16,
           paddingHorizontal: 8,
+          marginTop: 16,
         }}
         justifyContent="center"
         alignItems="center"
@@ -184,6 +185,7 @@ export const AuctionQuickBidOptions = () => {
             color: Colors.secondary,
             fontSize: 12,
             textAlign: "center",
+            marginTop: 8,
           }}
         >
           By placing a bid, you agree to our Terms of Service

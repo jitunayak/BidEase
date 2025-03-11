@@ -36,7 +36,10 @@ export default function AssetCard(props: Props) {
         }}
       >
         <View style={{ padding: 12, gap: 8, zIndex: 3 }}>
-          <Text style={{ color: Colors.text, fontSize: 16, zIndex: 3 }}>
+          <Text
+            testID="title"
+            style={{ color: Colors.text, fontSize: 16, zIndex: 3 }}
+          >
             {props.title}
           </Text>
           <View

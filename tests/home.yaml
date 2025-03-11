@@ -1,0 +1,7 @@
+appId: com.anonymous.BidEase
+---
+- runFlow: login.yaml
+- tapOn: Home, tab, 2 of 5
+- tapOn:
+    point: 40%,61%
+- assertVisible: Place bid

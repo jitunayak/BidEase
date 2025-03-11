@@ -11,7 +11,7 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "test:ui": "maestro test tests/*",
+    "test:ui": "maestro test tests/",
     "test:studio": "maestro studio"
   },
   "jest": {
