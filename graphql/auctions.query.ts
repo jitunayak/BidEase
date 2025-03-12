@@ -11,3 +11,22 @@ export const GET_AUCTIONS = gql(`
     }
   }
 `);
+
+export const GET_AUCTION = gql(`
+  query Auction($id: ID!) {
+    auction(id: $id) {
+      id
+      title
+      description
+      bid
+      emd
+      category
+      location
+      images
+      endsAt
+      createdAt
+      updatedAt
+      status
+    }
+  }
+`);

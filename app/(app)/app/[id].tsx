@@ -1,10 +1,11 @@
+import { GET_AUCTION } from "@/graphql/auctions.query";
 import { Colors } from "@/src/Constant";
-import { liveAuctionsLarge } from "@/src/data/auctions";
 import { Button, EText, HStack, VStack } from "@/src/ui";
+import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 
 const bidLiveData = [
   {
@@ -41,18 +42,15 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const AuctionDetails = (props: { name?: string }) => {
+export const AuctionDetails = (props: {
+  name?: string;
+  description: string;
+}) => {
   return (
     <Container>
-      <EText variant="title">
-        {props.name || "Rare Vintage Rolex Daytona - 1960s"}
-      </EText>
+      <EText variant="title">{props.name}</EText>
 
-      <EText variant="label">
-        Exceptional condition vintage Rolex Daytona from the 1960s. Original
-        parts, recently serviced with full documentation. Features a pristine
-        dial, original movement, and comes with box and papers.
-      </EText>
+      <EText variant="label">{props.description}</EText>
       <View
         style={{
           flexDirection: "row",
@@ -85,7 +83,7 @@ export const AuctionDetails = (props: { name?: string }) => {
   );
 };
 
-export const AuctionQuickBidOptions = () => {
+export const AuctionQuickBidOptions = (props: { bid: number }) => {
   return (
     <View
       style={{
@@ -113,7 +111,7 @@ export const AuctionQuickBidOptions = () => {
             fontSize: 28,
           }}
         >
-          ₹90,000
+          ₹{props.bid.toLocaleString()}
         </Text>
 
         <View
@@ -280,6 +278,19 @@ export const TimeLeft = () => {
 
 export default function Detail() {
   const { id } = useLocalSearchParams();
+  const { data, loading, error } = useQuery(GET_AUCTION, {
+    variables: {
+      id,
+    },
+  });
+
+  console.log(data);
+  if (loading) {
+    return <ActivityIndicator size="small" color={Colors.primary} />;
+  }
+  if (error) {
+    return <Text>Error</Text>;
+  }
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -287,7 +298,7 @@ export default function Detail() {
     >
       <View style={{ flex: 1 }}>
         <Image
-          source={liveAuctionsLarge.at(Number(id) - 1)?.image}
+          source={{ uri: data.auction.images[0] }}
           style={{
             width: "100%",
             height: 260,
@@ -295,8 +306,11 @@ export default function Detail() {
         />
 
         <TimeLeft />
-        <AuctionDetails name={liveAuctionsLarge.at(Number(id) - 1)?.title} />
-        <AuctionQuickBidOptions />
+        <AuctionDetails
+          name={data.auction.title}
+          description={data.auction.description}
+        />
+        <AuctionQuickBidOptions bid={data.auction.bid} />
         <AuctionHistory />
 
         <Text
