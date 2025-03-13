@@ -2,8 +2,24 @@ import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Text, View } from "react-native";
 import { Colors } from "../Constant";
+import { useStore } from "../hooks/useStorage";
 
 export default function IndividualKYC() {
+  const { user } = useStore();
+
+  const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
+    <View style={{ flexDirection: "row", gap: 8 }}>
+      <Octicons
+        name={isVerified ? "check-circle-fill" : "clock"}
+        size={20}
+        color={isVerified ? Colors.success : Colors.pending}
+      />
+      <Text style={{ color: isVerified ? Colors.success : Colors.pending }}>
+        {isVerified ? "Verified" : "Pending"}
+      </Text>
+    </View>
+  );
+
   return (
     <View
       style={{
@@ -47,16 +63,11 @@ export default function IndividualKYC() {
             <Octicons name="id-badge" size={20} color={Colors.primary} />
             <Text style={{ color: Colors.text }}>Aadhar Card</Text>
           </View>
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <Octicons
-              name="check-circle-fill"
-              size={20}
-              color={Colors.success}
-            />
-            <Text style={{ color: Colors.success }}>Verified</Text>
-          </View>
+          <VerificationStatus isVerified={!!user?.kyc.isAadharVerified} />
         </View>
-        <Text style={{ color: Colors.secondary }}>XXXX-XXXX-1234</Text>
+        <Text style={{ color: Colors.secondary }}>
+          {user?.kyc.aadharNumber}
+        </Text>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Octicons name="upload" size={20} color={Colors.primary} />
           <Text style={{ color: Colors.primary }}>Upload Document</Text>
@@ -86,12 +97,9 @@ export default function IndividualKYC() {
             <Octicons name="file" size={20} color={Colors.primary} />
             <Text style={{ color: Colors.text }}>PAN Card</Text>
           </View>
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <Octicons name="clock" size={20} color={Colors.pending} />
-            <Text style={{ color: Colors.pending }}>Pending</Text>
-          </View>
+          <VerificationStatus isVerified={!!user?.kyc.isPanVerified} />
         </View>
-        <Text style={{ color: Colors.secondary }}>ABCDE124F</Text>
+        <Text style={{ color: Colors.secondary }}>{user?.kyc.panNumber}</Text>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Octicons name="upload" size={20} color={Colors.primary} />
           <Text style={{ color: Colors.primary }}>Upload Document</Text>

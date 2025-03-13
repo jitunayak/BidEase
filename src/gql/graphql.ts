@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  JSON: { input: any; output: any; }
 };
 
 export type Auction = {
@@ -82,14 +83,24 @@ export type BankUpdateInput = {
   phone?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Kyc = {
+  __typename?: 'KYC';
+  aadharNumber: Scalars['String']['output'];
+  isAadharVerified: Scalars['Boolean']['output'];
+  isPanVerified: Scalars['Boolean']['output'];
+  panNumber: Scalars['String']['output'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAuction: Auction;
   createBank: Bank;
   deleteAuction: Scalars['Boolean']['output'];
+  deleteUser: Scalars['Boolean']['output'];
   toggleBankStatus: Bank;
   updateAuction: Auction;
   updateBank: Bank;
+  updateUser: User;
 };
 
 
@@ -108,6 +119,11 @@ export type MutationDeleteAuctionArgs = {
 };
 
 
+export type MutationDeleteUserArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationToggleBankStatusArgs = {
   id: Scalars['ID']['input'];
 };
@@ -122,6 +138,19 @@ export type MutationUpdateAuctionArgs = {
 export type MutationUpdateBankArgs = {
   id: Scalars['ID']['input'];
   input: BankUpdateInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  id: Scalars['ID']['input'];
+  input: Scalars['JSON']['input'];
+};
+
+export type NotificationPreferences = {
+  __typename?: 'NotificationPreferences';
+  emailNotifications: Scalars['Boolean']['output'];
+  pushNotifications: Scalars['Boolean']['output'];
+  smsNotifications: Scalars['Boolean']['output'];
 };
 
 export type Query = {
@@ -160,8 +189,19 @@ export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  kyc: Kyc;
   name: Scalars['String']['output'];
+  phoneNumber?: Maybe<Scalars['String']['output']>;
+  phoneVerified: Scalars['Boolean']['output'];
+  preferences: UserPreferences;
   role: Scalars['String']['output'];
+};
+
+export type UserPreferences = {
+  __typename?: 'UserPreferences';
+  interests: Array<Scalars['String']['output']>;
+  notifications: NotificationPreferences;
 };
 
 export class TypedDocumentString<TResult, TVariables>

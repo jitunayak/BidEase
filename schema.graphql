@@ -68,13 +68,30 @@ input BankUpdateInput {
   phone: String
 }
 
+scalar JSON
+
+type KYC {
+  aadharNumber: String!
+  isAadharVerified: Boolean!
+  isPanVerified: Boolean!
+  panNumber: String!
+}
+
 type Mutation {
   createAuction(input: AuctionInput!): Auction!
   createBank(input: BankInput!): Bank!
   deleteAuction(id: ID!): Boolean!
+  deleteUser(id: ID!): Boolean!
   toggleBankStatus(id: ID!): Bank!
   updateAuction(id: ID!, input: AuctionUpdateInput!): Auction!
   updateBank(id: ID!, input: BankUpdateInput!): Bank!
+  updateUser(id: ID!, input: JSON!): User!
+}
+
+type NotificationPreferences {
+  emailNotifications: Boolean!
+  pushNotifications: Boolean!
+  smsNotifications: Boolean!
 }
 
 type Query {
@@ -89,6 +106,16 @@ type Query {
 type User {
   email: String!
   id: ID!
+  image: String
+  kyc: KYC!
   name: String!
+  phoneNumber: String
+  phoneVerified: Boolean!
+  preferences: UserPreferences!
   role: String!
+}
+
+type UserPreferences {
+  interests: [String!]!
+  notifications: NotificationPreferences!
 }

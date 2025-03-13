@@ -1,5 +1,6 @@
 import { GET_AUCTION } from "@/graphql/auctions.query";
 import { Colors } from "@/src/Constant";
+import { Auction } from "@/src/gql/graphql";
 import { Button, EText, HStack, VStack } from "@/src/ui";
 import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
@@ -285,14 +286,17 @@ export const TimeLeft = () => {
 
 export default function Detail() {
   const { id } = useLocalSearchParams();
-  const { data, loading, error, refetch } = useQuery(GET_AUCTION, {
-    variables: {
-      id,
-    },
-  });
+  const { data, loading, error, refetch } = useQuery<{ auction: Auction }>(
+    GET_AUCTION,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
 
   console.log(data);
-  if (loading) {
+  if (loading || !data) {
     return <ActivityIndicator size="small" color={Colors.primary} />;
   }
   if (error) {
@@ -318,7 +322,7 @@ export default function Detail() {
         <TimeLeft />
         <AuctionDetails
           name={data.auction.title}
-          description={data.auction.description}
+          description={data.auction.description || "N/A"}
         />
         <AuctionQuickBidOptions bid={data.auction.bid} />
         <AuctionHistory />

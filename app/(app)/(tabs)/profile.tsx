@@ -1,16 +1,40 @@
+import { GET_USER_QUERY } from "@/graphql/users.query,";
 import CreditLimit from "@/src/components/CreditLimit";
 import IndividualKYC from "@/src/components/IndividualKYC";
 import LogOut from "@/src/components/LogOut";
 import PersonalInfo from "@/src/components/PersonalInfo";
 import { Colors } from "@/src/Constant";
-import React from "react";
-import { ScrollView, View } from "react-native";
+import { User } from "@/src/gql/graphql";
+import { useStore } from "@/src/hooks/useStorage";
+import { useQuery } from "@apollo/client";
+import React, { useEffect } from "react";
+import { RefreshControl, ScrollView, View } from "react-native";
 
 export default function profile() {
+  const { setUser } = useStore();
+  const { data, error, loading, refetch } = useQuery<{ user: User }>(
+    GET_USER_QUERY,
+    {
+      variables: {
+        id: 4,
+      },
+    }
+  );
+  useEffect(() => {
+    if (error) {
+      alert(error.message);
+    } else if (data) {
+      setUser(data.user);
+    }
+  }, [loading]);
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, backgroundColor: Colors.background }}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
+      }
     >
       <View
         style={{

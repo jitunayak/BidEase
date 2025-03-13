@@ -1,19 +1,12 @@
 import { StateCreator } from "zustand";
-
-export interface IUser {
-  id?: string;
-  name?: string;
-  email?: string;
-  phoneNumber?: string;
-  image?: string;
-}
+import { User } from "../gql/graphql";
 
 interface IAuthState {
-  user: IUser | null;
+  user: User | null;
 }
 
 interface IAuthAction {
-  setUser: (user: IUser) => void;
+  setUser: (user: User) => void;
 }
 
 export interface IAuthStore extends IAuthState, IAuthAction {}
