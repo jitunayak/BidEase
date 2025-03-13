@@ -5,7 +5,14 @@ import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
 const bidLiveData = [
   {
@@ -278,7 +285,7 @@ export const TimeLeft = () => {
 
 export default function Detail() {
   const { id } = useLocalSearchParams();
-  const { data, loading, error } = useQuery(GET_AUCTION, {
+  const { data, loading, error, refetch } = useQuery(GET_AUCTION, {
     variables: {
       id,
     },
@@ -295,6 +302,9 @@ export default function Detail() {
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, marginBottom: 24 }}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
     >
       <View style={{ flex: 1 }}>
         <Image

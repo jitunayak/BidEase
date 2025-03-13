@@ -10,12 +10,18 @@ import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Link, useRouter } from "expo-router";
 import React from "react";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  Text,
+  View,
+} from "react-native";
 
 export default function Home() {
   const router = useRouter();
 
-  const { loading, error, data } = useQuery(GET_AUCTIONS);
+  const { loading, data, refetch } = useQuery(GET_AUCTIONS);
 
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
@@ -67,6 +73,9 @@ export default function Home() {
 
   return (
     <FlatList
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
       data={wishListedAuctions.filter((item) => item.isWishListed)}
       keyExtractor={(item) => item.id}
       renderItem={(item) => (
