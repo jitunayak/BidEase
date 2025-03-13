@@ -3,7 +3,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
 
-export default function CreditLimit() {
+export const CreditLimit = () => {
   return (
     <View style={{ width: "100%", gap: 14, padding: 8, marginTop: 14 }}>
       <Text style={{ color: Colors.text, fontSize: 20, fontWeight: "500" }}>
@@ -92,4 +92,4 @@ export default function CreditLimit() {
       </View>
     </View>
   );
-}
+};

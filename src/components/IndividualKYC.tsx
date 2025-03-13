@@ -4,22 +4,21 @@ import { Text, View } from "react-native";
 import { Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
 
-export default function IndividualKYC() {
+const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
+  <View style={{ flexDirection: "row", gap: 8 }}>
+    <Octicons
+      name={isVerified ? "check-circle-fill" : "clock"}
+      size={20}
+      color={isVerified ? Colors.success : Colors.pending}
+    />
+    <Text style={{ color: isVerified ? Colors.success : Colors.pending }}>
+      {isVerified ? "Verified" : "Pending"}
+    </Text>
+  </View>
+);
+
+export const IndividualKYC = () => {
   const { user } = useStore();
-
-  const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
-    <View style={{ flexDirection: "row", gap: 8 }}>
-      <Octicons
-        name={isVerified ? "check-circle-fill" : "clock"}
-        size={20}
-        color={isVerified ? Colors.success : Colors.pending}
-      />
-      <Text style={{ color: isVerified ? Colors.success : Colors.pending }}>
-        {isVerified ? "Verified" : "Pending"}
-      </Text>
-    </View>
-  );
-
   return (
     <View
       style={{
@@ -107,4 +106,4 @@ export default function IndividualKYC() {
       </View>
     </View>
   );
-}
+};

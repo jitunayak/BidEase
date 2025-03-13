@@ -1,8 +1,10 @@
 import { GET_USER_QUERY } from "@/graphql/users.query,";
-import CreditLimit from "@/src/components/CreditLimit";
-import IndividualKYC from "@/src/components/IndividualKYC";
-import LogOut from "@/src/components/LogOut";
-import PersonalInfo from "@/src/components/PersonalInfo";
+import {
+  CreditLimit,
+  IndividualKYC,
+  LogOut,
+  PersonalInfo,
+} from "@/src/components";
 import { Colors } from "@/src/Constant";
 import { User } from "@/src/gql/graphql";
 import { useStore } from "@/src/hooks/useStorage";

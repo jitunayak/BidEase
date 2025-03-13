@@ -5,7 +5,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { Colors } from "../Constant";
 import { storage } from "../hooks/storage";
 
-export default function LogOut() {
+export const LogOut = () => {
   const router = useRouter();
   return (
     <TouchableOpacity
@@ -27,4 +27,4 @@ export default function LogOut() {
       <Text style={{ color: Colors.error, fontSize: 16 }}>Logout</Text>
     </TouchableOpacity>
   );
-}
+};

@@ -5,7 +5,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
 
-export default function PersonalInfo() {
+export const PersonalInfo = () => {
   const router = useRouter();
   const { user } = useStore();
   return (
@@ -128,4 +128,4 @@ export default function PersonalInfo() {
       </View>
     </>
   );
-}
+};
