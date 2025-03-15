@@ -295,12 +295,16 @@ export default function Detail() {
     }
   );
 
-  if (loading || !data) {
+  if (loading) {
     return <ActivityIndicator size="small" color={Colors.primary} />;
   }
   if (error) {
-    return <Text>Error</Text>;
+    return <Text>Not found</Text>;
   }
+  if (!data) {
+    return <Text>No data</Text>;
+  }
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}

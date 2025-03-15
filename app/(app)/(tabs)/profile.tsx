@@ -10,7 +10,12 @@ import { User } from "@/src/gql/graphql";
 import { useStore } from "@/src/hooks/useStorage";
 import { useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
-import { RefreshControl, ScrollView, View } from "react-native";
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  View,
+} from "react-native";
 
 export default function profile() {
   const { setUser } = useStore();
@@ -18,11 +23,12 @@ export default function profile() {
     GET_USER_QUERY,
     {
       variables: {
-        id: 4, 
+        id: 4,
       },
     }
   );
   useEffect(() => {
+    // setUser(null);
     if (error) {
       alert(error.message);
     } else if (data) {
@@ -38,20 +44,24 @@ export default function profile() {
         <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
       }
     >
-      <View
-        style={{
-          flex: 1,
-          alignItems: "flex-start",
-          padding: 8,
-          backgroundColor: Colors.background,
-          gap: 8,
-        }}
-      >
-        <PersonalInfo />
-        <IndividualKYC />
-        <CreditLimit />
-        <LogOut />
-      </View>
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            alignItems: "flex-start",
+            padding: 8,
+            backgroundColor: Colors.background,
+            gap: 8,
+          }}
+        >
+          <PersonalInfo />
+          <IndividualKYC />
+          <CreditLimit />
+          <LogOut />
+        </View>
+      )}
     </ScrollView>
   );
 }

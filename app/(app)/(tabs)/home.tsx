@@ -91,6 +91,7 @@ export default function Home() {
       numColumns={2}
       columnWrapperStyle={{ gap: 8 }}
       ListHeaderComponent={renderHeader}
+      showsVerticalScrollIndicator={false}
     />
   );
 }

@@ -68,7 +68,7 @@ const NotificationItem = ({ item }: { item: INotification }) => {
           <Text>{item.date}</Text>
           <Link
             push
-            href={item.link as any}
+            href={`/(app)/app/${item.id}`}
             style={{ color: notificationColor(item.type) }}
           >
             {item.action}
