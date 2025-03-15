@@ -17,6 +17,7 @@ export default function AssetCard(props: Props) {
   return (
     <View>
       <BlurView
+        tint="light"
         intensity={100}
         style={{
           width: 300,
