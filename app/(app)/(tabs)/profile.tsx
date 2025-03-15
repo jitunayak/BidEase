@@ -18,7 +18,7 @@ export default function profile() {
     GET_USER_QUERY,
     {
       variables: {
-        id: 4,
+        id: 4, 
       },
     }
   );

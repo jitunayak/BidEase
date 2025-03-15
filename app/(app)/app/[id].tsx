@@ -295,7 +295,6 @@ export default function Detail() {
     }
   );
 
-  console.log(data);
   if (loading || !data) {
     return <ActivityIndicator size="small" color={Colors.primary} />;
   }

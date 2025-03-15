@@ -7,13 +7,14 @@ import { useEffect } from "react";
 export default function RootLayout() {
   const router = useRouter();
   const { user } = useStore();
+
   useEffect(() => {
     if (user?.phoneNumber != null) {
       router.replace("/(app)/(tabs)");
       return;
     }
     router.replace("/(auth)/login");
-  });
+  }, []);
 
   return (
     // <Stack>
