@@ -10,12 +10,8 @@ import { User } from "@/src/gql/graphql";
 import { useStore } from "@/src/hooks/useStorage";
 import { useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
-import {
-  ActivityIndicator,
-  RefreshControl,
-  ScrollView,
-  View,
-} from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function profile() {
   const { setUser } = useStore();
@@ -44,24 +40,41 @@ export default function profile() {
         <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
       }
     >
-      {loading ? (
-        <ActivityIndicator />
-      ) : (
-        <View
-          style={{
-            flex: 1,
-            alignItems: "flex-start",
-            padding: 8,
-            backgroundColor: Colors.background,
-            gap: 8,
-          }}
-        >
-          <PersonalInfo />
-          <IndividualKYC />
-          <CreditLimit />
-          <LogOut />
-        </View>
-      )}
+      <View
+        style={{
+          flex: 1,
+          alignItems: "flex-start",
+          padding: 8,
+          backgroundColor: Colors.background,
+          gap: 8,
+        }}
+      >
+        {loading ? (
+          <>
+            <ShimmerPlaceholder
+              style={{
+                width: 120,
+                height: 120,
+                borderRadius: 100,
+                alignSelf: "center",
+              }}
+            />
+            <ShimmerPlaceholder style={{ marginTop: 16 }} />
+            <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
+            <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
+            <ShimmerPlaceholder />
+            <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
+            <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
+          </>
+        ) : (
+          <>
+            <PersonalInfo />
+            <IndividualKYC />
+            <CreditLimit />
+            <LogOut />
+          </>
+        )}
+      </View>
     </ScrollView>
   );
 }

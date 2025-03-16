@@ -10,13 +10,8 @@ import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Link, useRouter } from "expo-router";
 import React from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, RefreshControl, Text, View } from "react-native";
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function Home() {
   const router = useRouter();
@@ -38,7 +33,23 @@ export default function Home() {
             See All
           </Link>
         </HStack>
-        {loading && <ActivityIndicator size="small" color={Colors.primary} />}
+        {loading && (
+          <View>
+            <ShimmerPlaceholder
+              style={{
+                width: 300,
+                height: 180,
+                borderRadius: 16,
+                marginBottom: 10,
+              }}
+            />
+            <ShimmerPlaceholder />
+            <ShimmerPlaceholder style={{ marginTop: 16, height: 30 }} />
+            <ShimmerPlaceholder
+              style={{ marginTop: 16, width: 300, height: 40 }}
+            />
+          </View>
+        )}
         {!loading && data && (
           <FlatList
             data={data.auctions}
