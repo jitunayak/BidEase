@@ -108,7 +108,7 @@ export type Mutation = {
   updateUser: User;
   updateUserInterests: User;
   updateUserKYC: User;
-  updateUserPreferences: User;
+  updateUserNotificationPreferences: User;
 };
 
 
@@ -167,7 +167,7 @@ export type MutationUpdateUserKycArgs = {
 };
 
 
-export type MutationUpdateUserPreferencesArgs = {
+export type MutationUpdateUserNotificationPreferencesArgs = {
   id: Scalars['ID']['input'];
   input: NotificationPreferencesInput;
 };

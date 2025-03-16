@@ -93,7 +93,7 @@ type Mutation {
   updateUser(id: ID!, input: UserUpdateInput!): User!
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
-  updateUserPreferences(id: ID!, input: NotificationPreferencesInput!): User!
+  updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
 }
 
 type NotificationPreferences {
