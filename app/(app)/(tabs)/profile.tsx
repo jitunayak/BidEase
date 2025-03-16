@@ -9,6 +9,7 @@ import { Colors } from "@/src/Constant";
 import { User } from "@/src/gql/graphql";
 import { useStore } from "@/src/hooks/useStorage";
 import { useQuery } from "@apollo/client";
+import { Link } from "expo-router";
 import React, { useEffect } from "react";
 import { RefreshControl, ScrollView, View } from "react-native";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
@@ -23,6 +24,8 @@ export default function profile() {
       },
     }
   );
+
+  console.log(data);
   useEffect(() => {
     // setUser(null);
     if (error) {
@@ -30,7 +33,7 @@ export default function profile() {
     } else if (data) {
       setUser(data.user);
     }
-  }, [loading]);
+  }, []);
 
   return (
     <ScrollView
@@ -68,7 +71,21 @@ export default function profile() {
           </>
         ) : (
           <>
+            {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />
+            <Link
+              href={"/(app)/preference"}
+              push
+              style={{
+                color: Colors.primary,
+                textAlign: "center",
+                marginTop: 16,
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              Update Auction Preference
+            </Link>
             <IndividualKYC />
             <CreditLimit />
             <LogOut />

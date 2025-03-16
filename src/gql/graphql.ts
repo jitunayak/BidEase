@@ -91,6 +91,11 @@ export type Kyc = {
   panNumber: Scalars['String']['output'];
 };
 
+export type KycInput = {
+  aadharNumber?: InputMaybe<Scalars['String']['input']>;
+  panNumber?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAuction: Auction;
@@ -101,6 +106,9 @@ export type Mutation = {
   updateAuction: Auction;
   updateBank: Bank;
   updateUser: User;
+  updateUserInterests: User;
+  updateUserKYC: User;
+  updateUserPreferences: User;
 };
 
 
@@ -143,7 +151,25 @@ export type MutationUpdateBankArgs = {
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID']['input'];
-  input: Scalars['JSON']['input'];
+  input: UserUpdateInput;
+};
+
+
+export type MutationUpdateUserInterestsArgs = {
+  id: Scalars['ID']['input'];
+  interests: Array<Scalars['String']['input']>;
+};
+
+
+export type MutationUpdateUserKycArgs = {
+  id: Scalars['ID']['input'];
+  input: KycInput;
+};
+
+
+export type MutationUpdateUserPreferencesArgs = {
+  id: Scalars['ID']['input'];
+  input: NotificationPreferencesInput;
 };
 
 export type NotificationPreferences = {
@@ -151,6 +177,12 @@ export type NotificationPreferences = {
   emailNotifications: Scalars['Boolean']['output'];
   pushNotifications: Scalars['Boolean']['output'];
   smsNotifications: Scalars['Boolean']['output'];
+};
+
+export type NotificationPreferencesInput = {
+  emailNotifications?: InputMaybe<Scalars['Boolean']['input']>;
+  pushNotifications?: InputMaybe<Scalars['Boolean']['input']>;
+  smsNotifications?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type Query = {
@@ -202,6 +234,20 @@ export type UserPreferences = {
   __typename?: 'UserPreferences';
   interests: Array<Scalars['String']['output']>;
   notifications: NotificationPreferences;
+};
+
+export type UserPreferencesInput = {
+  interests?: InputMaybe<Array<Scalars['String']['input']>>;
+  notifications?: InputMaybe<NotificationPreferencesInput>;
+};
+
+export type UserUpdateInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  kyc?: InputMaybe<KycInput>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  preferences?: InputMaybe<UserPreferencesInput>;
 };
 
 export class TypedDocumentString<TResult, TVariables>

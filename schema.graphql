@@ -77,6 +77,11 @@ type KYC {
   panNumber: String!
 }
 
+input KYCInput {
+  aadharNumber: String
+  panNumber: String
+}
+
 type Mutation {
   createAuction(input: AuctionInput!): Auction!
   createBank(input: BankInput!): Bank!
@@ -85,13 +90,22 @@ type Mutation {
   toggleBankStatus(id: ID!): Bank!
   updateAuction(id: ID!, input: AuctionUpdateInput!): Auction!
   updateBank(id: ID!, input: BankUpdateInput!): Bank!
-  updateUser(id: ID!, input: JSON!): User!
+  updateUser(id: ID!, input: UserUpdateInput!): User!
+  updateUserInterests(id: ID!, interests: [String!]!): User!
+  updateUserKYC(id: ID!, input: KYCInput!): User!
+  updateUserPreferences(id: ID!, input: NotificationPreferencesInput!): User!
 }
 
 type NotificationPreferences {
   emailNotifications: Boolean!
   pushNotifications: Boolean!
   smsNotifications: Boolean!
+}
+
+input NotificationPreferencesInput {
+  emailNotifications: Boolean
+  pushNotifications: Boolean
+  smsNotifications: Boolean
 }
 
 type Query {
@@ -118,4 +132,18 @@ type User {
 type UserPreferences {
   interests: [String!]!
   notifications: NotificationPreferences!
+}
+
+input UserPreferencesInput {
+  interests: [String!]
+  notifications: NotificationPreferencesInput
+}
+
+input UserUpdateInput {
+  email: String
+  image: String
+  kyc: KYCInput
+  name: String
+  phoneNumber: String
+  preferences: UserPreferencesInput
 }

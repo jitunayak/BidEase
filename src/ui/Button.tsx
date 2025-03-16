@@ -47,7 +47,7 @@ export function Button(props: IProps) {
       {props.isLoading ? (
         <ActivityIndicator color="white" />
       ) : (
-        <Text style={{ color: "white", fontWeight: "500" }}>
+        <Text style={{ color: "white", fontWeight: "600", fontSize: 16 }}>
           {props.title ?? "Press me"}
         </Text>
       )}

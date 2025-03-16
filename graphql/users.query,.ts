@@ -13,6 +13,46 @@ export const GET_USER_QUERY = gql(`
             isAadharVerified
             isPanVerified
         }
+        preferences{
+          interests
+          notifications
+          {
+            emailNotifications
+            pushNotifications
+            smsNotifications
+
+          }
+        }
       }
     }
   `);
+
+export const UPDATE_USER_PREFERENCE = gql(`
+  mutation UpdateUserInterests($id: ID!, $interests : [String!]!) {
+    updateUserInterests(id: $id, interests:  $interests) {
+        id
+        email
+        phoneNumber
+        name
+        kyc {
+            aadharNumber
+            panNumber
+            isAadharVerified
+            isPanVerified
+        }
+        preferences{
+          interests
+          notifications
+          {
+            emailNotifications
+            pushNotifications
+            smsNotifications
+
+          }
+        }
+      }
+    
+    }
+  }
+
+`);

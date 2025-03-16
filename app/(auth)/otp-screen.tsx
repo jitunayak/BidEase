@@ -19,7 +19,7 @@ export default function OtpScreen() {
         onTextChange={(text) => {
           setOtp(text);
           if (text.length === OTP_LENGTH) {
-            router.navigate("/(app)/(tabs)");
+            router.navigate("/(app)/preference");
           }
         }}
         theme={{
