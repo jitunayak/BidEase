@@ -6,14 +6,8 @@ import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import {
-  ActivityIndicator,
-  Image,
-  RefreshControl,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 const bidLiveData = [
   {
@@ -295,14 +289,8 @@ export default function Detail() {
     }
   );
 
-  if (loading) {
-    return <ActivityIndicator size="small" color={Colors.primary} />;
-  }
   if (error) {
     return <Text>Not found</Text>;
-  }
-  if (!data) {
-    return <Text>No data</Text>;
   }
 
   return (
@@ -313,34 +301,43 @@ export default function Detail() {
         <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
-      <View style={{ flex: 1 }}>
-        <Image
-          source={{ uri: data.auction.images[0] }}
-          style={{
-            width: "100%",
-            height: 260,
-          }}
-        />
+      {!loading && data ? (
+        <View style={{ flex: 1 }}>
+          <Image
+            source={{ uri: data.auction.images[0] }}
+            style={{
+              width: "100%",
+              height: 260,
+            }}
+          />
 
-        <TimeLeft />
-        <AuctionDetails
-          name={data.auction.title}
-          description={data.auction.description || "N/A"}
-        />
-        <AuctionQuickBidOptions bid={data.auction.bid} />
-        <AuctionHistory />
+          <TimeLeft />
+          <AuctionDetails
+            name={data.auction.title}
+            description={data.auction.description || "N/A"}
+          />
+          <AuctionQuickBidOptions bid={data.auction.bid} />
+          <AuctionHistory />
 
-        <Text
-          style={{
-            color: Colors.secondary,
-            fontSize: 14,
-            marginTop: 8,
-            textAlign: "center",
-          }}
-        >
-          View auction terms and conditions
-        </Text>
-      </View>
+          <Text
+            style={{
+              color: Colors.secondary,
+              fontSize: 14,
+              marginTop: 8,
+              textAlign: "center",
+            }}
+          >
+            View auction terms and conditions
+          </Text>
+        </View>
+      ) : (
+        <View style={{ flex: 1, gap: 8 }}>
+          <ShimmerPlaceholder style={{ height: 260, width: "100%" }} />
+          <ShimmerPlaceholder style={{ width: "100%", marginTop: 8 }} />
+          <ShimmerPlaceholder style={{ height: 160, width: "100%" }} />
+          <ShimmerPlaceholder style={{ height: 200, width: "100%" }} />
+        </View>
+      )}
     </ScrollView>
   );
 }
