@@ -290,7 +290,11 @@ export default function Detail() {
   );
 
   if (error) {
-    return <Text>Not found</Text>;
+    return (
+      <EText style={{ alignSelf: "center", padding: 16 }} variant="subtitle">
+        Not found
+      </EText>
+    );
   }
 
   return (
