@@ -291,9 +291,21 @@ export default function Detail() {
 
   if (error) {
     return (
-      <EText style={{ alignSelf: "center", padding: 16 }} variant="subtitle">
-        Not found
-      </EText>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <EText
+          style={{ alignSelf: "center", padding: 16, fontWeight: "400" }}
+          variant="title"
+        >
+          Not found
+        </EText>
+        <Button
+          title="Retry"
+          onPress={refetch}
+          style={{
+            backgroundColor: Colors.error,
+          }}
+        />
+      </View>
     );
   }
 

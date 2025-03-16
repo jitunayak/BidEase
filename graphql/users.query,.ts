@@ -53,6 +53,5 @@ export const UPDATE_USER_PREFERENCE = gql(`
       }
     
     }
-  }
 
 `);

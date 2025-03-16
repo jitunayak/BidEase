@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Text, View } from "react-native";
 import { Colors } from "../Constant";
-import { useStore } from "../hooks/useStorage";
+import { User } from "../gql/graphql";
 
 const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
   <View style={{ flexDirection: "row", gap: 8 }}>
@@ -17,8 +17,7 @@ const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
   </View>
 );
 
-export const IndividualKYC = () => {
-  const { user } = useStore();
+export const IndividualKYC = ({ user }: { user: User }) => {
   return (
     <View
       style={{

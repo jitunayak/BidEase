@@ -52,7 +52,7 @@ export default function RootLayout() {
       <Stack.Screen
         name="preference"
         options={{
-          headerBackTitle: "back",
+          headerTitle: "Auction Preferences",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
             <TouchableOpacity

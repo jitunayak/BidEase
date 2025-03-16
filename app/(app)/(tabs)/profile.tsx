@@ -15,7 +15,7 @@ import { RefreshControl, ScrollView, View } from "react-native";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function profile() {
-  const { setUser } = useStore();
+  const { setUser, user } = useStore();
   const { data, error, loading, refetch } = useQuery<{ user: User }>(
     GET_USER_QUERY,
     {
@@ -26,14 +26,16 @@ export default function profile() {
   );
 
   console.log(data);
+
   useEffect(() => {
     // setUser(null);
     if (error) {
       alert(error.message);
     } else if (data) {
       setUser(data.user);
+      console.log(data);
     }
-  }, []);
+  }, [loading]);
 
   return (
     <ScrollView
@@ -52,7 +54,7 @@ export default function profile() {
           gap: 8,
         }}
       >
-        {loading ? (
+        {loading && (
           <>
             <ShimmerPlaceholder
               style={{
@@ -69,7 +71,9 @@ export default function profile() {
             <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
             <ShimmerPlaceholder style={{ width: "100%", height: 120 }} />
           </>
-        ) : (
+        )}
+
+        {data && (
           <>
             {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />
@@ -86,7 +90,7 @@ export default function profile() {
             >
               Update Auction Preference
             </Link>
-            <IndividualKYC />
+            <IndividualKYC user={data?.user} />
             <CreditLimit />
             <LogOut />
           </>
