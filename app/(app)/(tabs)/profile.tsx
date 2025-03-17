@@ -1,4 +1,4 @@
-import { GET_USER_QUERY } from "@/graphql/users.query,";
+import { GET_USER_QUERY } from "@/graphql/users.query";
 import {
   CreditLimit,
   IndividualKYC,

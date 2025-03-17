@@ -1,4 +1,4 @@
-import { UPDATE_USER_PREFERENCE } from "@/graphql/users.query,";
+import { GET_USER_QUERY, UPDATE_USER_PREFERENCE } from "@/graphql/users.query";
 import { Colors } from "@/src/Constant";
 import { User } from "@/src/gql/graphql";
 import { useStore } from "@/src/hooks/useStorage";
@@ -66,7 +66,10 @@ export default function NotificationPreference() {
   });
 
   const [updatePreference, { loading, data }] = useMutation<User>(
-    UPDATE_USER_PREFERENCE
+    UPDATE_USER_PREFERENCE,
+    {
+      refetchQueries: [GET_USER_QUERY],
+    }
   );
 
   const handleSubmit = async () => {
@@ -79,7 +82,7 @@ export default function NotificationPreference() {
       },
     })
       .then(() => {
-        if (data) setUser(data);
+        // if (data) setUser(data);
         router.navigate("/(app)/(tabs)");
         Alert.alert("Preferences updated successfully");
       })
