@@ -1,63 +1,45 @@
 import { gql } from "@apollo/client";
 
-export const USER_FRAGMENT = gql(`
+export const USER_FRAGMENT = gql`
   fragment UserFragment on User {
     id
-        name
-        email
-        role
-        phoneNumber
-        phoneVerified
-        image
-        preferences {
-            interests
-            notifications {
-                smsNotifications
-                pushNotifications
-                emailNotifications
-            }
-        }
-        kyc {
-            panNumber
-            isPanVerified
-            aadharNumber
-            isAadharVerified
-        }
+    name
+    email
+    role
+    phoneNumber
+    phoneVerified
+    image
+    preferences {
+      interests
+      notifications {
+        smsNotifications
+        pushNotifications
+        emailNotifications
+      }
     }
-`);
+    kyc {
+      panNumber
+      isPanVerified
+      aadharNumber
+      isAadharVerified
+    }
+  }
+`;
 
-export const GET_USER_QUERY = gql(`
+export const GET_USER_QUERY = gql`
+  ${USER_FRAGMENT}
   query getUser($id: ID!) {
     user(id: $id) {
-      id
-        name
-        email
-        role
-        phoneNumber
-        phoneVerified
-        image
-        preferences {
-            interests
-            notifications {
-                smsNotifications
-                pushNotifications
-                emailNotifications
-            }
-        }
-        kyc {
-            panNumber
-            isPanVerified
-            aadharNumber
-            isAadharVerified
-        }
+      ...UserFragment
     }
-    }
-`);
+  }
+`;
 
 export const UPDATE_USER_PREFERENCE = gql`
+  ${USER_FRAGMENT}
   mutation UpdateUserInterests($id: ID!, $interests: [String!]!) {
     updateUserInterests(id: $id, interests: $interests) {
-      id
+      ...UserFragment
     }
   }
 `;

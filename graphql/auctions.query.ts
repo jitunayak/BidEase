@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_AUCTIONS = gql(`
+export const GET_AUCTIONS = gql`
   query Auctions {
     auctions {
       id
@@ -10,7 +10,7 @@ export const GET_AUCTIONS = gql(`
       bid
     }
   }
-`);
+`;
 
 export const GET_AUCTION = gql`
   query Auction($id: ID!) {

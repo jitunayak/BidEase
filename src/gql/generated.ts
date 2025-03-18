@@ -279,7 +279,7 @@ export type UpdateUserInterestsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserInterestsMutation = { __typename?: 'Mutation', updateUserInterests: { __typename?: 'User', id: string } };
+export type UpdateUserInterestsMutation = { __typename?: 'Mutation', updateUserInterests: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
 
 export type UpdateUserNotificationPreferencesMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -413,30 +413,10 @@ export type AuctionQueryResult = Apollo.QueryResult<AuctionQuery, AuctionQueryVa
 export const GetUserDocument = gql`
     query getUser($id: ID!) {
   user(id: $id) {
-    id
-    name
-    email
-    role
-    phoneNumber
-    phoneVerified
-    image
-    preferences {
-      interests
-      notifications {
-        smsNotifications
-        pushNotifications
-        emailNotifications
-      }
-    }
-    kyc {
-      panNumber
-      isPanVerified
-      aadharNumber
-      isAadharVerified
-    }
+    ...UserFragment
   }
 }
-    `;
+    ${UserFragmentFragmentDoc}`;
 
 /**
  * __useGetUserQuery__
@@ -473,10 +453,10 @@ export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVa
 export const UpdateUserInterestsDocument = gql`
     mutation UpdateUserInterests($id: ID!, $interests: [String!]!) {
   updateUserInterests(id: $id, interests: $interests) {
-    id
+    ...UserFragment
   }
 }
-    `;
+    ${UserFragmentFragmentDoc}`;
 export type UpdateUserInterestsMutationFn = Apollo.MutationFunction<UpdateUserInterestsMutation, UpdateUserInterestsMutationVariables>;
 
 /**

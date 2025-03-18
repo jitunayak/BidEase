@@ -1,5 +1,4 @@
 import { Colors } from "@/src/Constant";
-import { useStore } from "@/src/hooks/useStorage";
 import * as Haptics from "expo-haptics";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
@@ -17,13 +16,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const router = useRouter();
-  const { setUser, user } = useStore();
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleLogin = () => {
-    setUser({ ...user, phoneNumber: phoneNumber });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.navigate("/otp-screen");
+    router.navigate(`/otp-screen?phoneNumber=${phoneNumber}`);
   };
   return (
     <View
@@ -78,7 +75,7 @@ export default function Login() {
                 placeholder="1234567890"
                 placeholderTextColor={Colors.border}
                 style={{
-                  fontSize: 18,
+                  fontSize: 22,
                   letterSpacing: 1,
                   color: Colors.background,
                 }}
@@ -88,6 +85,7 @@ export default function Login() {
                 onChangeText={(e) => {
                   setPhoneNumber(e);
                 }}
+                autoFocus={true}
               />
             </View>
           </View>

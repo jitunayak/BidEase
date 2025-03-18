@@ -3,10 +3,11 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { Colors } from "../Constant";
-import { storage } from "../hooks/storage";
+import { useStore } from "../hooks/useStorage";
 
 export const LogOut = () => {
   const router = useRouter();
+  const { setUser } = useStore();
   return (
     <TouchableOpacity
       style={{
@@ -19,7 +20,7 @@ export const LogOut = () => {
         paddingBottom: 16,
       }}
       onPress={() => {
-        storage.remove("user.phone_number");
+        setUser(null);
         router.navigate("/login");
       }}
     >

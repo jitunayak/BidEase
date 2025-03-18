@@ -1,9 +1,7 @@
-import { GET_USER_QUERY, UPDATE_USER_PREFERENCE } from "@/graphql/users.query";
 import { Colors } from "@/src/Constant";
-import { User } from "@/src/gql/generated";
+import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { EText } from "@/src/ui";
-import { useMutation } from "@apollo/client";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -58,6 +56,7 @@ export default function NotificationPreference() {
   const router = useRouter();
   const { setUser, user } = useStore();
 
+  // console.log(user);
   const [preferences, setPreferences] = useState({
     vehicles: !!user?.preferences.interests.includes("vehicles"),
     lands: !!user?.preferences.interests.includes("lands"),
@@ -65,12 +64,9 @@ export default function NotificationPreference() {
     property: !!user?.preferences.interests.includes("property"),
   });
 
-  const [updatePreference, { loading, data }] = useMutation<User>(
-    UPDATE_USER_PREFERENCE,
-    {
-      refetchQueries: [GET_USER_QUERY],
-    }
-  );
+  const [updatePreference, { loading }] = useUpdateUserInterestsMutation({
+    // refetchQueries: [GET_USER_QUERY],
+  });
 
   const handleSubmit = async () => {
     updatePreference({
@@ -81,9 +77,11 @@ export default function NotificationPreference() {
         ),
       },
     })
-      .then(() => {
-        // if (data) setUser(data);
-        router.navigate("/(app)/(tabs)");
+      .then((res) => {
+        if (res.data) {
+          setUser(res.data?.updateUserInterests);
+        }
+        router.replace("/(app)/(tabs)");
         Alert.alert("Preferences updated successfully");
       })
       .catch((err) => {
@@ -93,73 +91,72 @@ export default function NotificationPreference() {
   };
 
   return (
-    <SafeAreaView>
-      <View style={{ padding: 16 }}>
-        preferences.vehicles &&{" "}
-        <Item
-          title="Vehicles"
-          icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
-          onPress={() => {
-            setPreferences({ ...preferences, vehicles: !preferences.vehicles });
-          }}
-          isSelected={preferences.vehicles}
-        />
-        , preferences.parking &&{" "}
-        <Item
-          title="Lands"
-          icon={
-            <MaterialIcons name="landscape" size={26} color={Colors.primary} />
-          }
-          onPress={() => {
-            setPreferences({ ...preferences, lands: !preferences.lands });
-          }}
-          isSelected={preferences.lands}
-        />
-        , preferences.traffic &&{" "}
-        <Item
-          title="Property"
-          icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
-          onPress={() => {
-            setPreferences({ ...preferences, property: !preferences.property });
-          }}
-          isSelected={preferences.property}
-        />
-        , preferences.weather &&{" "}
-        <Item
-          title="Gold"
-          icon={
-            <MaterialCommunityIcons
-              name="gold"
-              size={26}
-              color={Colors.primary}
-            />
-          }
-          onPress={() => {
-            setPreferences({ ...preferences, gold: !preferences.gold });
-          }}
-          isSelected={preferences.gold}
-        />
-        <TouchableOpacity
-          onPress={handleSubmit}
-          style={{
-            marginTop: 32,
-            padding: 16,
-            borderRadius: 8,
-            width: "auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-            gap: 8,
-            backgroundColor: Colors.primary,
-          }}
-        >
-          {loading && <ActivityIndicator color="white" />}
-          <Text style={{ color: "white", fontWeight: "600", fontSize: 16 }}>
-            Save
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
+      <SafeAreaView />
+      preferences.vehicles &&{" "}
+      <Item
+        title="Vehicles"
+        icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
+        onPress={() => {
+          setPreferences({ ...preferences, vehicles: !preferences.vehicles });
+        }}
+        isSelected={preferences.vehicles}
+      />
+      , preferences.parking &&{" "}
+      <Item
+        title="Lands"
+        icon={
+          <MaterialIcons name="landscape" size={26} color={Colors.primary} />
+        }
+        onPress={() => {
+          setPreferences({ ...preferences, lands: !preferences.lands });
+        }}
+        isSelected={preferences.lands}
+      />
+      , preferences.traffic &&{" "}
+      <Item
+        title="Property"
+        icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
+        onPress={() => {
+          setPreferences({ ...preferences, property: !preferences.property });
+        }}
+        isSelected={preferences.property}
+      />
+      , preferences.weather &&{" "}
+      <Item
+        title="Gold"
+        icon={
+          <MaterialCommunityIcons
+            name="gold"
+            size={26}
+            color={Colors.primary}
+          />
+        }
+        onPress={() => {
+          setPreferences({ ...preferences, gold: !preferences.gold });
+        }}
+        isSelected={preferences.gold}
+      />
+      <TouchableOpacity
+        onPress={handleSubmit}
+        style={{
+          marginTop: 32,
+          padding: 16,
+          borderRadius: 8,
+          width: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "row",
+          gap: 8,
+          backgroundColor: Colors.primary,
+        }}
+      >
+        {loading && <ActivityIndicator color="white" />}
+        <Text style={{ color: "white", fontWeight: "600", fontSize: 16 }}>
+          Save
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 }

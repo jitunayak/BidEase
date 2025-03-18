@@ -12,8 +12,9 @@ export default function RootLayout() {
     if (user?.phoneNumber != null) {
       router.replace("/(app)/(tabs)");
       return;
+    } else {
+      router.replace("/(auth)/login");
     }
-    router.replace("/(auth)/login");
   }, []);
 
   return (

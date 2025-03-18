@@ -6,7 +6,7 @@ interface IAuthState {
 }
 
 interface IAuthAction {
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }
 
 export interface IAuthStore extends IAuthState, IAuthAction {}

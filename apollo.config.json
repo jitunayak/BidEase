@@ -1,0 +1,9 @@
+{
+  "client": {
+    "service": {
+      "name": "bid-ease",
+      "url": "https://ahouse-hono-server.onrender.com/graphql"
+    },
+    "includes": ["graphql/*.ts"]
+  }
+}
