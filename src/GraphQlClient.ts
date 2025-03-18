@@ -1,5 +1,13 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+  from,
+} from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
+
+const removeTypenameLink = removeTypenameFromVariables();
 
 const httpLink = createHttpLink({
   // uri: "http://localhost:3000/graphql",
@@ -18,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: from([removeTypenameLink, httpLink]),
   cache: new InMemoryCache(),
 });
 

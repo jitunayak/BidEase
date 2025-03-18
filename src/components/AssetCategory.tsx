@@ -6,7 +6,7 @@ import { Text, View } from "react-native";
 import { Colors } from "../Constant";
 import FilledRoundIcon from "./FilledRoundIcon";
 
-export default function AssetCategory() {
+export const AssetCategory = () => {
   return (
     <View style={{ backgroundColor: Colors.background, paddingVertical: 16 }}>
       <Text
@@ -55,4 +55,4 @@ export default function AssetCategory() {
       </View>
     </View>
   );
-}
+};

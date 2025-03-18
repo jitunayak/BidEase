@@ -1,8 +1,6 @@
-import { GET_AUCTION } from "@/graphql/auctions.query";
 import { Colors } from "@/src/Constant";
-import { Auction } from "@/src/gql/graphql";
+import { useAuctionQuery } from "@/src/gql/generated";
 import { Button, EText, HStack, VStack } from "@/src/ui";
-import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -280,14 +278,11 @@ export const TimeLeft = () => {
 
 export default function Detail() {
   const { id } = useLocalSearchParams();
-  const { data, loading, error, refetch } = useQuery<{ auction: Auction }>(
-    GET_AUCTION,
-    {
-      variables: {
-        id,
-      },
-    }
-  );
+  const { data, loading, error, refetch } = useAuctionQuery({
+    variables: {
+      id: id[0],
+    },
+  });
 
   if (error) {
     return (
@@ -317,7 +312,7 @@ export default function Detail() {
         <RefreshControl refreshing={loading} onRefresh={refetch} />
       }
     >
-      {!loading && data ? (
+      {!loading && data?.auction ? (
         <View style={{ flex: 1 }}>
           <Image
             source={{ uri: data.auction.images[0] }}
@@ -329,7 +324,7 @@ export default function Detail() {
 
           <TimeLeft />
           <AuctionDetails
-            name={data.auction.title}
+            name={data.auction?.title}
             description={data.auction.description || "N/A"}
           />
           <AuctionQuickBidOptions bid={data.auction.bid} />

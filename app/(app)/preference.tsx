@@ -1,6 +1,6 @@
 import { GET_USER_QUERY, UPDATE_USER_PREFERENCE } from "@/graphql/users.query";
 import { Colors } from "@/src/Constant";
-import { User } from "@/src/gql/graphql";
+import { User } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { EText } from "@/src/ui";
 import { useMutation } from "@apollo/client";

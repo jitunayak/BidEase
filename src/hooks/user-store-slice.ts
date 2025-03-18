@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { User } from "../gql/graphql";
+import { User } from "../gql/generated";
 
 interface IAuthState {
   user: User | null;

@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./*"]
     },
+    "moduleDetection": "force",
     "plugins": [
       {
         "name": "@0no-co/graphqlsp",

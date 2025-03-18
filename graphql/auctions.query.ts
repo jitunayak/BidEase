@@ -12,7 +12,7 @@ export const GET_AUCTIONS = gql(`
   }
 `);
 
-export const GET_AUCTION = gql(`
+export const GET_AUCTION = gql`
   query Auction($id: ID!) {
     auction(id: $id) {
       id
@@ -29,4 +29,4 @@ export const GET_AUCTION = gql(`
       status
     }
   }
-`);
+`;

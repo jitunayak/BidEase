@@ -13,7 +13,7 @@ type Props = {
   onPress: () => void;
 };
 
-export default function AssetCard(props: Props) {
+export const AssetCard = (props: Props) => {
   return (
     <View>
       <BlurView
@@ -127,4 +127,4 @@ export default function AssetCard(props: Props) {
       </TouchableOpacity>
     </View>
   );
-}
+};

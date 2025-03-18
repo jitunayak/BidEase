@@ -1,6 +1,5 @@
 import { GET_AUCTIONS } from "@/graphql/auctions.query";
-import AssetCard from "@/src/components/AssetCard";
-import AssetCategory from "@/src/components/AssetCategory";
+import { AssetCard, AssetCategory } from "@/src/components";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Banner from "@/src/components/Banner";
 import { Colors } from "@/src/Constant";

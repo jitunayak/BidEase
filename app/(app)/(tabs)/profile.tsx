@@ -1,4 +1,3 @@
-import { GET_USER_QUERY } from "@/graphql/users.query";
 import {
   CreditLimit,
   IndividualKYC,
@@ -6,32 +5,27 @@ import {
   PersonalInfo,
 } from "@/src/components";
 import { Colors } from "@/src/Constant";
-import { User } from "@/src/gql/graphql";
+import { useGetUserQuery } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
-import { useQuery } from "@apollo/client";
 import { Link } from "expo-router";
 import React, { useEffect } from "react";
 import { RefreshControl, ScrollView, View } from "react-native";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
-export default function profile() {
-  const { setUser, user } = useStore();
-  const { data, error, loading, refetch } = useQuery<{ user: User }>(
-    GET_USER_QUERY,
-    {
-      variables: {
-        id: 4,
-      },
-    }
-  );
-
-  console.log(data);
+export default function Profile() {
+  const { setUser } = useStore();
+  const { data, error, loading, refetch } = useGetUserQuery({
+    variables: {
+      id: "4",
+    },
+  });
 
   useEffect(() => {
     // setUser(null);
     if (error) {
       alert(error.message);
-    } else if (data) {
+    } else if (data?.user) {
+      console.log(data.user);
       setUser(data.user);
       console.log(data);
     }
@@ -73,7 +67,7 @@ export default function profile() {
           </>
         )}
 
-        {data && (
+        {data?.user && (
           <>
             {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />
@@ -90,7 +84,7 @@ export default function profile() {
             >
               Update Auction Preference
             </Link>
-            <IndividualKYC user={data?.user} />
+            <IndividualKYC user={data.user} />
             <CreditLimit />
             <LogOut />
           </>

@@ -1,6 +1,9 @@
+import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/graphql/users.query";
 import { Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
+import { useStore } from "@/src/hooks/useStorage";
 import { EText } from "@/src/ui";
+import { useMutation } from "@apollo/client";
 import * as AppleColors from "@bacons/apple-colors";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
@@ -44,16 +47,33 @@ const NotificationItem = ({
 
 export default function NotificationPreference() {
   const { set, getBoolean } = storage;
+  const { user } = useStore();
+  const [updateNotificationPreference, { loading }] = useMutation(
+    UPDATE_USER_NOTIFICATIONS_PREFERENCE
+  );
+
   const [preferences, setPreferences] = React.useState({
-    app: !!getBoolean("notification.app"),
-    email: !!getBoolean("notification.email"),
-    sms: !!getBoolean("notification.sms"),
+    // app: !!getBoolean("notification.app"),
+    // email: !!getBoolean("notification.email"),
+    // sms: !!getBoolean("notification.sms"),
+    app: !!user?.preferences.notifications.pushNotifications,
+    email: !!user?.preferences.notifications.emailNotifications,
+    sms: !!user?.preferences.notifications.smsNotifications,
   });
 
   React.useEffect(() => {
-    set("notification.app", !!preferences.app);
-    set("notification.email", !!preferences.email);
-    set("notification.sms", !!preferences.sms);
+    // set("notification.app", !!preferences.app);
+    // set("notification.email", !!preferences.email);
+    // set("notification.sms", !!preferences.sms);
+
+    updateNotificationPreference({
+      variables: {
+        id: "4",
+        pushNotifications: preferences.app,
+        emailNotifications: preferences.email,
+        smsNotifications: preferences.sms,
+      },
+    });
   }, [preferences]);
 
   const handleToggle = (key: string, value: boolean) => {

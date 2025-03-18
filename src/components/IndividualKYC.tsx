@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Text, View } from "react-native";
 import { Colors } from "../Constant";
-import { User } from "../gql/graphql";
+import { User } from "../gql/generated";
 
 const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
   <View style={{ flexDirection: "row", gap: 8 }}>
