@@ -2,7 +2,8 @@
   "client": {
     "service": {
       "name": "bid-ease",
-      "url": "https://ahouse-hono-server.onrender.com/graphql"
+      // "url": "https://ahouse-hono-server.onrender.com/graphql",
+      "localSchemaFile": ["schema.graphql"]
     },
     "includes": ["graphql/*.ts"]
   }
