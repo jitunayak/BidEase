@@ -5,7 +5,7 @@ import {
   PersonalInfo,
 } from "@/src/components";
 import { Colors } from "@/src/Constant";
-import { useGetUserLazyQuery } from "@/src/gql/generated";
+import { useGetUserQuery } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { Link } from "expo-router";
 import React, { useEffect } from "react";
@@ -14,14 +14,15 @@ import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function Profile() {
   const { user, setUser } = useStore();
-  const [, { error, data, loading, refetch }] = useGetUserLazyQuery({
+  const { error, data, loading, refetch } = useGetUserQuery({
     variables: {
       id: "4",
     },
   });
+  console.log(data);
 
   useEffect(() => {
-    // setUser(null);
+    setUser(null);
     if (error) {
       alert(error.message);
     } else if (data?.user) {
@@ -65,7 +66,7 @@ export default function Profile() {
           </>
         )}
 
-        {user && (
+        {data?.user && !loading && user && (
           <>
             {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />

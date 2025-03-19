@@ -18,6 +18,7 @@ import {
 export default function EditProfile() {
   const router = useRouter();
   const { user, setUser } = useStore();
+
   const [data, setData] = useState<IUser>({
     id: user?.id || "",
     name: user?.name || "",
@@ -33,21 +34,22 @@ export default function EditProfile() {
       aspect: [4, 3],
       quality: 1,
     });
-    
 
     if (!result.canceled) {
-      setUser({ ...user, image: result.assets[0].uri ?? user?.image ?? "" });
+      if (user)
+        setUser({ ...user, image: result.assets[0].uri ?? user?.image ?? "" });
     }
   };
 
   const onSubmit = () => {
-    setUser({
-      ...user,
-      id: data.id || "",
-      email: data.email || "",
-      name: data.name || "",
-      phoneNumber: data.phoneNumber || "",
-    });
+    if (user)
+      setUser({
+        ...user,
+        id: data.id || "",
+        email: data.email || "",
+        name: data.name || "",
+        phoneNumber: data.phoneNumber || "",
+      });
     router.dismiss();
   };
 
@@ -85,19 +87,20 @@ export default function EditProfile() {
         style={{ flex: 1, width: "100%", gap: 8 }}
       >
         <ETextInput
-          placeholder="Name"
+          label="Name"
           value={data.name}
-          onChangeText={(e) => setData((prev) => ({ ...prev, name: e }))}
+          onChangeText={(e) => setData({ ...data, name: e })}
         />
         <ETextInput
-          placeholder="Phone number"
+          label="Phone number"
           value={data.phoneNumber}
-          onChangeText={(e) => setData((prev) => ({ ...prev, phoneNumber: e }))}
+          disabled
+          onChangeText={(e) => setData({ ...data, phoneNumber: e })}
         />
         <ETextInput
-          placeholder="Email"
+          label="Email"
           value={data.email}
-          onChangeText={(e) => setData((prev) => ({ ...prev, email: e }))}
+          onChangeText={(e) => setData({ ...data, email: e })}
         />
         <Button
           style={{ marginTop: 8 }}
