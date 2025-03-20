@@ -2,7 +2,8 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "https://ahouse-hono-server.onrender.com/graphql",
+  // schema: "https://ahouse-hono-server.onrender.com/graphql",
+  schema: "http://localhost:3000/graphql",
   ignoreNoDocuments: true,
   documents: "graphql/*.ts",
   // require: ["ts-node/register"],

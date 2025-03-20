@@ -83,3 +83,20 @@ export const UPDATE_USER_BASIC_INFO = gql`
   }
 `;
 
+export const OPT_SEND = gql`
+  mutation sendOtp($phoneNumber: String!) {
+    sendOtp(phoneNumber: $phoneNumber)
+  }
+`;
+
+export const VERIFY_OTP = gql`
+  ${USER_FRAGMENT}
+  mutation verifyOtp($phoneNumber: String!, $otp: String!) {
+    verifyOtp(phoneNumber: $phoneNumber, otp: $otp) {
+      token
+      user {
+        id
+      }
+    }
+  }
+`;

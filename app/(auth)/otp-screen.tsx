@@ -1,11 +1,8 @@
 import { Colors } from "@/src/Constant";
-import { useGetUserLazyQuery } from "@/src/gql/generated";
-import { useStore } from "@/src/hooks/useStorage";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { useOTPScreen } from "@/src/hooks/componentHooks/useOtpScreen";
+import React from "react";
 import {
   ActivityIndicator,
-  Alert,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,41 +12,21 @@ import { OtpInput } from "react-native-otp-entry";
 
 const OTP_LENGTH = 4;
 export default function OtpScreen() {
-  const router = useRouter();
-  const queryParams = useLocalSearchParams<{
-    phoneNumber: string;
-  }>();
-  const { setUser } = useStore();
-
-  const [otp, setOtp] = useState("");
-  const [getUser, { data, loading, error }] = useGetUserLazyQuery();
-
-  const handleOtpVerification = async () => {
-    // perform verification. Get user Id
-    const userId = "4";
-    await getUser({
-      variables: {
-        id: userId,
-      },
-    });
-  };
-
-  useEffect(() => {
-    if (data?.user) {
-      setUser(data.user);
-      router.push("/(app)/edit-profile?navigateTo=preference");
-    }
-    if (error) {
-      console.log(error);
-      Alert.alert("Error", "Something went wrong");
-    }
-  }, [data]);
+  const {
+    handleOtpVerification,
+    data,
+    error,
+    loading,
+    setOtp,
+    otp,
+    phoneNumber,
+  } = useOTPScreen();
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 16, color: Colors.text, marginTop: 30 }}>
         {OTP_LENGTH} digit verification code sent to xxxxxx
-        {queryParams?.phoneNumber?.substring(6, 10)}
+        {phoneNumber?.substring(6, 10)}
       </Text>
       <OtpInput
         numberOfDigits={OTP_LENGTH}

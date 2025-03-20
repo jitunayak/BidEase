@@ -1,5 +1,4 @@
 import { useUpdateUserBasicInfoMutation } from "@/src/gql/generated";
-import { IUser } from "@/src/hooks/user-store-slice";
 import { useStore } from "@/src/hooks/useStorage";
 import { Button, EText } from "@/src/ui";
 import { ETextInput } from "@/src/ui/TextInput";
@@ -20,16 +19,19 @@ import {
 export default function EditProfile() {
   const router = useRouter();
   const { user, setUser } = useStore();
-  const { navigateTo } = useLocalSearchParams<{ navigateTo: any }>();
+  const { navigateTo, phoneNumber } = useLocalSearchParams<{
+    navigateTo: any;
+    phoneNumber: string;
+  }>();
 
   const [updateBasicInfo, { loading, error }] =
     useUpdateUserBasicInfoMutation();
 
-  const [data, setData] = useState<IUser>({
+  const [data, setData] = useState({
     id: user?.id || "",
     name: user?.name || "",
     email: user?.email || "",
-    phoneNumber: user?.phoneNumber || "",
+    phoneNumber: phoneNumber || user?.phoneNumber || "",
     image: user?.image || "",
   });
 

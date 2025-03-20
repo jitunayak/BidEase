@@ -41,6 +41,11 @@ input AuctionUpdateInput {
   title: String
 }
 
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
 type Bank {
   active: Boolean!
   address: String
@@ -87,6 +92,7 @@ type Mutation {
   createBank(input: BankInput!): Bank!
   deleteAuction(id: ID!): Boolean!
   deleteUser(id: ID!): Boolean!
+  sendOtp(phoneNumber: String!): String!
   toggleBankStatus(id: ID!): Bank!
   updateAuction(id: ID!, input: AuctionUpdateInput!): Auction!
   updateBank(id: ID!, input: BankUpdateInput!): Bank!
@@ -94,6 +100,7 @@ type Mutation {
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
   updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
+  verifyOtp(otp: String!, phoneNumber: String!): AuthResponse!
 }
 
 type NotificationPreferences {

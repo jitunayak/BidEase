@@ -57,6 +57,12 @@ export type AuctionUpdateInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  token: Scalars['String']['output'];
+  user: User;
+};
+
 export type Bank = {
   __typename?: 'Bank';
   active: Scalars['Boolean']['output'];
@@ -104,6 +110,7 @@ export type Mutation = {
   createBank: Bank;
   deleteAuction: Scalars['Boolean']['output'];
   deleteUser: Scalars['Boolean']['output'];
+  sendOtp: Scalars['String']['output'];
   toggleBankStatus: Bank;
   updateAuction: Auction;
   updateBank: Bank;
@@ -111,6 +118,7 @@ export type Mutation = {
   updateUserInterests: User;
   updateUserKYC: User;
   updateUserNotificationPreferences: User;
+  verifyOtp: AuthResponse;
 };
 
 
@@ -131,6 +139,11 @@ export type MutationDeleteAuctionArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationSendOtpArgs = {
+  phoneNumber: Scalars['String']['input'];
 };
 
 
@@ -172,6 +185,12 @@ export type MutationUpdateUserKycArgs = {
 export type MutationUpdateUserNotificationPreferencesArgs = {
   id: Scalars['ID']['input'];
   input: NotificationPreferencesInput;
+};
+
+
+export type MutationVerifyOtpArgs = {
+  otp: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
 };
 
 export type NotificationPreferences = {
@@ -300,6 +319,21 @@ export type UpdateUserBasicInfoMutationVariables = Exact<{
 
 
 export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, phoneNumber?: string | null } };
+
+export type SendOtpMutationVariables = Exact<{
+  phoneNumber: Scalars['String']['input'];
+}>;
+
+
+export type SendOtpMutation = { __typename?: 'Mutation', sendOtp: string };
+
+export type VerifyOtpMutationVariables = Exact<{
+  phoneNumber: Scalars['String']['input'];
+  otp: Scalars['String']['input'];
+}>;
+
+
+export type VerifyOtpMutation = { __typename?: 'Mutation', verifyOtp: { __typename?: 'AuthResponse', token: string, user: { __typename?: 'User', id: string } } };
 
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
@@ -575,3 +609,71 @@ export function useUpdateUserBasicInfoMutation(baseOptions?: Apollo.MutationHook
 export type UpdateUserBasicInfoMutationHookResult = ReturnType<typeof useUpdateUserBasicInfoMutation>;
 export type UpdateUserBasicInfoMutationResult = Apollo.MutationResult<UpdateUserBasicInfoMutation>;
 export type UpdateUserBasicInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>;
+export const SendOtpDocument = gql`
+    mutation sendOtp($phoneNumber: String!) {
+  sendOtp(phoneNumber: $phoneNumber)
+}
+    `;
+export type SendOtpMutationFn = Apollo.MutationFunction<SendOtpMutation, SendOtpMutationVariables>;
+
+/**
+ * __useSendOtpMutation__
+ *
+ * To run a mutation, you first call `useSendOtpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendOtpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendOtpMutation, { data, loading, error }] = useSendOtpMutation({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useSendOtpMutation(baseOptions?: Apollo.MutationHookOptions<SendOtpMutation, SendOtpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SendOtpMutation, SendOtpMutationVariables>(SendOtpDocument, options);
+      }
+export type SendOtpMutationHookResult = ReturnType<typeof useSendOtpMutation>;
+export type SendOtpMutationResult = Apollo.MutationResult<SendOtpMutation>;
+export type SendOtpMutationOptions = Apollo.BaseMutationOptions<SendOtpMutation, SendOtpMutationVariables>;
+export const VerifyOtpDocument = gql`
+    mutation verifyOtp($phoneNumber: String!, $otp: String!) {
+  verifyOtp(phoneNumber: $phoneNumber, otp: $otp) {
+    token
+    user {
+      id
+    }
+  }
+}
+    `;
+export type VerifyOtpMutationFn = Apollo.MutationFunction<VerifyOtpMutation, VerifyOtpMutationVariables>;
+
+/**
+ * __useVerifyOtpMutation__
+ *
+ * To run a mutation, you first call `useVerifyOtpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useVerifyOtpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [verifyOtpMutation, { data, loading, error }] = useVerifyOtpMutation({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *      otp: // value for 'otp'
+ *   },
+ * });
+ */
+export function useVerifyOtpMutation(baseOptions?: Apollo.MutationHookOptions<VerifyOtpMutation, VerifyOtpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<VerifyOtpMutation, VerifyOtpMutationVariables>(VerifyOtpDocument, options);
+      }
+export type VerifyOtpMutationHookResult = ReturnType<typeof useVerifyOtpMutation>;
+export type VerifyOtpMutationResult = Apollo.MutationResult<VerifyOtpMutation>;
+export type VerifyOtpMutationOptions = Apollo.BaseMutationOptions<VerifyOtpMutation, VerifyOtpMutationVariables>;
