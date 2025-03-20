@@ -1,7 +1,7 @@
 import Octicons from "@expo/vector-icons/Octicons";
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
 
@@ -33,15 +33,16 @@ export const PersonalInfo = () => {
             alignSelf: "center",
           }}
         />
-        <TouchableOpacity
-          onPress={() => {
-            router.navigate("/(app)/edit-profile");
+        <Link
+          href={{
+            pathname: "/(app)/edit-profile",
+            params: { navigateTo: "dismiss" },
           }}
         >
           <Text style={{ color: Colors.primary, fontSize: 14 }}>
             Edit Profile
           </Text>
-        </TouchableOpacity>
+        </Link>
       </View>
       <Text
         style={{

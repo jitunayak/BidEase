@@ -291,6 +291,16 @@ export type UpdateUserNotificationPreferencesMutationVariables = Exact<{
 
 export type UpdateUserNotificationPreferencesMutation = { __typename?: 'Mutation', updateUserNotificationPreferences: { __typename?: 'User', id: string } };
 
+export type UpdateUserBasicInfoMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  phoneNumber: Scalars['String']['input'];
+}>;
+
+
+export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, phoneNumber?: string | null } };
+
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
   id
@@ -523,3 +533,45 @@ export function useUpdateUserNotificationPreferencesMutation(baseOptions?: Apoll
 export type UpdateUserNotificationPreferencesMutationHookResult = ReturnType<typeof useUpdateUserNotificationPreferencesMutation>;
 export type UpdateUserNotificationPreferencesMutationResult = Apollo.MutationResult<UpdateUserNotificationPreferencesMutation>;
 export type UpdateUserNotificationPreferencesMutationOptions = Apollo.BaseMutationOptions<UpdateUserNotificationPreferencesMutation, UpdateUserNotificationPreferencesMutationVariables>;
+export const UpdateUserBasicInfoDocument = gql`
+    mutation updateUserBasicInfo($id: ID!, $name: String!, $email: String!, $phoneNumber: String!) {
+  updateUser(
+    id: $id
+    input: {name: $name, email: $email, phoneNumber: $phoneNumber}
+  ) {
+    id
+    name
+    email
+    phoneNumber
+  }
+}
+    `;
+export type UpdateUserBasicInfoMutationFn = Apollo.MutationFunction<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>;
+
+/**
+ * __useUpdateUserBasicInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserBasicInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserBasicInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserBasicInfoMutation, { data, loading, error }] = useUpdateUserBasicInfoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useUpdateUserBasicInfoMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>(UpdateUserBasicInfoDocument, options);
+      }
+export type UpdateUserBasicInfoMutationHookResult = ReturnType<typeof useUpdateUserBasicInfoMutation>;
+export type UpdateUserBasicInfoMutationResult = Apollo.MutationResult<UpdateUserBasicInfoMutation>;
+export type UpdateUserBasicInfoMutationOptions = Apollo.BaseMutationOptions<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>;

@@ -81,7 +81,7 @@ export const ETextInput = (props: IProps) => {
         {...props}
         style={{
           fontSize: 16,
-          color: AppleColors.darkText,
+          color: props.disabled ? Colors.secondary : AppleColors.darkText,
           width: "100%",
           ...props.style,
         }}

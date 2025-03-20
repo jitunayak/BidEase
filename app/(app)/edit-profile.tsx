@@ -1,12 +1,14 @@
+import { useUpdateUserBasicInfoMutation } from "@/src/gql/generated";
 import { IUser } from "@/src/hooks/user-store-slice";
 import { useStore } from "@/src/hooks/useStorage";
 import { Button, EText } from "@/src/ui";
 import { ETextInput } from "@/src/ui/TextInput";
 import Octicons from "@expo/vector-icons/Octicons";
 import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -18,6 +20,10 @@ import {
 export default function EditProfile() {
   const router = useRouter();
   const { user, setUser } = useStore();
+  const { navigateTo } = useLocalSearchParams<{ navigateTo: any }>();
+
+  const [updateBasicInfo, { loading, error }] =
+    useUpdateUserBasicInfoMutation();
 
   const [data, setData] = useState<IUser>({
     id: user?.id || "",
@@ -41,7 +47,15 @@ export default function EditProfile() {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    await updateBasicInfo({
+      variables: {
+        id: data.id || "",
+        name: data.name || "",
+        email: data.email || "",
+        phoneNumber: data.phoneNumber || "",
+      },
+    });
     if (user)
       setUser({
         ...user,
@@ -50,7 +64,18 @@ export default function EditProfile() {
         name: data.name || "",
         phoneNumber: data.phoneNumber || "",
       });
-    router.dismiss();
+
+    if (error) {
+      console.log(error);
+      Alert.alert("Error", "Something went wrong");
+      return;
+    } else {
+      if (loading) return;
+      if (navigateTo === "dismiss") router.dismiss();
+      else {
+        router.navigate(`/(app)/${navigateTo}` as any);
+      }
+    }
   };
 
   return (
@@ -107,6 +132,7 @@ export default function EditProfile() {
           title="Save"
           onPress={onSubmit}
           variant="primary"
+          isLoading={loading}
         />
       </KeyboardAvoidingView>
     </View>

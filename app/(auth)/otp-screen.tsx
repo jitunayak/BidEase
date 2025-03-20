@@ -37,7 +37,7 @@ export default function OtpScreen() {
   useEffect(() => {
     if (data?.user) {
       setUser(data.user);
-      router.navigate("/(app)/preference");
+      router.push("/(app)/edit-profile?navigateTo=preference");
     }
     if (error) {
       console.log(error);
@@ -48,7 +48,7 @@ export default function OtpScreen() {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 16, color: Colors.text, marginTop: 30 }}>
-        Verification code sent to xxxxxx
+        {OTP_LENGTH} digit verification code sent to xxxxxx
         {queryParams?.phoneNumber?.substring(6, 10)}
       </Text>
       <OtpInput

@@ -1,9 +1,8 @@
 import { Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
-import { EText } from "@/src/ui";
+import { EText, Radio } from "@/src/ui";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useRouter } from "expo-router";
@@ -46,11 +45,7 @@ const Item = ({
         {icon}
         <EText style={{ marginLeft: 16, fontSize: 16 }}>{title}</EText>
       </View>
-      {isSelected ? (
-        <FontAwesome6 name="dot-circle" size={22} color={Colors.primary} />
-      ) : (
-        <FontAwesome6 name="circle" size={22} color={Colors.border} />
-      )}
+      <Radio isDefaultOn={isSelected} onToggle={onPress} isOn={isSelected} />
     </TouchableOpacity>
   );
 };
@@ -84,6 +79,7 @@ export default function NotificationPreference() {
         if (res.data) {
           setUser(res.data?.updateUserInterests);
         }
+        router.dismissAll();
         router.replace("/(app)/(tabs)");
         Alert.alert("Preferences updated successfully");
       })

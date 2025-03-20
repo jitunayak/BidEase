@@ -52,6 +52,7 @@ export default function RootLayout() {
       <Stack.Screen
         name="preference"
         options={{
+          presentation: "modal",
           headerTitle: "Auction Preferences",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (

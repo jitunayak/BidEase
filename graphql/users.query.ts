@@ -63,3 +63,23 @@ export const UPDATE_USER_NOTIFICATIONS_PREFERENCE = gql`
     }
   }
 `;
+
+export const UPDATE_USER_BASIC_INFO = gql`
+  mutation updateUserBasicInfo(
+    $id: ID!
+    $name: String!
+    $email: String!
+    $phoneNumber: String!
+  ) {
+    updateUser(
+      id: $id
+      input: { name: $name, email: $email, phoneNumber: $phoneNumber }
+    ) {
+      id
+      name
+      email
+      phoneNumber
+    }
+  }
+`;
+
