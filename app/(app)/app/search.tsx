@@ -7,11 +7,13 @@ export default function search() {
   const [searchKeyword, setSearchKeyword] = useState("Search");
   const keywords = ["auction", "gold", "property"];
   const keywordIndex = useRef(0);
-  const slideAnim = useRef(new Animated.Value(20)).current;
+  const slideAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const timer = setInterval(() => {
+      keywordIndex.current = (keywordIndex.current + 1) % keywords.length;
+      setSearchKeyword(keywords[keywordIndex.current]);
       Animated.parallel([
         Animated.timing(slideAnim, {
           toValue: -20,
@@ -26,8 +28,6 @@ export default function search() {
           useNativeDriver: true,
         }),
       ]).start(() => {
-        keywordIndex.current = (keywordIndex.current + 1) % keywords.length;
-        setSearchKeyword(keywords[keywordIndex.current]);
         slideAnim.setValue(20);
         opacityAnim.setValue(0);
         Animated.parallel([
@@ -73,7 +73,6 @@ export default function search() {
           borderColor: Colors.border,
           borderRadius: 8,
           gap: 8,
-          margin: 8,
           alignItems: "center",
         }}
       >
