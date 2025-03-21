@@ -1,3 +1,4 @@
+import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
@@ -14,7 +15,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Item = ({
   title,
@@ -54,14 +54,25 @@ export default function NotificationPreference() {
   const router = useRouter();
   const { setUser, user } = useStore();
 
+  console.log(user);
   // console.log(user);
-  const [preferences, setPreferences] = useState({
-    vehicles: !!user?.preferences.interests.includes("vehicles"),
-    lands: !!user?.preferences.interests.includes("lands"),
-    gold: !!user?.preferences.interests.includes("gold"),
-    property: !!user?.preferences.interests.includes("property"),
-  });
+  const [preferences, setPreferences] = useState(
+    user?.preferences.interests.length === 0
+      ? {
+          vehicles: true,
+          lands: true,
+          gold: true,
+          property: true,
+        }
+      : {
+          vehicles: !!user?.preferences.interests.includes("vehicles"),
+          lands: !!user?.preferences.interests.includes("lands"),
+          gold: !!user?.preferences.interests.includes("gold"),
+          property: !!user?.preferences.interests.includes("property"),
+        }
+  );
 
+  console.log({ preferences });
   const [updatePreference, { loading }] = useUpdateUserInterestsMutation({
     // refetchQueries: [GET_USER_QUERY],
   });
@@ -80,7 +91,7 @@ export default function NotificationPreference() {
           setUser(res.data?.updateUserInterests);
         }
         router.dismissAll();
-        router.replace("/(app)/(tabs)");
+        router.replace("/(tabs)/home");
         Alert.alert("Preferences updated successfully");
       })
       .catch((err) => {
@@ -91,7 +102,7 @@ export default function NotificationPreference() {
 
   return (
     <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
-      <SafeAreaView />
+      <Header title="Preferences" closeButton />
       preferences.vehicles &&{" "}
       <Item
         title="Vehicles"
@@ -99,7 +110,7 @@ export default function NotificationPreference() {
         onPress={() => {
           setPreferences({ ...preferences, vehicles: !preferences.vehicles });
         }}
-        isSelected={preferences.vehicles}
+        isSelected={!!preferences.vehicles}
       />
       , preferences.parking &&{" "}
       <Item

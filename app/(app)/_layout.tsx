@@ -1,41 +1,46 @@
-import Link from "@/src/components/Link";
 import { Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
-import { Stack, useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { Share, TouchableOpacity } from "react-native";
 
 export default function RootLayout() {
   const router = useRouter();
+  const { id } = useLocalSearchParams();
+
   return (
     <Stack>
       <Stack.Screen
-        name="(tabs)"
+        name="notification"
         options={{
-          headerShown: false,
+          headerBackTitle: "Home",
+          title: "Notifications",
+
+          headerBackButtonDisplayMode: "minimal",
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                router.back();
+              }}
+            >
+              <Octicons name="chevron-left" size={24} color="black" />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() =>
+                router.navigate("/(modals)/notification-preference")
+              }
+            >
+              <Octicons name="gear" size={20} color={Colors.text} />
+            </TouchableOpacity>
+          ),
         }}
       />
-      <Stack.Screen name="app" options={{ headerShown: false }} />
-
       <Stack.Screen
-        name="edit-profile"
+        name="search"
         options={{
-          presentation: "modal",
-          headerTitle: "Edit Profile",
-          // headerRight: () => {
-          //   return <Link value="Save" />;
-          // },
-          headerLeft: () => {
-            return <Link value="Cancel" onPress={() => router.back()} />;
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="notification-preference"
-        options={{
-          presentation: "modal",
           headerBackTitle: "back",
-          headerTitle: "Notification Preferences",
+          headerTitle: "Search for assets",
           headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
             <TouchableOpacity
@@ -50,11 +55,23 @@ export default function RootLayout() {
       />
 
       <Stack.Screen
-        name="preference"
+        name="[id]"
         options={{
-          presentation: "modal",
-          headerTitle: "Auction Preferences",
-          headerBackButtonDisplayMode: "minimal",
+          headerBackTitle: "back",
+          headerTitle: "",
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => {
+                Share.share({
+                  message: "Check out this amazing auction!",
+                  url: `https://ahouse.in/auctions/${id}`,
+                  title: "BidEase Auction",
+                });
+              }}
+            >
+              <Octicons name="share" size={20} color={Colors.text} />
+            </TouchableOpacity>
+          ),
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {

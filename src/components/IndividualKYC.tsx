@@ -64,7 +64,7 @@ export const IndividualKYC = ({ user }: { user: User }) => {
           <VerificationStatus isVerified={!!user?.kyc.isAadharVerified} />
         </View>
         <Text style={{ color: Colors.secondary }}>
-          {user?.kyc.aadharNumber}
+          {user?.kyc.aadharNumber || "xxxx-xxxx-xxxx"}
         </Text>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Octicons name="upload" size={20} color={Colors.primary} />
@@ -97,7 +97,9 @@ export const IndividualKYC = ({ user }: { user: User }) => {
           </View>
           <VerificationStatus isVerified={!!user?.kyc.isPanVerified} />
         </View>
-        <Text style={{ color: Colors.secondary }}>{user?.kyc.panNumber}</Text>
+        <Text style={{ color: Colors.secondary }}>
+          {user?.kyc.panNumber || "xxxx-xxxx-xxxx"}
+        </Text>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <Octicons name="upload" size={20} color={Colors.primary} />
           <Text style={{ color: Colors.primary }}>Upload Document</Text>

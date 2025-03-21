@@ -60,7 +60,7 @@ export default function Home() {
                 time="2 hours ago"
                 image={item.images[0]}
                 onPress={() => {
-                  router.navigate(`/(app)/app/${item.id}`);
+                  router.navigate(`/(app)/${item.id}`);
                 }}
               />
             )}

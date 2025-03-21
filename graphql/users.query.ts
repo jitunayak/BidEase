@@ -65,6 +65,7 @@ export const UPDATE_USER_NOTIFICATIONS_PREFERENCE = gql`
 `;
 
 export const UPDATE_USER_BASIC_INFO = gql`
+  ${USER_FRAGMENT}
   mutation updateUserBasicInfo(
     $id: ID!
     $name: String!
@@ -75,10 +76,7 @@ export const UPDATE_USER_BASIC_INFO = gql`
       id: $id
       input: { name: $name, email: $email, phoneNumber: $phoneNumber }
     ) {
-      id
-      name
-      email
-      phoneNumber
+      ...UserFragment
     }
   }
 `;
@@ -94,6 +92,7 @@ export const VERIFY_OTP = gql`
   mutation verifyOtp($phoneNumber: String!, $otp: String!) {
     verifyOtp(phoneNumber: $phoneNumber, otp: $otp) {
       token
+      id
       user {
         id
       }

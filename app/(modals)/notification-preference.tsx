@@ -1,4 +1,5 @@
 import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/graphql/users.query";
+import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
@@ -88,6 +89,8 @@ export default function NotificationPreference() {
         padding: 8,
       }}
     >
+      <Header title="Notification Preferences" closeButton />
+
       <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
         GET NOTIFICATIONS
       </EText>

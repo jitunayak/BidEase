@@ -2833,6 +2833,13 @@
   dependencies:
     color "^4.2.3"
 
+"@react-navigation/elements@^2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-2.2.8.tgz#b63fb2128940744c927f9931faa88e433de10eb2"
+  integrity sha512-wJoeywG/hHIml4+ycFiQKofYczkLNbHw0s5i8tSXJYzhZ0B1P3s945Tuuf0OreZtnK5XX4K3p3VQ66RtBWA88w==
+  dependencies:
+    color "^4.2.3"
+
 "@react-navigation/native-stack@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/native-stack/-/native-stack-7.2.0.tgz#8aa489f88d662b3543a931b9cb934bb2e09a4893"
@@ -2858,6 +2865,14 @@
   integrity sha512-emdEjpVDK8zbiu2GChC8oYIAub9i/OpNuQJekVsbyFCBz4/TzaBzms38Q53YaNhdIFNmiYLfHv/Y1Ub7KYfm3w==
   dependencies:
     nanoid "3.3.8"
+
+"@react-navigation/stack@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-7.2.1.tgz#8a2a111bb746a835cc963cd5bfd754b00d02df93"
+  integrity sha512-ElBegJ0eByGsqiaDDgye9IEqOXyTVOFztv9KCP8R6RS7iMOoSpuedgKAIfx32s/wfdMOWrUZ+M8nU0Vzn4CNiA==
+  dependencies:
+    "@react-navigation/elements" "^2.2.8"
+    color "^4.2.3"
 
 "@remix-run/node@^2.12.0":
   version "2.15.3"
@@ -5611,7 +5626,7 @@ expo-splash-screen@~0.29.21:
   dependencies:
     "@expo/prebuild-config" "^8.0.25"
 
-expo-status-bar@~2.0.1:
+expo-status-bar@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-2.0.1.tgz#fc07726346dc30fbb68aadb0d7890b34fba42eee"
   integrity sha512-AkIPX7jWHRPp83UBZ1iXtVvyr0g+DgBVvIXTtlmPtmUsm8Vq9Bb5IGj86PW8osuFlgoTVAg7HI/+Ok7yEYwiRg==

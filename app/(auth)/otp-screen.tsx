@@ -1,6 +1,7 @@
 import { Colors } from "@/src/Constant";
 import { useOTPScreen } from "@/src/hooks/componentHooks/useOtpScreen";
-import React from "react";
+import { HStack } from "@/src/ui";
+import React, { useRef } from "react";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -20,7 +21,10 @@ export default function OtpScreen() {
     setOtp,
     otp,
     phoneNumber,
+    clearError,
   } = useOTPScreen();
+
+  const otpRef = useRef<any>(null);
 
   return (
     <View style={styles.container}>
@@ -29,8 +33,11 @@ export default function OtpScreen() {
         {phoneNumber?.substring(6, 10)}
       </Text>
       <OtpInput
+        ref={otpRef}
         numberOfDigits={OTP_LENGTH}
-        focusColor={Colors.primary}
+        focusColor={
+          error?.code === "INVALID_OTP" ? Colors.error : Colors.primary
+        }
         onTextChange={(text) => {
           setOtp(text);
         }}
@@ -42,12 +49,30 @@ export default function OtpScreen() {
           pinCodeContainerStyle: {
             borderRadius: 8,
             padding: 8,
+            borderColor:
+              error?.code === "INVALID_OTP" ? Colors.error : Colors.secondary,
+            borderWidth: 1,
+          },
+          pinCodeTextStyle: {
+            color: error?.code === "INVALID_OTP" ? Colors.error : Colors.text,
           },
         }}
       />
-      <TouchableOpacity>
-        <Text style={{ color: Colors.primary }}>Resend OTP</Text>
-      </TouchableOpacity>
+      <HStack>
+        <TouchableOpacity>
+          <Text style={{ color: Colors.secondary }}>Resend OTP</Text>
+        </TouchableOpacity>
+        {error && (
+          <TouchableOpacity
+            onPress={() => {
+              clearError();
+              otpRef?.current?.clear();
+            }}
+          >
+            <Text style={{ color: Colors.primary }}>Clear OTP</Text>
+          </TouchableOpacity>
+        )}
+      </HStack>
 
       <TouchableOpacity
         style={{
@@ -71,7 +96,7 @@ export default function OtpScreen() {
           <ActivityIndicator size="small" color={Colors.background} />
         )}
         <Text style={{ color: Colors.background }}>
-          {error ? "Error" : "Verify"}
+          {error ? "Retry" : "Verify"}
         </Text>
       </TouchableOpacity>
     </View>

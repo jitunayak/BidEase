@@ -1,4 +1,7 @@
 import { useGetUserLazyQuery, useVerifyOtpMutation } from "@/src/gql/generated";
+import { CustomGraphQlError, getGraphQlError } from "@/src/graphqlHelpers";
+import { sanitizePhoneNumber } from "@/src/lib/format";
+import { ApolloError } from "@apollo/client";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
@@ -12,47 +15,79 @@ export const useOTPScreen = () => {
     phoneNumber: string;
   }>();
   const [otp, setOtp] = useState("");
-  const [getUser, { data, loading, error }] = useGetUserLazyQuery();
+  const [error, setError] = useState<CustomGraphQlError>();
+  const [getUser, { data }] = useGetUserLazyQuery();
   const [verifyOtp] = useVerifyOtpMutation();
+  const [loading, setLoading] = useState(false);
+
+  const phoneNumber = sanitizePhoneNumber(queryParams?.phoneNumber ?? "");
+
+  const clearError = () => {
+    setError(undefined);
+  };
+
+  const handleExistingUser = async (id: string) => {
+    console.log("existing user");
+    try {
+      const userResponse = await getUser({
+        variables: {
+          id,
+        },
+      });
+      console.log(userResponse);
+      if (!userResponse) return;
+      if (userResponse.data?.user) {
+        console.log(userResponse.data?.user);
+        setUser(userResponse.data?.user);
+        router.replace("/(tabs)/home");
+      }
+    } catch (err) {
+      console.log(err);
+      const error = getGraphQlError(err as ApolloError);
+      setError(error);
+      Alert.alert(error.message);
+    }
+  };
+
+  const handleNewUser = (userId: string) => {
+    console.log("new user");
+    setUser(null);
+    router.replace({
+      pathname: "/(modals)/edit-profile",
+      params: {
+        navigateTo: "preference",
+        phoneNumber,
+        userId,
+      },
+    });
+  };
 
   const handleOtpVerification = async () => {
-    console.log("inputs", { phoneNumber: queryParams?.phoneNumber, otp });
-    verifyOtp({
-      variables: {
-        phoneNumber: queryParams?.phoneNumber,
-        otp,
-      },
-    })
-      .catch((err) => {
-        Alert.alert("Error", "Something went wrong");
-        console.log(err);
-      })
-      .then(async (res) => {
-        if (!res) return;
-        storage.set("user.token", res.data?.verifyOtp.token ?? "");
-        if (!res.data?.verifyOtp.user) {
-          console.log("new user registering");
-          router.push({
-            pathname: "/(app)/edit-profile",
-            params: {
-              navigateTo: "preference",
-              phoneNumber: queryParams?.phoneNumber,
-            },
-          });
-        }
-        getUser({
-          variables: {
-            id: res.data?.verifyOtp.user.id ?? "",
-          },
-        }).then((res) => {
-          console.log(res.data);
-          if (!res) return;
-          if (res.data?.user) {
-            setUser(res.data?.user);
-            router.push("/(app)/(tabs)/home");
-          }
-        });
+    setLoading(true);
+    setError(undefined);
+    try {
+      const res = await verifyOtp({
+        variables: {
+          phoneNumber,
+          otp,
+        },
       });
+      if (!res) return;
+      storage.set("user.token", res.data?.verifyOtp.token ?? "");
+      const userId = res.data?.verifyOtp.id!;
+      console.log(userId);
+      if (!res.data?.verifyOtp.user) {
+        handleNewUser(userId);
+      } else {
+        handleExistingUser(userId);
+      }
+    } catch (err) {
+      const error = getGraphQlError(err as ApolloError);
+      setError(error);
+      Alert.alert(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
@@ -62,6 +97,7 @@ export const useOTPScreen = () => {
     loading,
     error,
     data,
-    phoneNumber: queryParams?.phoneNumber,
+    phoneNumber,
+    clearError,
   };
 };
