@@ -80,7 +80,7 @@ export default function NotificationPreference() {
   const handleSubmit = async () => {
     updatePreference({
       variables: {
-        id: "4",
+        id: user?.id!,
         interests: Object.keys(preferences).filter(
           (key) => preferences[key as keyof typeof preferences] === true
         ),

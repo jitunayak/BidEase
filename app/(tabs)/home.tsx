@@ -1,9 +1,9 @@
-import { GET_AUCTIONS } from "@/graphql/auctions.query";
 import { AssetCard, AssetCategory } from "@/src/components";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Banner from "@/src/components/Banner";
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
+import { GET_AUCTIONS } from "@/src/lib/graphql/auctions.query";
 import { EText, HStack } from "@/src/ui";
 import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";

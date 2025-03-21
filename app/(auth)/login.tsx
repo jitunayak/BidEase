@@ -65,6 +65,7 @@ export default function Login() {
                 +91{"   "}
               </Text>
               <TextInput
+                testID="phone-input"
                 placeholder="111-222-3333"
                 placeholderTextColor={Colors.border}
                 style={{

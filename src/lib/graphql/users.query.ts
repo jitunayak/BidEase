@@ -99,3 +99,9 @@ export const VERIFY_OTP = gql`
     }
   }
 `;
+
+export const DELETE_USER = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(id: $id)
+  }
+`;
