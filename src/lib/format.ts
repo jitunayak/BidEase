@@ -1,6 +1,6 @@
 export const sanitizePhoneNumber = (number: string) =>
   number
-    .replace(/[^0-9]/g, "")
+    .replace(/-|[^0-9]/g, "")
     .trim()
     .substring(0, 10);
 
