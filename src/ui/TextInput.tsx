@@ -1,4 +1,3 @@
-import * as AppleColors from "@bacons/apple-colors";
 import React, { useRef, useState } from "react";
 import { Pressable, TextInput, TextInputProps } from "react-native";
 import Animated, {

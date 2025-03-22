@@ -1,7 +1,7 @@
-import { systemGray } from "@bacons/apple-colors";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { Pressable, View } from "react-native";
+import { Colors } from "../Constant";
 import { EText } from "../ui";
 
 type IProps = {
@@ -28,7 +28,7 @@ export const Header = (props: IProps) => {
           <MaterialCommunityIcons
             name="close-circle"
             size={26}
-            color={systemGray}
+            color={Colors.border}
           />
         </Pressable>
       )}

@@ -1,4 +1,3 @@
-import * as AppleColors from "@bacons/apple-colors";
 import React from "react";
 import { Text, TextStyle } from "react-native";
 import { Colors } from "../Constant";
@@ -38,11 +37,11 @@ export function EText({
       case "label":
         return Colors.secondary;
       case "link":
-        return AppleColors.systemBlue;
+        return Colors.link;
       case "error":
         return Colors.error;
       default:
-        return AppleColors.label;
+        return Colors.text;
     }
   };
   return (
