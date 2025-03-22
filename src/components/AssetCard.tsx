@@ -25,8 +25,8 @@ export const AssetCard = (props: Props) => {
           position: "absolute",
           bottom: 0,
           zIndex: 2,
-          borderBottomLeftRadius: 16,
-          borderBottomRightRadius: 16,
+          borderBottomLeftRadius: App.ui.borderRadius.lg,
+          borderBottomRightRadius: App.ui.borderRadius.lg,
           overflow: "hidden",
         }}
       >
@@ -90,8 +90,8 @@ export const AssetCard = (props: Props) => {
         style={{
           width: 300,
           height: 140,
-          borderBottomLeftRadius: 16,
-          borderBottomRightRadius: 16,
+          borderBottomLeftRadius: App.ui.borderRadius.lg,
+          borderBottomRightRadius: App.ui.borderRadius.lg,
           position: "absolute",
           bottom: 0,
           zIndex: 1,
@@ -109,7 +109,7 @@ export const AssetCard = (props: Props) => {
           height: 300,
           borderWidth: 0.6,
           borderColor: Colors.border,
-          borderRadius: 16,
+          borderRadius: App.ui.borderRadius.lg,
           marginRight: 16,
           backgroundColor: Colors.background,
           ...uiStyles.shadow,
@@ -120,8 +120,8 @@ export const AssetCard = (props: Props) => {
           style={{
             width: 300,
             height: 160,
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
+            borderTopLeftRadius: App.ui.borderRadius.lg,
+            borderTopRightRadius: App.ui.borderRadius.lg,
           }}
         />
       </TouchableOpacity>

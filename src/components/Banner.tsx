@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
+import { App } from "../Constant";
 import { uiStyles } from "../Theme";
 
 export default function Banner() {
@@ -9,7 +10,7 @@ export default function Banner() {
         style={{
           width: "100%",
           height: 200,
-          borderRadius: 16,
+          borderRadius: App.ui.borderRadius.lg,
           position: "absolute",
         }}
         source={require("../../assets/images/banner.png")}
@@ -21,7 +22,7 @@ export default function Banner() {
           zIndex: 1,
           backgroundColor: "black",
           opacity: 0.2,
-          borderRadius: 16,
+          borderRadius: App.ui.borderRadius.lg,
           backgroundImage:
             "linear-gradient(to bottom,rgb(255, 109, 109), rgba(80, 112, 218, 0.1))",
         }}
@@ -43,7 +44,7 @@ export default function Banner() {
         <View style={{ display: "flex", flexDirection: "row", gap: 8 }}>
           <View
             style={{
-              borderRadius: 16,
+              borderRadius: App.ui.borderRadius.lg,
               backgroundColor: "white",
               opacity: 0.6,
             }}
@@ -59,7 +60,7 @@ export default function Banner() {
           </View>
           <View
             style={{
-              borderRadius: 16,
+              borderRadius: App.ui.borderRadius.lg,
               backgroundColor: "white",
               opacity: 0.6,
             }}

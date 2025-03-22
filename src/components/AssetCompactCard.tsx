@@ -27,7 +27,7 @@ export default function AssetCompactCard({
         flex: 1,
         borderColor: Colors.border,
         borderWidth: 0.6,
-        borderRadius: 12,
+        borderRadius: App.ui.borderRadius.md,
         opacity: dayjs(item.date).isBefore(new Date()) ? 0.5 : 1,
         backgroundColor: Colors.background,
         maxWidth: compact ? "50%" : "auto",

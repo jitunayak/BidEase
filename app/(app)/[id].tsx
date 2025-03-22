@@ -215,7 +215,7 @@ const AuctionHistoryItem = (props: {
           style={{
             width: 40,
             height: 40,
-            borderRadius: 20,
+            borderRadius: App.ui.borderRadius.lg,
           }}
         />
         <View>

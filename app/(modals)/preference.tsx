@@ -1,5 +1,5 @@
 import { Header } from "@/src/components/Header";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { Radio } from "@/src/ui";
@@ -37,7 +37,7 @@ const Item = ({
         padding: 32,
         borderWidth: 1,
         marginVertical: 4,
-        borderRadius: 4,
+        borderRadius: App.ui.borderRadius.sm,
         // borderColor: Colors.border,
         borderColor: isSelected ? Colors.primary : Colors.border,
       }}
@@ -163,7 +163,7 @@ export default function NotificationPreference() {
         style={{
           marginTop: 32,
           padding: 16,
-          borderRadius: 4,
+          borderRadius: App.ui.borderRadius.sm,
           width: "auto",
           display: "flex",
           alignItems: "center",

@@ -1,7 +1,7 @@
 import { AssetCard, AssetCategory } from "@/src/components";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import Banner from "@/src/components/Banner";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { GET_AUCTIONS } from "@/src/lib/graphql/auctions.query";
 import { EText, HStack } from "@/src/ui";
@@ -38,7 +38,7 @@ export default function Home() {
               style={{
                 width: 300,
                 height: 180,
-                borderRadius: 16,
+                borderRadius: App.ui.borderRadius.lg,
                 marginBottom: 10,
               }}
             />
@@ -104,7 +104,7 @@ export default function Home() {
       )}
       ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
       numColumns={2}
-      columnWrapperStyle={{ gap: 8 }}
+      columnWrapperStyle={{ gap: 8, padding: 8 }}
       ListHeaderComponent={renderHeader}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={() => (

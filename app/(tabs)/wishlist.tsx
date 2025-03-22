@@ -1,5 +1,5 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { HStack } from "@/src/ui/HStack";
 import dayjs from "dayjs";
@@ -48,7 +48,7 @@ export default function Wishlist() {
               backgroundColor:
                 item === monthRangeFilter ? Colors.primary : Colors.background,
               padding: 8,
-              borderRadius: 16,
+              borderRadius: App.ui.borderRadius.lg,
               marginBottom: 8,
               borderWidth: 0.5,
               borderColor: Colors.border,

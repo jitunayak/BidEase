@@ -3,12 +3,18 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import React from "react";
 import { Text, View } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 import FilledRoundIcon from "./FilledRoundIcon";
 
 export const AssetCategory = () => {
   return (
-    <View style={{ backgroundColor: Colors.background, paddingVertical: 16 }}>
+    <View
+      style={{
+        backgroundColor: Colors.background,
+        paddingVertical: 16,
+        borderRadius: App.ui.borderRadius.sm,
+      }}
+    >
       <Text
         style={{
           marginLeft: 8,

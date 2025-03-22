@@ -35,7 +35,7 @@ export function Button(props: IProps) {
         gap: 8,
         opacity: props.disabled ? 0.8 : 1,
         backgroundColor: props.disabled ? Colors.border : Colors.primary,
-        ...(props.style && props.style),
+        ...(props.style && (props.style as object)),
       }}
       onPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
