@@ -42,7 +42,6 @@ export default function Profile() {
           flex: 1,
           alignItems: "flex-start",
           padding: 8,
-          backgroundColor: Colors.background,
           gap: 8,
         }}
       >

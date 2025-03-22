@@ -309,7 +309,11 @@ export default function Detail() {
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, marginBottom: 24 }}
       refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refetch} />
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={refetch}
+          title="Pull to refresh"
+        />
       }
     >
       {!loading && data?.auction ? (

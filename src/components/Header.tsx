@@ -16,7 +16,8 @@ export const Header = (props: IProps) => {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingVertical: 16,
+        paddingBottom: 32,
+        paddingTop: 16,
         paddingHorizontal: 8,
         backgroundColor: Colors.background,
       }}

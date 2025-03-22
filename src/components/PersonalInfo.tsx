@@ -1,12 +1,11 @@
 import Octicons from "@expo/vector-icons/Octicons";
-import { Link, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
 
 export const PersonalInfo = () => {
-  const router = useRouter();
   const { user } = useStore();
   return (
     <>
@@ -60,17 +59,22 @@ export const PersonalInfo = () => {
           flex: 1,
           display: "flex",
           flexDirection: "row",
+          shadowColor: "#000",
+          backgroundColor: Colors.background,
         }}
       >
         <View
-          style={{
-            gap: 14,
-            padding: 14,
-            borderWidth: 0.5,
-            borderColor: Colors.border,
-            borderRadius: 8,
-            width: "100%",
-          }}
+          style={[
+            {
+              gap: 14,
+              padding: 14,
+              borderWidth: 0.5,
+              borderColor: Colors.border,
+              backgroundColor: Colors.background,
+              borderRadius: 8,
+              width: "100%",
+            },
+          ]}
         >
           <View
             style={{

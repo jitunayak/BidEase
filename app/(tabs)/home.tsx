@@ -84,7 +84,12 @@ export default function Home() {
   return (
     <FlatList
       refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refetch} />
+        <RefreshControl
+          refreshing={loading}
+          onRefresh={refetch}
+          tintColor={Colors.primary}
+          title="Pull to refresh"
+        />
       }
       data={wishListedAuctions.filter((item) => item.isWishListed)}
       keyExtractor={(item) => item.id}
@@ -102,6 +107,33 @@ export default function Home() {
       columnWrapperStyle={{ gap: 8 }}
       ListHeaderComponent={renderHeader}
       showsVerticalScrollIndicator={false}
+      ListFooterComponent={() => (
+        <>
+          <View
+            style={{
+              height: 200,
+              flex: 1,
+              justifyContent: "center",
+              alignSelf: "center",
+              marginTop: 16,
+            }}
+          >
+            <EText
+              variant="body"
+              style={{ marginLeft: 8, fontSize: 18, color: Colors.border }}
+            >
+              Build with Love{"  "}
+              <Octicons name="heart-fill" size={14} color={Colors.error} />
+            </EText>
+            <EText
+              variant="title"
+              style={{ marginLeft: 8, fontSize: 32, color: Colors.border }}
+            >
+              in Banglore
+            </EText>
+          </View>
+        </>
+      )}
     />
   );
 }

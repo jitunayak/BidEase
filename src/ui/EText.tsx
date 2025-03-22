@@ -14,9 +14,9 @@ export function EText({
   const getFontSize = () => {
     switch (variant) {
       case "title":
-        return 20;
+        return 24;
       case "subtitle":
-        return 16;
+        return 20;
       case "body":
         return 14;
       case "label":

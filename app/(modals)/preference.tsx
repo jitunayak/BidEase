@@ -35,9 +35,10 @@ const Item = ({
         alignItems: "center",
         justifyContent: "space-between",
         padding: 32,
-        borderWidth: 2,
+        borderWidth: 1,
         marginVertical: 8,
         borderRadius: 8,
+        // borderColor: Colors.border,
         borderColor: isSelected ? Colors.primary : Colors.border,
       }}
     >
@@ -112,7 +113,7 @@ export default function NotificationPreference() {
 
   return (
     <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
-      <Header title="Preferences" closeButton />
+      <Header title="Auction Preferences" closeButton />
       <Item
         title="Vehicles"
         icon={<FontAwesome name="car" size={22} color={Colors.primary} />}

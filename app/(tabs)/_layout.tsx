@@ -47,7 +47,7 @@ function RootLayout() {
           headerTitle: "",
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : "gray"}
+              color={tab.focused ? Colors.primary : Colors.secondary}
               name="home"
               size={22}
             />
@@ -100,7 +100,7 @@ function RootLayout() {
           headerTitle: "",
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : "gray"}
+              color={tab.focused ? Colors.primary : Colors.secondary}
               name="flame"
               size={22}
             />
@@ -134,7 +134,7 @@ function RootLayout() {
           headerShown: false,
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : "gray"}
+              color={tab.focused ? Colors.primary : Colors.secondary}
               name="heart"
               size={22}
             />
@@ -150,7 +150,7 @@ function RootLayout() {
             <Octicons
               name="person"
               size={22}
-              color={tab.focused ? Colors.primary : "gray"}
+              color={tab.focused ? Colors.primary : Colors.secondary}
             />
           ),
         }}
