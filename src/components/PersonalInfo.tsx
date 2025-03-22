@@ -28,6 +28,7 @@ export const PersonalInfo = () => {
           gap: 8,
         }}
       >
+        {/* profile header */}
         <View
           style={{
             width: "100%",
@@ -67,6 +68,8 @@ export const PersonalInfo = () => {
             </Text>
           </Link>
         </View>
+
+        {/* profile picture with border */}
         <View
           style={{
             borderWidth: 2,
@@ -103,8 +106,9 @@ export const PersonalInfo = () => {
           marginTop: App.ui.padding.xl,
         }}
       >
-        Personal Details
+        Contact Details
       </Text>
+      {/* profile details */}
       <View
         style={{
           padding: 8,
@@ -119,7 +123,7 @@ export const PersonalInfo = () => {
           style={[
             {
               gap: 14,
-              padding: 14,
+              padding: App.ui.padding.lg,
               borderWidth: 0.5,
               borderColor: Colors.border,
               backgroundColor: Colors.background,
@@ -128,7 +132,8 @@ export const PersonalInfo = () => {
             },
           ]}
         >
-          <View
+          {/* user name */}
+          {/* <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -144,8 +149,9 @@ export const PersonalInfo = () => {
             >
               {user?.name}
             </Text>
-          </View>
+          </View> */}
 
+          {/* phone number */}
           <View
             style={{
               flexDirection: "row",
@@ -153,17 +159,19 @@ export const PersonalInfo = () => {
               gap: 8,
             }}
           >
-            <Octicons name="device-mobile" size={20} color={Colors.primary} />
-            <Text
+            <Octicons
+              name="device-mobile"
+              size={20}
               style={{
-                color: Colors.text,
-                fontSize: 14,
+                height: 20,
+                width: 20,
               }}
-            >
-              {user?.phoneNumber}
-            </Text>
+              color={Colors.primary}
+            />
+            <EText variant="body">{user?.phoneNumber}</EText>
           </View>
 
+          {/* email address */}
           <View
             style={{
               flexDirection: "row",
@@ -171,15 +179,16 @@ export const PersonalInfo = () => {
               gap: 8,
             }}
           >
-            <Octicons name="mail" size={20} color={Colors.primary} />
-            <Text
+            <Octicons
+              name="mail"
               style={{
-                color: Colors.text,
-                fontSize: 14,
+                height: 20,
+                width: 20,
               }}
-            >
-              {user?.email}
-            </Text>
+              size={20}
+              color={Colors.primary}
+            />
+            <EText variant="body">{user?.email}</EText>
           </View>
         </View>
       </View>

@@ -4,6 +4,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
+import { RNUtils } from "../lib/rn-utils";
 
 export const LogOut = () => {
   const router = useRouter();
@@ -21,6 +22,7 @@ export const LogOut = () => {
       }}
       onPress={() => {
         setUser(null);
+        RNUtils.giveHapticFeedback();
         router.navigate("/login");
       }}
     >
