@@ -8,3 +8,13 @@ export const Colors = {
   success: "#22C55E",
   pending: "#fbbf24",
 };
+
+export const App = {
+  ui: {
+    borderRadius: {
+      sm: 4,
+      md: 8,
+      lg: 12,
+    },
+  },
+};

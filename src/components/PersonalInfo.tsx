@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import { Link } from "expo-router";
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
 
 export const PersonalInfo = () => {
@@ -71,7 +71,7 @@ export const PersonalInfo = () => {
               borderWidth: 0.5,
               borderColor: Colors.border,
               backgroundColor: Colors.background,
-              borderRadius: 8,
+              borderRadius: App.ui.borderRadius.sm,
               width: "100%",
             },
           ]}

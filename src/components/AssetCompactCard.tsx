@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 import { wishListedAuctions } from "../data/auctions";
 import { HStack } from "../ui/HStack";
 import { VStack } from "../ui/VStack";
@@ -45,7 +45,7 @@ export default function AssetCompactCard({
           style={{
             width: compact ? "auto" : 140,
             height: 120,
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
           }}
         />
         <VStack alignItems="flex-start">

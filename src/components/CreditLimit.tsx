@@ -1,7 +1,7 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 
 export const CreditLimit = () => {
   return (
@@ -14,7 +14,7 @@ export const CreditLimit = () => {
           padding: 14,
           inset: 0,
           borderWidth: 0.6,
-          borderRadius: 8,
+          borderRadius: App.ui.borderRadius.sm,
           width: "100%",
           borderColor: Colors.border,
           gap: 14,
@@ -79,7 +79,7 @@ export const CreditLimit = () => {
           style={{
             backgroundColor: Colors.primary,
             padding: 14,
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
             width: "auto",
             alignItems: "center",
             marginTop: 12,

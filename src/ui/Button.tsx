@@ -7,7 +7,7 @@ import {
   TouchableOpacityProps,
   View,
 } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 
 type IProps = {
   onPress: () => void;
@@ -26,7 +26,7 @@ export function Button(props: IProps) {
     <TouchableOpacity
       style={{
         padding: 16,
-        borderRadius: 8,
+        borderRadius: App.ui.borderRadius.sm,
         width: "auto",
         display: "flex",
         alignItems: "center",

@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { notifications } from "@/src/data/notifications";
 import { INotification } from "@/src/types/INotification";
 import { HStack } from "@/src/ui/HStack";
@@ -59,7 +59,7 @@ const NotificationItem = ({ item }: { item: INotification }) => {
               .alpha(0.1)
               .string(),
             padding: 8,
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
           }}
         />
         <VStack alignItems="flex-start">

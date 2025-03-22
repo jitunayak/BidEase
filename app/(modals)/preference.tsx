@@ -6,6 +6,7 @@ import { Radio } from "@/src/ui";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -15,7 +16,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
 const Item = ({
   title,
   icon,
@@ -36,8 +36,8 @@ const Item = ({
         justifyContent: "space-between",
         padding: 32,
         borderWidth: 1,
-        marginVertical: 8,
-        borderRadius: 8,
+        marginVertical: 4,
+        borderRadius: 4,
         // borderColor: Colors.border,
         borderColor: isSelected ? Colors.primary : Colors.border,
       }}
@@ -111,6 +111,10 @@ export default function NotificationPreference() {
       });
   };
 
+  const handleSelect = (input: typeof preferences) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setPreferences(input);
+  };
   return (
     <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
       <Header title="Auction Preferences" closeButton />
@@ -118,7 +122,7 @@ export default function NotificationPreference() {
         title="Vehicles"
         icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
         onPress={() => {
-          setPreferences({ ...preferences, vehicles: !preferences.vehicles });
+          handleSelect({ ...preferences, vehicles: !preferences.vehicles });
         }}
         isSelected={!!preferences.vehicles}
       />
@@ -128,7 +132,7 @@ export default function NotificationPreference() {
           <MaterialIcons name="landscape" size={26} color={Colors.primary} />
         }
         onPress={() => {
-          setPreferences({ ...preferences, lands: !preferences.lands });
+          handleSelect({ ...preferences, lands: !preferences.lands });
         }}
         isSelected={preferences.lands}
       />
@@ -136,7 +140,7 @@ export default function NotificationPreference() {
         title="Property"
         icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
         onPress={() => {
-          setPreferences({ ...preferences, property: !preferences.property });
+          handleSelect({ ...preferences, property: !preferences.property });
         }}
         isSelected={preferences.property}
       />
@@ -150,7 +154,7 @@ export default function NotificationPreference() {
           />
         }
         onPress={() => {
-          setPreferences({ ...preferences, gold: !preferences.gold });
+          handleSelect({ ...preferences, gold: !preferences.gold });
         }}
         isSelected={preferences.gold}
       />
@@ -159,7 +163,7 @@ export default function NotificationPreference() {
         style={{
           marginTop: 32,
           padding: 16,
-          borderRadius: 8,
+          borderRadius: 4,
           width: "auto",
           display: "flex",
           alignItems: "center",

@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { useLoginScreen } from "@/src/hooks/componentHooks/useLoginScreen";
 import { Link } from "expo-router";
 import {
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
   phoneNumberInput: {
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 8,
+    borderRadius: App.ui.borderRadius.sm,
     padding: 10,
     margin: 10,
     display: "flex",
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.background,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: App.ui.borderRadius.sm,
     margin: 10,
     width: "auto",
     display: "flex",

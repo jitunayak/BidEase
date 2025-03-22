@@ -2,7 +2,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 import { User } from "../gql/generated";
 
 const VerificationStatus = ({ isVerified }: { isVerified: boolean }) => (
@@ -46,7 +46,7 @@ export const IndividualKYC = ({ user }: { user: User }) => {
             padding: 14,
             inset: 0,
             borderWidth: 0.6,
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
             width: "100%",
             borderColor: Colors.border,
             gap: 12,
@@ -81,7 +81,7 @@ export const IndividualKYC = ({ user }: { user: User }) => {
           padding: 14,
           inset: 0,
           borderWidth: 0.6,
-          borderRadius: 8,
+          borderRadius: App.ui.borderRadius.sm,
           width: "100%",
           borderColor: Colors.border,
           gap: 12,

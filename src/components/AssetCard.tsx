@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import { BlurView } from "expo-blur";
 import React from "react";
@@ -69,7 +69,7 @@ export const AssetCard = (props: Props) => {
             style={{
               backgroundColor: Colors.primary,
               padding: 10,
-              borderRadius: 8,
+              borderRadius: App.ui.borderRadius.sm,
             }}
           >
             <Text

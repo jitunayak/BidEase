@@ -1,5 +1,5 @@
 import { Header } from "@/src/components/Header";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
 import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/src/lib/graphql/users.query";
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     gap: 16,
     margin: 8,
-    borderRadius: 8,
+    borderRadius: App.ui.borderRadius.sm,
     padding: 8,
   },
   item: {
@@ -155,6 +155,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     paddingHorizontal: 8,
     margin: 8,
-    borderRadius: 8,
+    borderRadius: App.ui.borderRadius.sm,
   },
 });

@@ -1,5 +1,5 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { liveAuctions } from "@/src/data/auctions";
 import { Button, EText } from "@/src/ui";
 import { HStack } from "@/src/ui/HStack";
@@ -71,7 +71,7 @@ export default function Live() {
                       style={{
                         backgroundColor: Colors.background,
                         padding: 12,
-                        borderRadius: 8,
+                        borderRadius: App.ui.borderRadius.sm,
                         marginBottom: 8,
                         borderWidth: 1,
                         borderColor:
@@ -104,7 +104,7 @@ export default function Live() {
                       style={{
                         backgroundColor: Colors.background,
                         padding: 10,
-                        borderRadius: 8,
+                        borderRadius: App.ui.borderRadius.sm,
                         marginBottom: 8,
                         borderColor: Colors.border,
                         borderWidth: 0.6,
@@ -138,7 +138,7 @@ export default function Live() {
                       style={{
                         backgroundColor: Colors.background,
                         padding: 10,
-                        borderRadius: 8,
+                        borderRadius: App.ui.borderRadius.sm,
                         marginBottom: 8,
                         borderWidth: 0.6,
                         borderColor:

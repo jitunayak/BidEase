@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { useAuctionQuery } from "@/src/gql/generated";
 import { Button, EText, HStack, VStack } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
@@ -89,7 +89,7 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
       style={{
         width: "100%",
         backgroundColor: Colors.background,
-        borderRadius: 8,
+        borderRadius: App.ui.borderRadius.sm,
         // borderWidth: 1,
         // borderColor: Colors.border,
       }}
@@ -118,7 +118,7 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
           style={{
             width: "100%",
             backgroundColor: Colors.background,
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
             marginTop: 8,
             // borderWidth: 1,
             // borderColor: Colors.border,
@@ -136,7 +136,7 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
             style={{
               backgroundColor: Colors.background,
               padding: 8,
-              borderRadius: 8,
+              borderRadius: App.ui.borderRadius.sm,
               borderWidth: 1,
               borderColor: Colors.border,
             }}
@@ -147,7 +147,7 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
             style={{
               backgroundColor: Colors.background,
               padding: 8,
-              borderRadius: 8,
+              borderRadius: App.ui.borderRadius.sm,
               borderWidth: 1,
               borderColor: Colors.border,
             }}
@@ -158,7 +158,7 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
             style={{
               backgroundColor: Colors.background,
               padding: 8,
-              borderRadius: 8,
+              borderRadius: App.ui.borderRadius.sm,
               borderWidth: 1,
               borderColor: Colors.border,
             }}

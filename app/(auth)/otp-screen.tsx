@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { useOTPScreen } from "@/src/hooks/componentHooks/useOtpScreen";
 import { HStack } from "@/src/ui";
 import React, { useRef } from "react";
@@ -47,7 +47,7 @@ export default function OtpScreen() {
             gap: 16,
           },
           pinCodeContainerStyle: {
-            borderRadius: 8,
+            borderRadius: App.ui.borderRadius.sm,
             padding: 8,
             borderColor:
               error?.code === "INVALID_OTP" ? Colors.error : Colors.secondary,
@@ -79,7 +79,7 @@ export default function OtpScreen() {
           backgroundColor:
             otp.length === OTP_LENGTH ? Colors.primary : Colors.border,
           padding: 16,
-          borderRadius: 8,
+          borderRadius: App.ui.borderRadius.sm,
           width: "100%",
           display: "flex",
           alignItems: "center",

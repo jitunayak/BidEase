@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Easing, Text, TextInput, View } from "react-native";
@@ -71,7 +71,7 @@ export default function search() {
           padding: 10,
           borderWidth: 1,
           borderColor: Colors.border,
-          borderRadius: 8,
+          borderRadius: App.ui.borderRadius.sm,
           gap: 8,
           alignItems: "center",
         }}

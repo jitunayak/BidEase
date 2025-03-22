@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
-import { Colors } from "../Constant";
+import { App, Colors } from "../Constant";
 import { EText } from "./EText";
 
 type IProps = {
@@ -73,7 +73,7 @@ export const ETextInput = (props: IProps) => {
             : isFocused
             ? Colors.primary
             : Colors.border,
-          borderRadius: 8,
+          borderRadius: App.ui.borderRadius.sm,
           paddingVertical: 12,
           paddingHorizontal: 16,
           backgroundColor: Colors.background,

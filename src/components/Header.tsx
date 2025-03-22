@@ -1,4 +1,4 @@
-import { secondaryLabel } from "@bacons/apple-colors";
+import { systemGray } from "@bacons/apple-colors";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { Pressable, View } from "react-native";
@@ -27,8 +27,8 @@ export const Header = (props: IProps) => {
         <Pressable onPress={() => router.dismiss()}>
           <MaterialCommunityIcons
             name="close-circle"
-            size={24}
-            color={secondaryLabel}
+            size={26}
+            color={systemGray}
           />
         </Pressable>
       )}
