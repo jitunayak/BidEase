@@ -21,6 +21,7 @@ type IProps = {
 };
 
 export function Button(props: IProps) {
+  const variant = props.variant ?? "primary";
   return (
     <TouchableOpacity
       style={{
@@ -33,8 +34,7 @@ export function Button(props: IProps) {
         flexDirection: "row",
         gap: 8,
         opacity: props.disabled ? 0.8 : 1,
-        backgroundColor:
-          props.variant === "primary" ? Colors.primary : Colors.border,
+        backgroundColor: props.disabled ? Colors.border : Colors.primary,
         ...(props.style && props.style),
       }}
       onPress={() => {

@@ -1,4 +1,5 @@
 import Octicons from "@expo/vector-icons/Octicons";
+import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
 import { Colors } from "../Constant";
@@ -39,38 +40,40 @@ export const IndividualKYC = ({ user }: { user: User }) => {
       </Text>
 
       {/* Aadhar Card */}
-      <View
-        style={{
-          padding: 14,
-          inset: 0,
-          borderWidth: 0.6,
-          borderRadius: 8,
-          width: "100%",
-          borderColor: Colors.border,
-          gap: 12,
-        }}
-      >
+      <Link href="/(modals)/aadhar">
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            gap: 8,
+            padding: 14,
+            inset: 0,
+            borderWidth: 0.6,
+            borderRadius: 8,
+            width: "100%",
+            borderColor: Colors.border,
+            gap: 12,
           }}
         >
-          <View style={{ flexDirection: "row", gap: 8 }}>
-            <Octicons name="id-badge" size={20} color={Colors.primary} />
-            <Text style={{ color: Colors.text }}>Aadhar Card</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: 8,
+            }}
+          >
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <Octicons name="id-badge" size={20} color={Colors.primary} />
+              <Text style={{ color: Colors.text }}>Aadhar Card</Text>
+            </View>
+            <VerificationStatus isVerified={!!user?.kyc.isAadharVerified} />
           </View>
-          <VerificationStatus isVerified={!!user?.kyc.isAadharVerified} />
+          <Text style={{ color: Colors.secondary }}>
+            {user?.kyc.aadharNumber || "xxxx-xxxx-xxxx"}
+          </Text>
+          <View style={{ flexDirection: "row", gap: 8 }}>
+            <Octicons name="upload" size={20} color={Colors.primary} />
+            <Text style={{ color: Colors.primary }}>Upload Document</Text>
+          </View>
         </View>
-        <Text style={{ color: Colors.secondary }}>
-          {user?.kyc.aadharNumber || "xxxx-xxxx-xxxx"}
-        </Text>
-        <View style={{ flexDirection: "row", gap: 8 }}>
-          <Octicons name="upload" size={20} color={Colors.primary} />
-          <Text style={{ color: Colors.primary }}>Upload Document</Text>
-        </View>
-      </View>
+      </Link>
 
       {/* PAN Verification */}
       <View

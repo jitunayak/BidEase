@@ -60,6 +60,7 @@ export default function RootLayout() {
             // ),
           }}
         />
+        <Stack.Screen name="aadhar" />
       </CsStack>
     </>
   );
