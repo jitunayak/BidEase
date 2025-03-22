@@ -2,6 +2,7 @@ import { App, Colors } from "@/src/Constant";
 import { useLoginScreen } from "@/src/hooks/componentHooks/useLoginScreen";
 import { sanitizePhoneNumber } from "@/src/lib/format";
 import { RNUtils } from "@/src/lib/rn-utils";
+import { PhoneNumberInput } from "@/src/ui";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -10,7 +11,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -48,46 +48,11 @@ export default function Login() {
             </View>
           </View>
           <View style={{ marginBottom: 50, marginTop: 30, padding: 8 }}>
-            <View style={styles.phoneNumberInput}>
-              <Text style={{ fontSize: 12, color: Colors.background }}>
-                Phone Number
-              </Text>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingTop: 8,
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 18,
-                    letterSpacing: 1,
-                    color: Colors.background,
-                  }}
-                >
-                  +91{"   "}
-                </Text>
-                <TextInput
-                  testID="phone-input"
-                  placeholder="111-222-3333"
-                  placeholderTextColor={Colors.border}
-                  style={{
-                    fontSize: 22,
-                    letterSpacing: 1,
-                    color: Colors.background,
-                    width: "90%",
-                  }}
-                  keyboardType="number-pad"
-                  value={phoneNumber}
-                  onChangeText={(e) => {
-                    onChangePhoneNumber(e);
-                  }}
-                  autoFocus={true}
-                />
-              </View>
-            </View>
+            <PhoneNumberInput
+              phoneNumber={phoneNumber}
+              onChangePhoneNumber={onChangePhoneNumber}
+              countryCode="+91"
+            />
             {sanitizePhoneNumber(phoneNumber).length >= 10 && (
               <TouchableOpacity
                 disabled={sanitizePhoneNumber(phoneNumber).length < 10}

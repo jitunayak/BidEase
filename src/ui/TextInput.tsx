@@ -6,8 +6,9 @@ import Animated, {
 } from "react-native-reanimated";
 import { App, Colors } from "../Constant";
 import { EText } from "./EText";
+import { HStack } from "./HStack";
 
-type IProps = {
+export type IETextInputProps = {
   label: string;
   placeholderTextColor?: string;
   style?: any;
@@ -21,9 +22,13 @@ type IProps = {
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
   autoCorrect?: boolean;
   error?: string;
+  rightSection?: React.ReactNode;
+  leftSection?: React.ReactNode;
+  onPressRightSection?: () => void;
+  onPressLeftSection?: () => void;
 } & TextInputProps;
 
-export const ETextInput = (props: IProps) => {
+export const ETextInput = (props: IETextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const textInputRef = useRef<TextInput>(null);
   const animatedStyles = useAnimatedStyle(() => {
@@ -70,7 +75,9 @@ export const ETextInput = (props: IProps) => {
           borderColor: props.error
             ? Colors.error
             : isFocused
-            ? Colors.primary
+            ? props.disabled
+              ? Colors.border
+              : Colors.primary
             : Colors.border,
           borderRadius: App.ui.borderRadius.sm,
           paddingVertical: 12,
@@ -82,27 +89,41 @@ export const ETextInput = (props: IProps) => {
         }}
       >
         <Animated.Text style={[animatedStyles]}>{props.label}</Animated.Text>
-        <TextInput
-          ref={textInputRef}
-          {...props}
-          style={{
-            fontSize: 16,
-            color: props.disabled ? Colors.secondary : Colors.text,
-            width: "100%",
-            ...props.style,
-          }}
-          keyboardType={props.keyboardType || "default"}
-          value={props.value}
-          onChangeText={props.onChangeText}
-          secureTextEntry={props.secureTextEntry}
-          multiline={props.multiline}
-          numberOfLines={props.numberOfLines}
-          autoCapitalize={props.autoCapitalize}
-          autoCorrect={props.autoCorrect}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          editable={!props.disabled}
-        />
+
+        <HStack>
+          {props.leftSection && (
+            <Pressable onPress={props.onPressLeftSection}>
+              {props.leftSection}
+            </Pressable>
+          )}
+
+          <TextInput
+            ref={textInputRef}
+            {...props}
+            style={{
+              fontSize: 16,
+              color: props.disabled ? Colors.secondary : Colors.text,
+              width: "90%",
+              ...props.style,
+            }}
+            keyboardType={props.keyboardType || "default"}
+            value={props.value}
+            onChangeText={props.onChangeText}
+            secureTextEntry={props.secureTextEntry}
+            multiline={props.multiline}
+            numberOfLines={props.numberOfLines}
+            autoCapitalize={props.autoCapitalize}
+            autoCorrect={props.autoCorrect}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            editable={!props.disabled}
+          />
+          {props.rightSection && (
+            <Pressable onPress={props.onPressRightSection}>
+              {props.rightSection}
+            </Pressable>
+          )}
+        </HStack>
       </Pressable>
       {props.error && <EText variant="error">{props.error}</EText>}
     </>

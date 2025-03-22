@@ -1,3 +1,4 @@
+import { TextInputEditable } from "@/src/components";
 import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { useUpdateUserBasicInfoMutation } from "@/src/gql/generated";
@@ -116,10 +117,11 @@ export default function EditProfile() {
           behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={{ flex: 1, width: "100%", gap: 8 }}
         >
-          <ETextInput
+          <TextInputEditable
             label="Name"
             value={data.name}
             onChangeText={(e) => setData({ ...data, name: e })}
+            editOption
           />
           <ETextInput
             label="Phone number"
@@ -127,18 +129,22 @@ export default function EditProfile() {
             disabled
             onChangeText={(e) => setData({ ...data, phoneNumber: e })}
           />
-          <ETextInput
+          <TextInputEditable
             label="Email"
             value={data.email}
             onChangeText={(e) => setData({ ...data, email: e })}
+            editOption
+            onUpdatePressed={() => {}}
           />
+
           <Button
             style={{ marginTop: 8 }}
-            title="Save"
             onPress={onSubmit}
             variant="primary"
             isLoading={loading}
-          />
+          >
+            Save
+          </Button>
         </KeyboardAvoidingView>
       </View>
     </View>
