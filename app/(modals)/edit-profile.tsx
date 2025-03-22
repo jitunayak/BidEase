@@ -81,7 +81,7 @@ export default function EditProfile() {
   };
 
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: Colors.background }}>
       <Header closeButton />
       <View
         style={{
@@ -141,7 +141,7 @@ export default function EditProfile() {
           />
         </KeyboardAvoidingView>
       </View>
-    </>
+    </View>
   );
 }
 

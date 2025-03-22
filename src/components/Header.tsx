@@ -2,7 +2,6 @@ import { secondaryLabel } from "@bacons/apple-colors";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { Pressable, View } from "react-native";
-import { Colors } from "../Constant";
 import { EText } from "../ui";
 
 type IProps = {
@@ -19,7 +18,6 @@ export const Header = (props: IProps) => {
         paddingBottom: 32,
         paddingTop: 16,
         paddingHorizontal: 8,
-        backgroundColor: Colors.background,
       }}
     >
       <EText variant="title" style={{}}>
