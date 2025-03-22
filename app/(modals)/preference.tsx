@@ -2,7 +2,7 @@ import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
-import { EText, Radio } from "@/src/ui";
+import { Radio } from "@/src/ui";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -35,15 +35,25 @@ const Item = ({
         alignItems: "center",
         justifyContent: "space-between",
         padding: 32,
-        borderWidth: 1,
+        borderWidth: 2,
         marginVertical: 8,
         borderRadius: 8,
         borderColor: isSelected ? Colors.primary : Colors.border,
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        {icon}
-        <EText style={{ marginLeft: 16, fontSize: 16 }}>{title}</EText>
+        {React.cloneElement(icon as React.ReactElement, {
+          color: isSelected ? Colors.primary : Colors.border,
+        })}
+        <Text
+          style={{
+            marginLeft: 16,
+            fontSize: 16,
+            color: isSelected ? Colors.primary : Colors.secondary,
+          }}
+        >
+          {title}
+        </Text>
       </View>
       <Radio isDefaultOn={isSelected} onToggle={onPress} isOn={isSelected} />
     </TouchableOpacity>
@@ -103,7 +113,6 @@ export default function NotificationPreference() {
   return (
     <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
       <Header title="Preferences" closeButton />
-      preferences.vehicles &&{" "}
       <Item
         title="Vehicles"
         icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
@@ -112,7 +121,6 @@ export default function NotificationPreference() {
         }}
         isSelected={!!preferences.vehicles}
       />
-      , preferences.parking &&{" "}
       <Item
         title="Lands"
         icon={
@@ -123,7 +131,6 @@ export default function NotificationPreference() {
         }}
         isSelected={preferences.lands}
       />
-      , preferences.traffic &&{" "}
       <Item
         title="Property"
         icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
@@ -132,7 +139,6 @@ export default function NotificationPreference() {
         }}
         isSelected={preferences.property}
       />
-      , preferences.weather &&{" "}
       <Item
         title="Gold"
         icon={
@@ -170,3 +176,4 @@ export default function NotificationPreference() {
     </View>
   );
 }
+

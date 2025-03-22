@@ -1,6 +1,6 @@
 import { useGetUserLazyQuery, useVerifyOtpMutation } from "@/src/gql/generated";
-import { CustomGraphQlError, getGraphQlError } from "@/src/graphqlHelpers";
 import { sanitizePhoneNumber } from "@/src/lib/format";
+import { CustomGraphQlError, getGraphQlError } from "@/src/lib/graphqlHelpers";
 import { ApolloError } from "@apollo/client";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";

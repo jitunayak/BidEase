@@ -1,6 +1,6 @@
 import { CsStack } from "@/src/components/CsStack";
-import client from "@/src/GraphQlClient";
 import { useStore } from "@/src/hooks/useStorage";
+import client from "@/src/lib/GraphQlClient";
 import { ApolloProvider } from "@apollo/client";
 import { Slot, Stack, useRouter } from "expo-router";
 import { useEffect } from "react";

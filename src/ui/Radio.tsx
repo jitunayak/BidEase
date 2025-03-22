@@ -26,7 +26,7 @@ export const Radio: React.FC<IProps> = (props) => {
     <Pressable onPress={handleToggle}>
       {isOn ? (
         <FontAwesome6
-          name="dot-circle"
+          name="circle-check"
           size={22}
           color={props.disabled ? Colors.secondary : Colors.primary}
         />
