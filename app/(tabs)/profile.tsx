@@ -41,7 +41,6 @@ export default function Profile() {
         style={{
           flex: 1,
           alignItems: "flex-start",
-          padding: 8,
           gap: 8,
         }}
       >

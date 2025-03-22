@@ -146,6 +146,7 @@ function RootLayout() {
         name="profile"
         options={{
           title: "Profile",
+          headerShown: false,
           tabBarIcon: (tab) => (
             <Octicons
               name="person"
