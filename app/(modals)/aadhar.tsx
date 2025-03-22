@@ -55,6 +55,7 @@ export default function Aadhar() {
           label="Aadhar Number"
           value={aadharNumber}
           onChangeText={handleAadharNumberChange}
+          keyboardType="numeric"
         />
         <Button
           title="VERIFY"

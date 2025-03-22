@@ -14,10 +14,9 @@ export default function RootLayout() {
         options={{
           headerBackTitle: "Home",
           title: "Notifications",
-
-          headerBackButtonDisplayMode: "minimal",
           headerLeft: () => (
             <TouchableOpacity
+              style={{ paddingRight: 10 }}
               onPress={() => {
                 router.back();
               }}

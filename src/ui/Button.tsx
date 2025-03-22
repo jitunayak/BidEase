@@ -1,4 +1,3 @@
-import * as Haptics from "expo-haptics";
 import React from "react";
 import {
   ActivityIndicator,
@@ -8,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { App, Colors } from "../Constant";
+import { RNUtils } from "../lib/rn-utils";
 
 type IProps = {
   onPress: () => void;
@@ -38,7 +38,7 @@ export function Button(props: IProps) {
         ...(props.style && (props.style as object)),
       }}
       onPress={() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        RNUtils.giveHapticFeedback();
         if (props.disabled || props.isLoading) return;
         props.onPress();
       }}

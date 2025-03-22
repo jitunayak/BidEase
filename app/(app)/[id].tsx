@@ -49,7 +49,6 @@ export const AuctionDetails = (props: {
   return (
     <Container>
       <EText variant="title">{props.name}</EText>
-
       <EText variant="label">{props.description}</EText>
       <View
         style={{

@@ -3,12 +3,12 @@ import { App, Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
 import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/src/lib/graphql/users.query";
+import { uiStyles } from "@/src/Theme";
 import { EText } from "@/src/ui";
 import { useMutation } from "@apollo/client";
-import * as AppleColors from "@bacons/apple-colors";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
-import { StyleSheet, Switch, View } from "react-native";
+import { SafeAreaView, StyleSheet, Switch, View } from "react-native";
 
 const NotificationItem = ({
   icon,
@@ -82,61 +82,62 @@ export default function NotificationPreference() {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: AppleColors.systemGroupedBackground,
-        padding: 8,
-      }}
-    >
-      <Header title="Notification Preferences" closeButton />
-
-      <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
-        GET NOTIFICATIONS
-      </EText>
-      <View style={styles.container}>
-        <NotificationItem
-          icon={<Octicons name="bell" size={18} color="black" />}
-          title="App Notification"
-          description="Control how you receive notifications"
-          value={preferences.app}
-          onValueChange={(value) => handleToggle("app", value)}
-        />
-        <NotificationItem
-          icon={<Octicons name="mail" size={18} color="black" />}
-          title="Email Notification"
-          description="Control how you receive emails"
-          value={preferences.email}
-          onValueChange={(value) => handleToggle("email", value)}
-        />
-        <NotificationItem
-          icon={<Octicons name="comment" size={18} color="black" />}
-          title="SMS Notification"
-          description="Receives text messages"
-          value={preferences.sms}
-          onValueChange={(value) => handleToggle("sms", value)}
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.background,
+          padding: 8,
+        }}
+      >
+        <Header title="Notification Preferences" closeButton />
+        <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
+          GET NOTIFICATIONS
+        </EText>
+        <View style={styles.container}>
+          <NotificationItem
+            icon={<Octicons name="bell" size={18} color="black" />}
+            title="App Notification"
+            description="Control how you receive notifications"
+            value={preferences.app}
+            onValueChange={(value) => handleToggle("app", value)}
+          />
+          <NotificationItem
+            icon={<Octicons name="mail" size={18} color="black" />}
+            title="Email Notification"
+            description="Control how you receive emails"
+            value={preferences.email}
+            onValueChange={(value) => handleToggle("email", value)}
+          />
+          <NotificationItem
+            icon={<Octicons name="comment" size={18} color="black" />}
+            title="SMS Notification"
+            description="Receives text messages"
+            value={preferences.sms}
+            onValueChange={(value) => handleToggle("sms", value)}
+          />
+        </View>
+        <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
+          OFFERS AND UPDATES
+        </EText>
+        <View style={styles.container}>
+          <NotificationItem
+            icon={<Octicons name="bell" size={18} color="black" />}
+            title="Latest deals and offers"
+            description="Get updated with our latest deals"
+            value={preferences.app}
+            onValueChange={(value) => handleToggle("app", value)}
+          />
+          <NotificationItem
+            icon={<Octicons name="bell" size={18} color="black" />}
+            title="Auction bidding"
+            description="Know if somebody outbids you"
+            value={preferences.app}
+            onValueChange={(value) => handleToggle("app", value)}
+          />
+        </View>
       </View>
-      <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
-        OFFERS AND UPDATES
-      </EText>
-      <View style={styles.container}>
-        <NotificationItem
-          icon={<Octicons name="bell" size={18} color="black" />}
-          title="Latest deals and offers"
-          description="Get updated with our latest deals"
-          value={preferences.app}
-          onValueChange={(value) => handleToggle("app", value)}
-        />
-        <NotificationItem
-          icon={<Octicons name="bell" size={18} color="black" />}
-          title="Auction bidding"
-          description="Know if somebody outbids you"
-          value={preferences.app}
-          onValueChange={(value) => handleToggle("app", value)}
-        />
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -145,8 +146,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     gap: 16,
     margin: 8,
-    borderRadius: App.ui.borderRadius.sm,
+    borderRadius: App.ui.borderRadius.md,
     padding: 8,
+    borderWidth: 0.5,
+    borderColor: Colors.border,
+    ...uiStyles.shadowLight,
   },
   item: {
     justifyContent: "space-between",

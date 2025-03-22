@@ -13,12 +13,9 @@ export const useLoginScreen = () => {
   };
 
   const onChangePhoneNumber = (number: string) => {
+    console.log(typeof number);
     const cleanedPhoneNumber = sanitizePhoneNumber(number);
-    setPhoneNumber(
-      cleanedPhoneNumber.length > 9
-        ? formatPhoneNumber(cleanedPhoneNumber)
-        : cleanedPhoneNumber
-    );
+    setPhoneNumber(formatPhoneNumber(cleanedPhoneNumber));
   };
 
   return {

@@ -1,6 +1,7 @@
 import * as AppleColors from "@bacons/apple-colors";
 import React from "react";
 import { Text, TextStyle } from "react-native";
+import { Colors } from "../Constant";
 
 export function EText({
   style,
@@ -29,17 +30,17 @@ export function EText({
   const textColor = () => {
     switch (variant) {
       case "title":
-        return AppleColors.label;
+        return Colors.text;
       case "subtitle":
-        return AppleColors.secondaryLabel;
+        return Colors.secondary;
       case "body":
-        return AppleColors.label;
+        return Colors.text;
       case "label":
-        return AppleColors.secondaryLabel;
+        return Colors.secondary;
       case "link":
         return AppleColors.systemBlue;
       case "error":
-        return AppleColors.systemRed;
+        return Colors.error;
       default:
         return AppleColors.label;
     }

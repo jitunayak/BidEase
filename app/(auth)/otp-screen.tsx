@@ -1,5 +1,6 @@
 import { App, Colors } from "@/src/Constant";
 import { useOTPScreen } from "@/src/hooks/componentHooks/useOtpScreen";
+import { RNUtils } from "@/src/lib/rn-utils";
 import { HStack } from "@/src/ui";
 import React, { useRef } from "react";
 import {
@@ -89,6 +90,7 @@ export default function OtpScreen() {
         }}
         disabled={otp.length !== OTP_LENGTH}
         onPress={() => {
+          RNUtils.giveHapticFeedback();
           handleOtpVerification();
         }}
       >
