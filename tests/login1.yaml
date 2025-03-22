@@ -1,21 +1,15 @@
 appId: com.anonymous.BidEase
 env:
-    PHONE_NUMBER: 7377056996
-    OTP: 0000
-    NAME: John Doe2
-    EMAIL: oK3@example.com
+  PHONE_NUMBER: 7377056991
+  OTP: 0000
+  NAME: Jitu Nayak
+  EMAIL: jitu.nayak@ahouse.in
 ---
 - launchApp:
     clearState: true
-
-# - runScript: 
-#     file: "scripts/delete-user.ts"
-#     env:
-#         phoneNumber: ${PHONE_NUMBER}
-
 - tapOn:
     id: phone-input
-- assertVisible: 
+- assertVisible:
     text: "continue"
     enabled: false
 - inputText: ${PHONE_NUMBER}
@@ -29,20 +23,9 @@ env:
 - inputText: ${OTP}
 - tapOn: Verify
 
-- tapOn: Name
-- inputText: ${NAME}
-- tapOn: Email
-- inputText: ${EMAIL}
-- tapOn: Save
-- tapOn: Save
+- tapOn: "Profile, tab, 5 of 5"
+- tapOn: "Profile, tab, 5 of 5"
 
-- tapOn: "OK"
-
-- tapOn:
-    point: 87%,93%
-- tapOn:
-    point: 87%,93%
 - assertVisible: ${PHONE_NUMBER}
 - assertVisible: ${NAME}
 - assertVisible: ${EMAIL}
-

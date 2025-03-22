@@ -10,8 +10,8 @@ import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename
 const removeTypenameLink = removeTypenameFromVariables();
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/graphql",
-  // uri: "https://ahouse-hono-server.onrender.com/graphql",
+  // uri: "http://localhost:3000/graphql",
+  uri: "https://ahouse-hono-server.onrender.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -28,6 +28,7 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   link: from([removeTypenameLink, httpLink]),
   cache: new InMemoryCache(),
+
 });
 
 export default client;

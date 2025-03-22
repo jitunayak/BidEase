@@ -35,8 +35,8 @@ export const PersonalInfo = () => {
         />
         <Link
           href={{
-            pathname: "/(app)/edit-profile",
-            params: { navigateTo: "dismiss" },
+            pathname: "/(modals)/edit-profile",
+            params: { navigateTo: "dismiss", userId: user?.id ?? "" },
           }}
         >
           <Text style={{ color: Colors.primary, fontSize: 14 }}>

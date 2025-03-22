@@ -1,7 +1,6 @@
 import { Colors } from "@/src/Constant";
-import * as Haptics from "expo-haptics";
-import { Link, useRouter } from "expo-router";
-import { useState } from "react";
+import { useLoginScreen } from "@/src/hooks/componentHooks/useLoginScreen";
+import { Link } from "expo-router";
 import {
   Image,
   KeyboardAvoidingView,
@@ -15,13 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
-  const router = useRouter();
-  const [phoneNumber, setPhoneNumber] = useState("");
-
-  const handleLogin = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.navigate(`/otp-screen?phoneNumber=${phoneNumber}`);
-  };
+  const { handleLogin, phoneNumber, onChangePhoneNumber } = useLoginScreen();
   return (
     <View
       style={{
@@ -51,7 +44,7 @@ export default function Login() {
         </View>
         <View style={{ marginBottom: 50, marginTop: 30, padding: 8 }}>
           <View style={styles.phoneNumberInput}>
-            <Text style={{ fontSize: 12, color: Colors.border }}>
+            <Text style={{ fontSize: 12, color: Colors.background }}>
               Phone Number
             </Text>
 
@@ -72,7 +65,8 @@ export default function Login() {
                 +91{"   "}
               </Text>
               <TextInput
-                placeholder="1234567890"
+                testID="phone-input"
+                placeholder="111-222-3333"
                 placeholderTextColor={Colors.border}
                 style={{
                   fontSize: 22,
@@ -81,9 +75,8 @@ export default function Login() {
                 }}
                 keyboardType="phone-pad"
                 value={phoneNumber}
-                maxLength={10}
                 onChangeText={(e) => {
-                  setPhoneNumber(e);
+                  onChangePhoneNumber(e);
                 }}
                 autoFocus={true}
               />
@@ -110,7 +103,7 @@ export default function Login() {
           <Text
             style={{
               marginTop: 10,
-              color: Colors.border,
+              color: Colors.background,
               fontSize: 12,
               paddingHorizontal: 20,
             }}

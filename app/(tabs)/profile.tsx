@@ -5,38 +5,37 @@ import {
   PersonalInfo,
 } from "@/src/components";
 import { Colors } from "@/src/Constant";
-import { useGetUserQuery } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { Link } from "expo-router";
-import React, { useEffect } from "react";
-import { RefreshControl, ScrollView, View } from "react-native";
+import React from "react";
+import { ScrollView, View } from "react-native";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function Profile() {
   const { user, setUser } = useStore();
-  const { error, data, loading, refetch } = useGetUserQuery({
-    variables: {
-      id: "4",
-    },
-  });
-  console.log(data);
+  // const { error, data, loading, refetch } = useGetUserQuery({
+  //   variables: {
+  //     id: user?.id ?? "",
+  //   },
+  // });
+  // console.log({ user });
 
-  useEffect(() => {
-    setUser(null);
-    if (error) {
-      alert(error.message);
-    } else if (data?.user) {
-      setUser(data.user);
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   setUser(null);
+  //   if (error) {
+  //     alert(error.message);
+  //   } else if (data?.user) {
+  //     setUser(data.user);
+  //   }
+  // }, [loading]);
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, backgroundColor: Colors.background }}
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
-      }
+      // refreshControl={
+      // <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
+      // }
     >
       <View
         style={{
@@ -47,7 +46,7 @@ export default function Profile() {
           gap: 8,
         }}
       >
-        {loading && (
+        {!user && (
           <>
             <ShimmerPlaceholder
               style={{
@@ -66,12 +65,12 @@ export default function Profile() {
           </>
         )}
 
-        {data?.user && !loading && user && (
+        {user && (
           <>
             {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />
             <Link
-              href={"/(app)/preference"}
+              href={"/(modals)/preference"}
               push
               style={{
                 color: Colors.primary,

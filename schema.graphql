@@ -42,8 +42,9 @@ input AuctionUpdateInput {
 }
 
 type AuthResponse {
+  id: ID!
   token: String!
-  user: User!
+  user: User
 }
 
 type Bank {

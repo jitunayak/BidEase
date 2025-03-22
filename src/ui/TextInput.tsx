@@ -74,7 +74,8 @@ export const ETextInput = (props: IProps) => {
             ? Colors.primary
             : Colors.border,
           borderRadius: 8,
-          padding: 8,
+          paddingVertical: 12,
+          paddingHorizontal: 16,
           backgroundColor: Colors.background,
           width: "100%",
           gap: 6,
@@ -86,7 +87,7 @@ export const ETextInput = (props: IProps) => {
           ref={textInputRef}
           {...props}
           style={{
-            fontSize: 16,
+            fontSize: 18,
             color: props.disabled ? Colors.secondary : AppleColors.darkText,
             width: "100%",
             ...props.style,

@@ -1,7 +1,8 @@
-import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/graphql/users.query";
+import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
+import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/src/lib/graphql/users.query";
 import { EText } from "@/src/ui";
 import { useMutation } from "@apollo/client";
 import * as AppleColors from "@bacons/apple-colors";
@@ -68,7 +69,7 @@ export default function NotificationPreference() {
 
     updateNotificationPreference({
       variables: {
-        id: "4",
+        id: user?.id,
         pushNotifications: preferences.app,
         emailNotifications: preferences.email,
         smsNotifications: preferences.sms,
@@ -88,6 +89,8 @@ export default function NotificationPreference() {
         padding: 8,
       }}
     >
+      <Header title="Notification Preferences" closeButton />
+
       <EText variant="label" style={{ paddingLeft: 16, paddingTop: 16 }}>
         GET NOTIFICATIONS
       </EText>

@@ -59,8 +59,9 @@ export type AuctionUpdateInput = {
 
 export type AuthResponse = {
   __typename?: 'AuthResponse';
+  id: Scalars['ID']['output'];
   token: Scalars['String']['output'];
-  user: User;
+  user?: Maybe<User>;
 };
 
 export type Bank = {
@@ -318,7 +319,7 @@ export type UpdateUserBasicInfoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, phoneNumber?: string | null } };
+export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
 
 export type SendOtpMutationVariables = Exact<{
   phoneNumber: Scalars['String']['input'];
@@ -333,7 +334,7 @@ export type VerifyOtpMutationVariables = Exact<{
 }>;
 
 
-export type VerifyOtpMutation = { __typename?: 'Mutation', verifyOtp: { __typename?: 'AuthResponse', token: string, user: { __typename?: 'User', id: string } } };
+export type VerifyOtpMutation = { __typename?: 'Mutation', verifyOtp: { __typename?: 'AuthResponse', token: string, id: string, user?: { __typename?: 'User', id: string } | null } };
 
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
@@ -573,13 +574,10 @@ export const UpdateUserBasicInfoDocument = gql`
     id: $id
     input: {name: $name, email: $email, phoneNumber: $phoneNumber}
   ) {
-    id
-    name
-    email
-    phoneNumber
+    ...UserFragment
   }
 }
-    `;
+    ${UserFragmentFragmentDoc}`;
 export type UpdateUserBasicInfoMutationFn = Apollo.MutationFunction<UpdateUserBasicInfoMutation, UpdateUserBasicInfoMutationVariables>;
 
 /**
@@ -644,6 +642,7 @@ export const VerifyOtpDocument = gql`
     mutation verifyOtp($phoneNumber: String!, $otp: String!) {
   verifyOtp(phoneNumber: $phoneNumber, otp: $otp) {
     token
+    id
     user {
       id
     }

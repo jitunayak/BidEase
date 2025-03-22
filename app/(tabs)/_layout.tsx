@@ -78,12 +78,12 @@ function RootLayout() {
               }}
             >
               <TouchableOpacity
-                onPress={() => router.navigate("/(app)/app/search")}
+                onPress={() => router.navigate("/(app)/search")}
               >
                 <Octicons name="search" size={22} color={Colors.text} />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => router.navigate("/(app)/app/notification")}
+                onPress={() => router.navigate("/(app)/notification")}
               >
                 <Badge count={notifications.filter((n) => !n.read).length}>
                   <Octicons name="bell" size={22} color={Colors.text} />
