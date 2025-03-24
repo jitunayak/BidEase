@@ -4,7 +4,7 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { App, Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
-import { EText } from "../ui";
+import { EText, HStack } from "../ui";
 
 export const PersonalInfo = () => {
   const { user } = useStore();
@@ -63,9 +63,21 @@ export const PersonalInfo = () => {
               params: { navigateTo: "dismiss", userId: user?.id ?? "" },
             }}
           >
-            <Text style={{ color: Colors.background, fontSize: 14 }}>
-              Edit Profile
-            </Text>
+            <HStack justifyContent="flex-start">
+              <Text
+                style={{
+                  color: Colors.background,
+                  fontSize: 14,
+                }}
+              >
+                Edit Profile
+              </Text>
+              <Octicons
+                name="chevron-right"
+                size={16}
+                color={Colors.background}
+              />
+            </HStack>
           </Link>
         </View>
 

@@ -1,8 +1,9 @@
+import { Colors } from "@/src/Constant";
 import { cleanedInput } from "@/src/lib/format";
 import { Button, EText } from "@/src/ui";
 import { ETextInput } from "@/src/ui/TextInput";
 import { useState } from "react";
-import { Image, View } from "react-native";
+import { Image, KeyboardAvoidingView } from "react-native";
 
 export default function Aadhar() {
   const [aadharNumber, setAadharNumber] = useState("");
@@ -29,42 +30,44 @@ export default function Aadhar() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      {/* <Header title="Aadhar verification" closeButton /> */}
-
-      <View
-        style={{
-          padding: 16,
-          gap: 16,
-
-          marginTop: 16,
-          justifyContent: "center",
-          alignItems: "center",
+    <KeyboardAvoidingView
+      style={{
+        paddingHorizontal: 16,
+        gap: 16,
+        paddingTop: 40,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: Colors.background,
+        flex: 1,
+      }}
+    >
+      <EText variant="title" style={{}}>
+        Aadhar Verification
+      </EText>
+      <Image
+        source={{
+          uri: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
         }}
+        style={{ height: 100, width: 120, resizeMode: "contain" }}
+      />
+      <ETextInput
+        label="Aadhar Number"
+        value={aadharNumber}
+        onChangeText={handleAadharNumberChange}
+        keyboardType="numeric"
+        autoFocus={false}
+      />
+
+      <Button
+        variant="primary"
+        onPress={() => {
+          console.log(aadharNumber);
+        }}
+
+        // disabled={cleanedInput(aadharNumber, 12).length !== 12}
       >
-        <EText variant="title" style={{ marginTop: 16 }}>
-          Enter Aadhar Number
-        </EText>
-        <Image
-          source={{
-            uri: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/800px-Aadhaar_Logo.svg.png",
-          }}
-          style={{ height: 100, width: 120, resizeMode: "contain" }}
-        />
-        <ETextInput
-          label="Aadhar Number"
-          value={aadharNumber}
-          onChangeText={handleAadharNumberChange}
-          keyboardType="numeric"
-        />
-        <Button
-          title="VERIFY"
-          onPress={() => {}}
-          isLoading={false}
-          style={{ width: "100%" }}
-          disabled={cleanedInput(aadharNumber, 12).length !== 12}
-        />
-      </View>
-    </View>
+        VERIFY
+      </Button>
+    </KeyboardAvoidingView>
   );
 }

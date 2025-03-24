@@ -1,13 +1,13 @@
 import React from "react";
 import {
   ActivityIndicator,
-  Text,
   TouchableOpacity,
   TouchableOpacityProps,
   View,
 } from "react-native";
 import { App, Colors } from "../Constant";
 import { RNUtils } from "../lib/rn-utils";
+import { EText } from "./EText";
 
 type IProps = {
   onPress?: () => void;
@@ -69,6 +69,7 @@ export function Button(props: IProps) {
         borderWidth: 2,
         borderColor: "transparent",
         maxHeight: 50,
+        width: "100%",
         opacity: props.disabled ? 0.8 : 1,
         backgroundColor: getBackgroundColor(),
         ...(props.style && (props.style as object)),
@@ -80,18 +81,19 @@ export function Button(props: IProps) {
       onPress={() => {
         RNUtils.giveHapticFeedback();
         if (props.disabled || props.isLoading) return;
-        props.onPress();
+        props.onPress && props.onPress();
       }}
     >
       <View>{props.leftIcon}</View>
       {props.isLoading ? (
         <ActivityIndicator color="white" />
       ) : (
-        <Text
-          style={{ color: getTextColor(), fontWeight: "600", fontSize: 16 }}
+        <EText
+          variant="body"
+          style={{ color: getTextColor(), fontWeight: "600" }}
         >
-          {props.title ?? props.children}
-        </Text>
+          {props.title || props.children}
+        </EText>
       )}
       <View>{props.rightIcon}</View>
     </TouchableOpacity>
