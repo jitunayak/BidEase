@@ -1,7 +1,7 @@
-import { Header } from "@/src/components/Header";
 import { App } from "@/src/Constant";
 import { uiStyles } from "@/src/Theme";
 import { Button, EText, HStack, Radio, VStack } from "@/src/ui";
+import { Header } from "@/src/ui/Header";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";

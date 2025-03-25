@@ -1,8 +1,8 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import { Pressable, View } from "react-native";
+import { EText } from ".";
 import { Colors } from "../Constant";
-import { EText } from "../ui";
 
 type IProps = {
   title?: string;

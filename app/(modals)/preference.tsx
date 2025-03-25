@@ -1,8 +1,8 @@
-import { Header } from "@/src/components/Header";
 import { App, Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { Radio } from "@/src/ui";
+import { Header } from "@/src/ui/Header";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -181,4 +181,3 @@ export default function NotificationPreference() {
     </View>
   );
 }
-

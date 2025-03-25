@@ -82,12 +82,12 @@ export default function Home() {
   );
 
   return (
+    // <View style={uiStyles.container}>
     <FlatList
       refreshControl={
         <RefreshControl
           refreshing={loading}
           onRefresh={refetch}
-          tintColor={Colors.primary}
           title="Pull to refresh"
         />
       }
@@ -135,5 +135,6 @@ export default function Home() {
         </>
       )}
     />
+    // </View>
   );
 }

@@ -1,9 +1,9 @@
 import { TextInputEditable } from "@/src/components";
-import { Header } from "@/src/components/Header";
 import { Colors } from "@/src/Constant";
 import { useUpdateUserBasicInfoMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { Button, EText } from "@/src/ui";
+import { Header } from "@/src/ui/Header";
 import { ETextInput } from "@/src/ui/TextInput";
 import Octicons from "@expo/vector-icons/Octicons";
 import * as ImagePicker from "expo-image-picker";

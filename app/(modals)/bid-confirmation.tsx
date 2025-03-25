@@ -1,6 +1,6 @@
-import { Header } from "@/src/components/Header";
 import { App } from "@/src/Constant";
 import { Button, EText, VStack } from "@/src/ui";
+import { Header } from "@/src/ui/Header";
 import Octicons from "@expo/vector-icons/Octicons";
 import { router } from "expo-router";
 import { View } from "react-native";

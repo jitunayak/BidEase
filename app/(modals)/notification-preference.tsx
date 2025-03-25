@@ -1,10 +1,10 @@
-import { Header } from "@/src/components/Header";
 import { App, Colors } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
 import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/src/lib/graphql/users.query";
 import { uiStyles } from "@/src/Theme";
 import { EText } from "@/src/ui";
+import { Header } from "@/src/ui/Header";
 import { useMutation } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
