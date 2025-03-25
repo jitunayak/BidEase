@@ -2,10 +2,16 @@ import { App } from "@/src/Constant";
 import { Button, EText, VStack } from "@/src/ui";
 import { Header } from "@/src/ui/Header";
 import Octicons from "@expo/vector-icons/Octicons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 
+type IProps = {
+  title?: string;
+  bid: string;
+  id: string;
+};
 export default function BidPayment() {
+  const { bid, id, title } = useLocalSearchParams<IProps>();
   return (
     <View style={{ flex: 1, backgroundColor: App.colors.background }}>
       <Header closeButton />
@@ -41,10 +47,14 @@ export default function BidPayment() {
           }}
         >
           <EText variant="subtitle">Transaction Details</EText>
-          <EText variant="label">Auction ID: 123456</EText>
-          <EText variant="label">Bid Amount: ₹10,000</EText>
+          <EText variant="label">Auction ID: {id}</EText>
+          <EText variant="label">
+            Bid Amount: ₹{Number(bid).toLocaleString()}
+          </EText>
           <EText variant="label">Service fee : 5%</EText>
-          <EText variant="title">₹12,500</EText>
+          <EText variant="title">
+            ₹{(Number(bid) + Number(bid) * 0.05).toLocaleString()}
+          </EText>
         </View>
         <View style={{ gap: 8, marginVertical: App.ui.padding.xl }}>
           <EText variant="subtitle">What is next ?</EText>

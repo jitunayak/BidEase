@@ -96,7 +96,7 @@ export default function BidPayment() {
             router.dismiss();
             router.push({
               pathname: "/(modals)/bid-confirmation",
-              params: { id },
+              params: { id, title, bid },
             });
           }}
         >

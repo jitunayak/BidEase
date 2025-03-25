@@ -3,9 +3,10 @@ import Octicons from "@expo/vector-icons/Octicons";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Easing, Text, TextInput, View } from "react-native";
 
+const keywords = ["auction", "gold", "property"];
 export default function search() {
-  const [searchKeyword, setSearchKeyword] = useState("Search");
-  const keywords = ["auction", "gold", "property"];
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState(keywords[0]);
   const keywordIndex = useRef(0);
   const slideAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
@@ -70,29 +71,35 @@ export default function search() {
           flexDirection: "row",
           padding: 10,
           borderWidth: 1,
-          borderColor: Colors.border,
+          borderColor: App.colors.border,
           borderRadius: App.ui.borderRadius.sm,
           gap: 8,
           alignItems: "center",
+          backgroundColor: App.colors.secondaryBackground,
         }}
       >
-        <Octicons name="search" size={18} color={Colors.primary} />
-        <View
-          style={{
-            position: "absolute",
-            left: 50,
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-            gap: 4,
-          }}
-        >
-          <Text>Search</Text>
-          <Animated.Text style={animatedStyle}>{searchKeyword}</Animated.Text>
-        </View>
+        <Octicons name="search" size={18} color={App.colors.text} />
+        {searchQuery.length === 0 && (
+          <View
+            style={{
+              position: "absolute",
+              left: 36,
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              gap: 4,
+            }}
+          >
+            <Text>Search</Text>
+            <Animated.Text style={animatedStyle}>{searchKeyword}</Animated.Text>
+          </View>
+        )}
+
         {/* Search */}
         <TextInput
+          value={searchQuery}
           // placeholder=""
+          onChangeText={(text) => setSearchQuery(text)}
           clearButtonMode="always"
           autoFocus={true}
           style={{
