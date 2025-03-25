@@ -4,6 +4,7 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { App, Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
+import { uiStyles } from "../Theme";
 import { EText, HStack } from "../ui";
 
 export const PersonalInfo = () => {
@@ -128,19 +129,15 @@ export const PersonalInfo = () => {
           display: "flex",
           flexDirection: "row",
           shadowColor: "#000",
-          backgroundColor: Colors.background,
         }}
       >
         <View
           style={[
             {
               gap: 14,
-              padding: App.ui.padding.lg,
-              borderWidth: 0.5,
-              borderColor: Colors.border,
-              backgroundColor: Colors.background,
               borderRadius: App.ui.borderRadius.sm,
               width: "100%",
+              ...uiStyles.outlineContainer,
             },
           ]}
         >

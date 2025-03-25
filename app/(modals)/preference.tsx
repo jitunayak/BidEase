@@ -39,7 +39,7 @@ const Item = ({
         marginVertical: 4,
         borderRadius: App.ui.borderRadius.sm,
         // borderColor: Colors.border,
-        borderColor: isSelected ? Colors.primary : Colors.border,
+        borderColor: isSelected ? Colors.primary : App.colors.border,
       }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>

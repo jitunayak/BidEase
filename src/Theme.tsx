@@ -25,5 +25,10 @@ export const uiStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: App.colors.border,
     padding: 16,
+    borderRadius: App.ui.borderRadius.sm,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: App.colors.background,
   },
 });

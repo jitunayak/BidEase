@@ -143,20 +143,16 @@ export default function NotificationPreference() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
     gap: 16,
     margin: 8,
     borderRadius: App.ui.borderRadius.md,
-    padding: 8,
-    borderWidth: 0.5,
-    borderColor: Colors.border,
-    ...uiStyles.shadowLight,
+    ...uiStyles.outlineContainer,
   },
   item: {
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.background,
+    backgroundColor: App.colors.secondaryBackground,
     paddingHorizontal: 8,
     margin: 8,
     borderRadius: App.ui.borderRadius.sm,

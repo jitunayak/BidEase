@@ -20,9 +20,16 @@ export default function BidPayment() {
   const isButtonDisabled = selectedPayment === null;
 
   return (
-    <View style={{ flex: 1, backgroundColor: App.colors.background }}>
+    <View style={[uiStyles.container]}>
       <Header closeButton />
-      <View style={{ flex: 1, padding: 32, gap: 16, marginBottom: 10 }}>
+      <View
+        style={{
+          flex: 1,
+          padding: App.ui.padding.xl,
+          gap: 16,
+          marginBottom: 10,
+        }}
+      >
         <HStack alignItems="flex-start">
           <Image
             source={{ uri: image }}
