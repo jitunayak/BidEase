@@ -31,7 +31,7 @@ export function EText({
       case "title":
         return Colors.text;
       case "subtitle":
-        return Colors.secondary;
+        return Colors.text;
       case "body":
         return Colors.text;
       case "label":

@@ -1,20 +1,22 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { App } from "../Constant";
 import { uiStyles } from "../Theme";
 
 export default function Banner() {
   return (
     <View style={[uiStyles.shadow, { borderRadius: 16, position: "relative" }]}>
-      <Image
+      <View
         style={{
           width: "100%",
           height: 200,
           borderRadius: App.ui.borderRadius.lg,
           position: "absolute",
+          backgroundColor: App.colors.success,
         }}
-        source={require("../../assets/images/banner.png")}
+        // source={require("../../assets/images/asset1.png")}
       />
+
       <View
         style={{
           width: "100%",
@@ -23,8 +25,8 @@ export default function Banner() {
           backgroundColor: "black",
           opacity: 0.2,
           borderRadius: App.ui.borderRadius.lg,
-          backgroundImage:
-            "linear-gradient(to bottom,rgb(255, 109, 109), rgba(80, 112, 218, 0.1))",
+          // backgroundImage:
+          //   "linear-gradient(to bottom,rgb(255, 109, 109), rgba(80, 112, 218, 0.1))",
         }}
       />
 

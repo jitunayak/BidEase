@@ -1,8 +1,8 @@
 import { App, Colors } from "@/src/Constant";
-import { useAuctionQuery } from "@/src/gql/generated";
+import { Auction, useAuctionQuery } from "@/src/gql/generated";
 import { Button, EText, HStack, VStack } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Image, RefreshControl, ScrollView, Text, View } from "react-native";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
@@ -82,7 +82,7 @@ export const AuctionDetails = (props: {
   );
 };
 
-export const AuctionQuickBidOptions = (props: { bid: number }) => {
+export const AuctionQuickBidOptions = (props: Auction) => {
   return (
     <View
       style={{
@@ -176,7 +176,22 @@ export const AuctionQuickBidOptions = (props: { bid: number }) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Button variant="primary" onPress={() => {}} title="Place bid" />
+        <Button
+          fullWidth
+          variant="primary"
+          onPress={() => {
+            router.push({
+              pathname: "/(modals)/bid-payment",
+              params: {
+                id: props.id,
+                bid: props.bid,
+                image: props.images[0],
+                title: props.title,
+              },
+            });
+          }}
+          title="Place bid"
+        />
         <Text
           style={{
             color: Colors.secondary,
@@ -330,7 +345,7 @@ export default function Detail() {
             name={data.auction?.title}
             description={data.auction.description || "N/A"}
           />
-          <AuctionQuickBidOptions bid={data.auction.bid} />
+          <AuctionQuickBidOptions {...data.auction} />
           <AuctionHistory />
 
           <Text

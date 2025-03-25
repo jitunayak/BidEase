@@ -6,7 +6,7 @@ import { Colors } from "../Constant";
 type IProps = {
   isDefaultOn?: boolean;
   isOn: boolean;
-  onToggle: () => void;
+  onToggle?: () => void;
   disabled?: boolean;
 };
 
@@ -15,7 +15,7 @@ export const Radio: React.FC<IProps> = (props) => {
 
   const handleToggle = () => {
     setIsOn(!isOn);
-    props.onToggle();
+    props?.onToggle && props.onToggle();
   };
 
   useEffect(() => {

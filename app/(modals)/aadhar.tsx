@@ -63,6 +63,7 @@ export default function Aadhar() {
         onPress={() => {
           console.log(aadharNumber);
         }}
+        style={{ width: "100%" }}
 
         // disabled={cleanedInput(aadharNumber, 12).length !== 12}
       >

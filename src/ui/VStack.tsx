@@ -14,6 +14,7 @@ type Props = {
 export const VStack = (props: Props & ViewProps) => {
   const {
     children,
+    style,
     alignItems = "center",
     justifyContent = "space-between",
     gap = 8,
@@ -27,6 +28,7 @@ export const VStack = (props: Props & ViewProps) => {
         alignItems,
         justifyContent,
         gap,
+        ...((style as object) || {}),
       }}
       {...rest}
     >

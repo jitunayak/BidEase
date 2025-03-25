@@ -61,6 +61,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen name="aadhar" />
+        <Stack.Screen name="bid-payment" />
       </CsStack>
     </>
   );

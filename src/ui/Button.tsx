@@ -19,6 +19,7 @@ type IProps = {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   children?: React.ReactNode;
+  fullWidth?: boolean;
 };
 
 export function Button(props: IProps) {
@@ -26,7 +27,7 @@ export function Button(props: IProps) {
 
   const getBackgroundColor = () => {
     if (props.disabled) {
-      return Colors.secondary;
+      return App.colors.border;
     }
     switch (variant) {
       case "primary":
@@ -69,7 +70,7 @@ export function Button(props: IProps) {
         borderWidth: 2,
         borderColor: "transparent",
         maxHeight: 50,
-        width: "100%",
+        width: props.fullWidth ? "100%" : "auto",
         opacity: props.disabled ? 0.8 : 1,
         backgroundColor: getBackgroundColor(),
         ...(props.style && (props.style as object)),
