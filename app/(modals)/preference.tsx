@@ -116,68 +116,70 @@ export default function NotificationPreference() {
     setPreferences(input);
   };
   return (
-    <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
-      <Header title="Auction Preferences" closeButton />
-      <Item
-        title="Vehicles"
-        icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
-        onPress={() => {
-          handleSelect({ ...preferences, vehicles: !preferences.vehicles });
-        }}
-        isSelected={!!preferences.vehicles}
-      />
-      <Item
-        title="Lands"
-        icon={
-          <MaterialIcons name="landscape" size={26} color={Colors.primary} />
-        }
-        onPress={() => {
-          handleSelect({ ...preferences, lands: !preferences.lands });
-        }}
-        isSelected={preferences.lands}
-      />
-      <Item
-        title="Property"
-        icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
-        onPress={() => {
-          handleSelect({ ...preferences, property: !preferences.property });
-        }}
-        isSelected={preferences.property}
-      />
-      <Item
-        title="Gold"
-        icon={
-          <MaterialCommunityIcons
-            name="gold"
-            size={26}
-            color={Colors.primary}
-          />
-        }
-        onPress={() => {
-          handleSelect({ ...preferences, gold: !preferences.gold });
-        }}
-        isSelected={preferences.gold}
-      />
-      <TouchableOpacity
-        onPress={handleSubmit}
-        style={{
-          marginTop: 32,
-          padding: 16,
-          borderRadius: App.ui.borderRadius.sm,
-          width: "auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "row",
-          gap: 8,
-          backgroundColor: Colors.primary,
-        }}
-      >
-        {loading && <ActivityIndicator color="white" />}
-        <Text style={{ color: "white", fontWeight: "600", fontSize: 16 }}>
-          Save
-        </Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <Header title="Auction Preferences" showCloseText />
+      <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
+        <Item
+          title="Vehicles"
+          icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
+          onPress={() => {
+            handleSelect({ ...preferences, vehicles: !preferences.vehicles });
+          }}
+          isSelected={!!preferences.vehicles}
+        />
+        <Item
+          title="Lands"
+          icon={
+            <MaterialIcons name="landscape" size={26} color={Colors.primary} />
+          }
+          onPress={() => {
+            handleSelect({ ...preferences, lands: !preferences.lands });
+          }}
+          isSelected={preferences.lands}
+        />
+        <Item
+          title="Property"
+          icon={<FontAwesome name="home" size={24} color={Colors.primary} />}
+          onPress={() => {
+            handleSelect({ ...preferences, property: !preferences.property });
+          }}
+          isSelected={preferences.property}
+        />
+        <Item
+          title="Gold"
+          icon={
+            <MaterialCommunityIcons
+              name="gold"
+              size={26}
+              color={Colors.primary}
+            />
+          }
+          onPress={() => {
+            handleSelect({ ...preferences, gold: !preferences.gold });
+          }}
+          isSelected={preferences.gold}
+        />
+        <TouchableOpacity
+          onPress={handleSubmit}
+          style={{
+            marginTop: 32,
+            padding: 16,
+            borderRadius: App.ui.borderRadius.sm,
+            width: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 8,
+            backgroundColor: Colors.primary,
+          }}
+        >
+          {loading && <ActivityIndicator color="white" />}
+          <Text style={{ color: "white", fontWeight: "600", fontSize: 16 }}>
+            Save
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }

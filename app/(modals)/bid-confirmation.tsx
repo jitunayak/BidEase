@@ -10,11 +10,12 @@ type IProps = {
   bid: string;
   id: string;
 };
+
 export default function BidPayment() {
   const { bid, id, title } = useLocalSearchParams<IProps>();
   return (
     <View style={{ flex: 1, backgroundColor: App.colors.background }}>
-      <Header closeButton />
+      <Header showCloseText />
       <VStack
         justifyContent="flex-start"
         style={{ paddingVertical: 32, flex: 1, width: "100%" }}
@@ -27,7 +28,7 @@ export default function BidPayment() {
       <View
         style={{
           flex: 1,
-          paddingHorizontal: App.ui.padding.xl,
+          paddingHorizontal: App.ui.padding.lg,
           gap: 8,
           marginBottom: 1,
           position: "absolute",

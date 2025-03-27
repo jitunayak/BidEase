@@ -9,7 +9,14 @@ export function EText({
 }: {
   style?: TextStyle;
   children?: React.ReactNode;
-  variant?: "title" | "subtitle" | "body" | "label" | "link" | "error";
+  variant?:
+    | "title"
+    | "subtitle"
+    | "body"
+    | "label"
+    | "link"
+    | "link-large"
+    | "error";
 }) {
   const getFontSize = () => {
     switch (variant) {
@@ -17,6 +24,8 @@ export function EText({
         return 24;
       case "subtitle":
         return 20;
+      case "link":
+        return "16";
       case "body":
         return 14;
       case "label":

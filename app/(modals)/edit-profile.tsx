@@ -121,7 +121,7 @@ export default function EditProfile() {
             label="Name"
             value={data.name}
             onChangeText={(e) => setData({ ...data, name: e })}
-            editOption
+            editOption={navigateTo === "dismiss"}
           />
           <ETextInput
             label="Phone number"
@@ -133,7 +133,7 @@ export default function EditProfile() {
             label="Email"
             value={data.email}
             onChangeText={(e) => setData({ ...data, email: e })}
-            editOption
+            editOption={navigateTo === "dismiss"}
             onUpdatePressed={() => {}}
           />
 

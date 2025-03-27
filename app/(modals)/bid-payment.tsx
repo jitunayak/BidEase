@@ -20,89 +20,93 @@ export default function BidPayment() {
   const isButtonDisabled = selectedPayment === null;
 
   return (
-    <View style={[uiStyles.container]}>
+    <>
       <Header closeButton />
-      <View
-        style={{
-          flex: 1,
-          padding: App.ui.padding.xl,
-          gap: 16,
-          marginBottom: 10,
-        }}
-      >
-        <HStack alignItems="flex-start">
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 8,
-            }}
-          />
-          <VStack alignItems="flex-start">
-            <EText variant="title">{title}</EText>
-            <EText variant="label">Auction ID: {id}</EText>
-            <EText variant="label">Winning bid</EText>
-          </VStack>
-        </HStack>
-
-        <VStack alignItems="flex-start" justifyContent="flex-start">
-          <EText variant="label">Bid Amount: ₹{bid}</EText>
-          <EText variant="label">Service fee : 5%</EText>
-          <EText variant="title">
-            ₹{(Number(bid) + Number(bid) * 0.05).toLocaleString()}
-          </EText>
-        </VStack>
-
+      <View style={[uiStyles.container]}>
         <View
           style={{
+            padding: App.ui.padding.md,
             gap: 16,
-            marginBottom: 16,
-            ...uiStyles.outlineContainer,
+            flex: 1,
+            marginBottom: 30,
           }}
         >
-          <EText variant="subtitle">Payment Methods</EText>
-          <HStack gap={8}>
-            <View style={{ flexDirection: "row", gap: 8 }}>
-              <MaterialCommunityIcons name="credit-card" size={24} />
-              <EText variant="label">Credit Card</EText>
-            </View>
-            <Radio
-              isOn={selectedPayment === "credit-card"}
-              onToggle={() =>
-                selectedPayment !== "credit-card"
-                  ? setSelectedPayment("credit-card")
-                  : setSelectedPayment(null)
-              }
+          <HStack alignItems="flex-start">
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 8,
+              }}
             />
-            <View style={{ flexDirection: "row", gap: 8 }}>
-              <MaterialCommunityIcons name="bank" size={24} />
-              <EText variant="label">Netbanking</EText>
-            </View>
-            <Radio
-              isOn={selectedPayment === "netbanking"}
-              onToggle={() =>
-                selectedPayment !== "netbanking"
-                  ? setSelectedPayment("netbanking")
-                  : setSelectedPayment(null)
-              }
-            />
+            <VStack alignItems="flex-start">
+              <EText variant="title">{title}</EText>
+              <EText variant="label">Auction ID: {id}</EText>
+              <EText variant="label">Winning bid</EText>
+            </VStack>
           </HStack>
-        </View>
 
-        <Button
-          disabled={isButtonDisabled}
-          onPress={() => {
-            router.dismiss();
-            router.push({
-              pathname: "/(modals)/bid-confirmation",
-              params: { id, title, bid },
-            });
-          }}
-        >
-          CONFIRM PAYMENT
-        </Button>
+          <VStack alignItems="flex-start" justifyContent="flex-start">
+            <EText variant="label">Bid Amount: ₹{bid}</EText>
+            <EText variant="label">Service fee : 5%</EText>
+            <EText variant="title">
+              ₹{(Number(bid) + Number(bid) * 0.05).toLocaleString()}
+            </EText>
+
+            <View
+              style={{
+                gap: 16,
+                marginVertical: 16,
+                padding: App.ui.padding.lg,
+                borderRadius: App.ui.borderRadius.sm,
+                backgroundColor: App.colors.secondaryBackground,
+              }}
+            >
+              <EText variant="subtitle">Payment Methods</EText>
+              <HStack gap={8}>
+                <View style={{ flexDirection: "row", gap: 8 }}>
+                  <MaterialCommunityIcons name="credit-card" size={24} />
+                  <EText variant="label">Credit Card</EText>
+                </View>
+                <Radio
+                  isOn={selectedPayment === "credit-card"}
+                  onToggle={() =>
+                    selectedPayment !== "credit-card"
+                      ? setSelectedPayment("credit-card")
+                      : setSelectedPayment(null)
+                  }
+                />
+                <View style={{ flexDirection: "row", gap: 8 }}>
+                  <MaterialCommunityIcons name="bank" size={24} />
+                  <EText variant="label">Netbanking</EText>
+                </View>
+                <Radio
+                  isOn={selectedPayment === "netbanking"}
+                  onToggle={() =>
+                    selectedPayment !== "netbanking"
+                      ? setSelectedPayment("netbanking")
+                      : setSelectedPayment(null)
+                  }
+                />
+              </HStack>
+            </View>
+          </VStack>
+
+          <Button
+            disabled={isButtonDisabled}
+            onPress={() => {
+              router.dismiss();
+              router.push({
+                pathname: "/(modals)/bid-confirmation",
+                params: { id, title, bid },
+              });
+            }}
+          >
+            CONFIRM PAYMENT
+          </Button>
+        </View>
       </View>
-    </View>
+    </>
   );
 }

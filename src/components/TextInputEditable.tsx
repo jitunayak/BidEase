@@ -57,7 +57,10 @@ export const TextInputEditable = (props: IProps) => {
             <Button
               variant="light"
               title="Update"
-              onPress={() => props.onUpdatePressed && props.onUpdatePressed()}
+              onPress={() => {
+                setShowActions(false);
+                props.onUpdatePressed && props.onUpdatePressed();
+              }}
             />
             <Button
               variant="secondary"
