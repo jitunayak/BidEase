@@ -3,10 +3,11 @@ import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
 import { Badge } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
+import { BlurView } from "expo-blur";
 import * as Haptics from "expo-haptics";
 import { Tabs, useRouter } from "expo-router";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function RootLayout() {
   const router = useRouter();
@@ -20,18 +21,19 @@ function RootLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors.primary,
 
-        // tabBarStyle: {
-        //   position: "absolute",
-        // },
-        // tabBarBackground: () => (
-        //   <BlurView
-        //     intensity={100}
-        //     style={{
-        //       ...StyleSheet.absoluteFillObject,
-        //       backgroundColor: "transparent",
-        //     }}
-        //   />
-        // ),
+        tabBarStyle: {
+          position: "absolute",
+        },
+        tabBarBackground: () => (
+          <BlurView
+            intensity={100}
+            tint="light"
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              backgroundColor: "transparent",
+            }}
+          />
+        ),
       }}
     >
       <Tabs.Screen
@@ -105,11 +107,26 @@ function RootLayout() {
               size={22}
             />
           ),
-          headerSearchBarOptions: {
-            inputType: "text",
-            placeholder: "Search for live auctions",
-            cancelButtonText: "Clear",
-          },
+          // headerSearchBarOptions: {
+          //   inputType: "text",
+          //   placeholder: "Search for live auctions",
+          //   cancelButtonText: "Clear",
+          // },
+          headerRight: () => (
+            <View style={{ flexDirection: "row", gap: 24, marginRight: 12 }}>
+              <TouchableOpacity
+                onPress={() => router.navigate("/(modals)/auction-filter")}
+              >
+                <Octicons name="filter" size={22} color={Colors.text} />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => router.navigate("/(app)/search")}
+              >
+                <Octicons name="search" size={22} color={Colors.text} />
+              </TouchableOpacity>
+            </View>
+          ),
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {

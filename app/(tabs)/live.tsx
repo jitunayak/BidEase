@@ -1,29 +1,18 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import { App, Colors } from "@/src/Constant";
 import { liveAuctions } from "@/src/data/auctions";
-import { Button, EText } from "@/src/ui";
-import { HStack } from "@/src/ui/HStack";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
-import React, { useCallback, useRef } from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React from "react";
+import { FlatList, SafeAreaView, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function Live() {
   const router = useRouter();
   const [active, setActive] = React.useState(1);
-  const bottomSheetRef = useRef<BottomSheet>(null);
+  // const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    // console.log("handleSheetChanges", index);
-  }, []);
+  // const handleSheetChanges = useCallback((index: number) => {
+  // console.log("handleSheetChanges", index);
+  // }, []);
 
   return (
     <GestureHandlerRootView>
@@ -44,7 +33,7 @@ export default function Live() {
           )}
           ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
         />
-        <BottomSheet
+        {/* <BottomSheet
           ref={bottomSheetRef}
           onChange={handleSheetChanges}
           snapPoints={["10%, 50%, 100%"]}
@@ -167,7 +156,7 @@ export default function Live() {
               }}
             />
           </BottomSheetView>
-        </BottomSheet>
+        </BottomSheet> */}
       </View>
     </GestureHandlerRootView>
   );

@@ -38,18 +38,17 @@ export const Header = (props: IProps) => {
         </Pressable>
       )}
 
-      {props.showCancelText ||
-        (props.showCloseText && (
-          <Pressable
-            onPress={() => router.dismiss()}
-            style={{
-              paddingRight: App.ui.padding.md,
-            }}
-          >
-            {props.showCancelText && <EText variant="link">Cancel</EText>}
-            {props.showCloseText && <EText variant="link">Close</EText>}
-          </Pressable>
-        ))}
+      {
+        <Pressable
+          onPress={() => router.dismiss()}
+          style={{
+            paddingRight: App.ui.padding.md,
+          }}
+        >
+          {props.showCancelText && <EText variant="link">Cancel</EText>}
+          {props.showCloseText && <EText variant="link">Close</EText>}
+        </Pressable>
+      }
     </View>
   );
 };

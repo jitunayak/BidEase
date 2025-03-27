@@ -62,6 +62,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="aadhar" />
         <Stack.Screen name="bid-payment" />
+        <Stack.Screen name="auction-filter" />
       </CsStack>
     </>
   );
