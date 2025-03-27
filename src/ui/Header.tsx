@@ -18,8 +18,8 @@ export const Header = (props: IProps) => {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingBottom: 32,
-        paddingTop: 16,
-        paddingHorizontal: App.ui.padding.md,
+        paddingTop: App.isIOS ? 16 : App.ui.padding.xl,
+        paddingHorizontal: App.ui.padding.lg,
         alignItems: "center",
         backgroundColor: App.colors.background,
       }}
@@ -28,7 +28,7 @@ export const Header = (props: IProps) => {
         {props.title}
       </EText>
 
-      {props.closeButton && (
+      {App.isIOS && props.closeButton && (
         <Pressable onPress={() => router.dismiss()}>
           <MaterialCommunityIcons
             name="close-circle"

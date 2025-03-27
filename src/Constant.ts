@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 export const Colors = {
   primary: "#0052CC",
   secondary: "#757575",
@@ -11,6 +12,8 @@ export const Colors = {
 };
 
 export const App = {
+  isAndroid: Platform.OS === "android",
+  isIOS: Platform.OS === "ios",
   colors: {
     primary: "#0052CC",
     secondary: "#757575",

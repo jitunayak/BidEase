@@ -6,6 +6,7 @@ import {
 } from "@/src/components";
 import { Colors } from "@/src/Constant";
 import { useStore } from "@/src/hooks/useStorage";
+import { Switch } from "@/src/ui/Switch";
 import { Link } from "expo-router";
 import React from "react";
 import { ScrollView, View } from "react-native";
@@ -67,6 +68,7 @@ export default function Profile() {
           <>
             {/* <EText>{JSON.stringify(data?.user?.preferences.interests)}</EText> */}
             <PersonalInfo />
+            <Switch />
             <Link
               href={"/(modals)/preference"}
               push
