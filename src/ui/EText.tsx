@@ -13,9 +13,9 @@ export function EText({
     | "title"
     | "subtitle"
     | "body"
+    | "medium"
     | "label"
     | "link"
-    | "link-large"
     | "error";
 }) {
   const getFontSize = () => {
@@ -24,8 +24,10 @@ export function EText({
         return 24;
       case "subtitle":
         return 20;
+      case "medium":
+        return 18;
       case "link":
-        return "16";
+        return 16;
       case "body":
         return 14;
       case "label":

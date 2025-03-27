@@ -10,7 +10,7 @@ export default function AuctionFilter() {
   const [city, setCity] = React.useState<string>("");
   return (
     <View style={{ flex: 1, backgroundColor: App.colors.background }}>
-      <Header showCloseText />
+      <Header backButton showCloseText />
 
       <View style={{ flex: 1, padding: App.ui.padding.lg, gap: 8 }}>
         <DropDown

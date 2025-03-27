@@ -9,6 +9,7 @@ type IProps = {
   closeButton?: boolean;
   showCloseText?: boolean;
   showCancelText?: boolean;
+  backButton?: boolean;
 };
 export const Header = (props: IProps) => {
   const router = useRouter();
@@ -24,6 +25,25 @@ export const Header = (props: IProps) => {
         backgroundColor: App.colors.background,
       }}
     >
+      {props.backButton && (
+        <Pressable onPress={() => router.back()}>
+          <View
+            style={{
+              gap: 8,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="arrow-left"
+              size={24}
+              color={App.colors.text}
+            />
+            <EText variant="medium">Back</EText>
+          </View>
+        </Pressable>
+      )}
       <EText variant="title" style={{}}>
         {props.title}
       </EText>
@@ -38,17 +58,18 @@ export const Header = (props: IProps) => {
         </Pressable>
       )}
 
-      {
-        <Pressable
-          onPress={() => router.dismiss()}
-          style={{
-            paddingRight: App.ui.padding.md,
-          }}
-        >
-          {props.showCancelText && <EText variant="link">Cancel</EText>}
-          {props.showCloseText && <EText variant="link">Close</EText>}
-        </Pressable>
-      }
+      {props.showCancelText ||
+        (props.showCloseText && (
+          <Pressable
+            onPress={() => router.dismiss()}
+            style={{
+              paddingRight: App.ui.padding.md,
+            }}
+          >
+            {props.showCancelText && <EText variant="medium">Cancel</EText>}
+            {props.showCloseText && <EText variant="medium">Close</EText>}
+          </Pressable>
+        ))}
     </View>
   );
 };
