@@ -85,6 +85,7 @@ export const ETextInput = (props: IETextInputProps) => {
           backgroundColor: Colors.background,
           width: "100%",
           gap: 6,
+
           ...props.style,
         }}
       >
@@ -116,7 +117,7 @@ export const ETextInput = (props: IETextInputProps) => {
             autoCorrect={props.autoCorrect}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            editable={!props.disabled}
+            editable={!props.disabled && props.editable}
           />
           {props.rightSection && (
             <Pressable onPress={props.onPressRightSection}>

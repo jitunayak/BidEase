@@ -1,6 +1,6 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import { useEffect, useState } from "react";
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList, Modal, TouchableOpacity, View } from "react-native";
 import { App } from "../Constant";
 import { EText } from "./EText";
 import { ETextInput } from "./TextInput";
@@ -12,45 +12,11 @@ type IProps = {
   onChangeText: (text: string) => void;
   data: { label: string; value: string }[];
 };
+
 export function DropDown(props: IProps) {
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>(props.value ?? "");
-
-  const indianStates = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jammu and Kashmir",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttarakhand",
-    "Uttar Pradesh",
-    "West Bengal",
-  ];
-
-  const filteredStates = indianStates.filter((state) =>
-    state.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     if (selectedState) {
@@ -73,6 +39,8 @@ export function DropDown(props: IProps) {
         label={props.label}
         value={searchTerm}
         onChangeText={(text) => setSearchTerm(text)}
+        editable={false}
+        onPress={() => setIsModalVisible(true)}
         rightSection={
           <TouchableOpacity
             onPress={() => setSelectedState(null)}
@@ -83,24 +51,35 @@ export function DropDown(props: IProps) {
         }
       />
 
-      {!selectedState && (
+      <Modal
+        visible={isModalVisible}
+        presentationStyle="formSheet"
+        statusBarTranslucent
+        animationType="slide"
+      >
         <FlatList
-          data={filteredStates}
+          data={props.data}
+          style={{ flex: 1, marginBottom: 120 }}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => setSelectedState(item)}
+              onPress={() => {
+                setSelectedState(item.value);
+                setIsModalVisible(false);
+              }}
               style={{
                 padding: App.ui.padding.md,
                 borderRadius: App.ui.borderRadius.sm,
-                backgroundColor: App.colors.background,
+                backgroundColor: App.colors.secondaryBackground,
+                marginTop: App.ui.padding.sm,
+                marginHorizontal: App.ui.padding.sm,
               }}
             >
-              <EText>{item}</EText>
+              <EText variant="body">{item.label}</EText>
             </TouchableOpacity>
           )}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.value}
         />
-      )}
+      </Modal>
     </View>
   );
 }

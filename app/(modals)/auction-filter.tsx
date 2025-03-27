@@ -1,7 +1,7 @@
 import { App } from "@/src/Constant";
+import indianStates from "@/src/data/in_states.json";
 import { Button, Header } from "@/src/ui";
 import { DropDown } from "@/src/ui/DropDown";
-// import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { View } from "react-native";
 
@@ -17,9 +17,10 @@ export default function AuctionFilter() {
           placeholder="Select State"
           value={city}
           onChangeText={setCity}
-          data={[{ label: "Banglore", value: "Banglore" }]}
+          data={indianStates}
         />
-        <Button>Apply</Button>
+        <Button>Show 156 Results</Button>
+        <Button variant="light">Reset Filter</Button>
       </View>
     </View>
   );
