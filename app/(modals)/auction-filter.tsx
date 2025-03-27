@@ -2,6 +2,7 @@ import { App } from "@/src/Constant";
 import indianStates from "@/src/data/in_states.json";
 import { Button, Header } from "@/src/ui";
 import { DropDown } from "@/src/ui/DropDown";
+import { router } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 
@@ -19,7 +20,13 @@ export default function AuctionFilter() {
           onChangeText={setCity}
           data={indianStates}
         />
-        <Button>Show 156 Results</Button>
+        <Button
+          onPress={() => {
+            router.dismiss();
+          }}
+        >
+          Show 156 Results
+        </Button>
         <Button variant="light">Reset Filter</Button>
       </View>
     </View>

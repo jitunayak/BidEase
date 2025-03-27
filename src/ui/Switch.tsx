@@ -11,6 +11,7 @@ import { uiStyles } from "../Theme";
 type SwitchProps = {
   value?: boolean;
   onValueChange?: (value: boolean) => void;
+  color?: string;
 };
 export const Switch = (props: SwitchProps) => {
   const [toggle, setToggle] = useState(props.value ?? false);
@@ -41,7 +42,9 @@ export const Switch = (props: SwitchProps) => {
         alignItems: "center",
         borderRadius: 60,
         minWidth: 50,
-        backgroundColor: toggle ? App.colors.success : App.colors.border,
+        backgroundColor: toggle
+          ? props.color || App.colors.success
+          : App.colors.border,
       }}
     >
       <Animated.View
