@@ -83,7 +83,7 @@ export default function EditProfile() {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.background }}>
-      <Header closeButton />
+      <Header closeButton={navigateTo === "dismiss"} />
       <View
         style={{
           flexDirection: "column",
@@ -142,6 +142,9 @@ export default function EditProfile() {
             onPress={onSubmit}
             variant="primary"
             isLoading={loading}
+            disabled={
+              data.email && data.name && data.phoneNumber ? false : true
+            }
           >
             Save
           </Button>

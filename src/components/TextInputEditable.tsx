@@ -47,7 +47,9 @@ export const TextInputEditable = (props: IProps) => {
           )
         }
         onPressRightSection={() => {}}
-        disabled={!showActions || props.disabled}
+        disabled={
+          props.disabled ? true : props.editOption ? !showActions : false
+        }
         {...props}
       />
 

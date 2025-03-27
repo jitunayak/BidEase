@@ -1,7 +1,7 @@
 import { App, Colors } from "@/src/Constant";
 import { useUpdateUserInterestsMutation } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
-import { Radio } from "@/src/ui";
+import { EText, Radio } from "@/src/ui";
 import { Header } from "@/src/ui/Header";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -36,7 +36,6 @@ const Item = ({
         justifyContent: "space-between",
         padding: 32,
         borderWidth: 1,
-        marginVertical: 4,
         borderRadius: App.ui.borderRadius.sm,
         // borderColor: Colors.border,
         borderColor: isSelected ? Colors.primary : App.colors.border,
@@ -117,8 +116,9 @@ export default function NotificationPreference() {
   };
   return (
     <>
-      <Header title="Auction Preferences" showCloseText />
-      <View style={{ padding: 16, backgroundColor: "white", flex: 1 }}>
+      <Header closeButton />
+      <View style={{ padding: 16, backgroundColor: "white", flex: 1, gap: 8 }}>
+        <EText variant="title">Auction Preferences</EText>
         <Item
           title="Vehicles"
           icon={<FontAwesome name="car" size={22} color={Colors.primary} />}
