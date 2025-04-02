@@ -138,6 +138,7 @@ export default function EditProfile() {
           />
 
           <Button
+            title="Save"
             style={{ marginTop: 8 }}
             onPress={onSubmit}
             variant="primary"
@@ -145,9 +146,7 @@ export default function EditProfile() {
             disabled={
               data.email && data.name && data.phoneNumber ? false : true
             }
-          >
-            Save
-          </Button>
+          />
         </KeyboardAvoidingView>
       </View>
     </View>

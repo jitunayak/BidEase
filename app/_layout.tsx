@@ -34,6 +34,18 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="profile/verification"
+          options={{
+            title: "Account verification",
+          }}
+        />
+        <Stack.Screen
+          name="notifications"
+          options={{
+            title: "Notifications",
+          }}
+        />
         <Slot />
       </CsStack>
     </ApolloProvider>

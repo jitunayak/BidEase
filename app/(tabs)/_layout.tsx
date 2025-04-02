@@ -1,11 +1,13 @@
 import { Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
+import { uiStyles } from "@/src/Theme";
 import { Badge } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
 import { BlurView } from "expo-blur";
 import * as Haptics from "expo-haptics";
 import { Tabs, useRouter } from "expo-router";
+import { LucideBell, LucideSearch } from "lucide-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -19,8 +21,7 @@ function RootLayout() {
         },
       }}
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
-
+        tabBarActiveTintColor: Colors.primary, 
         tabBarStyle: {
           position: "absolute",
         },
@@ -47,6 +48,10 @@ function RootLayout() {
         options={{
           title: "Home",
           headerTitle: "",
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: "white",
+          },
           tabBarIcon: (tab) => (
             <Octicons
               color={tab.focused ? Colors.primary : Colors.secondary}
@@ -67,7 +72,7 @@ function RootLayout() {
                 }}
                 source={require("@/assets/images/logo.png")}
               />
-              <Text style={{ fontSize: 22, fontWeight: "bold" }}>BidEase</Text>
+              <Text style={{ fontSize: 21, fontWeight: "500" }}>BidEase</Text>
             </View>
           ),
           headerRight: () => (
@@ -80,15 +85,17 @@ function RootLayout() {
               }}
             >
               <TouchableOpacity
+                style={uiStyles.iconButton}
                 onPress={() => router.navigate("/(app)/search")}
               >
-                <Octicons name="search" size={22} color={Colors.text} />
+                <LucideSearch size={22} color={Colors.text} />
               </TouchableOpacity>
               <TouchableOpacity
+                style={uiStyles.iconButton}
                 onPress={() => router.navigate("/(app)/notification")}
               >
                 <Badge count={notifications.filter((n) => !n.read).length}>
-                  <Octicons name="bell" size={22} color={Colors.text} />
+                  <LucideBell size={22} color={Colors.text} />
                 </Badge>
               </TouchableOpacity>
             </View>
@@ -173,6 +180,10 @@ function RootLayout() {
           ),
         }}
       />
+      <Tabs.Screen name="account" options={{ href: null }} />
+      <Tabs.Screen name="search" options={{ href: null }} />
+      <Tabs.Screen name="shortlist" options={{ href: null }} />
+      <Tabs.Screen name="home-feed" options={{ href: null }} />
     </Tabs>
   );
 }

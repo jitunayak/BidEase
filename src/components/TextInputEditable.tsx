@@ -6,7 +6,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { Colors } from "../Constant";
-import { Button, HStack } from "../ui";
+import { Button } from "../ui";
 import { ETextInput, IETextInputProps } from "../ui/TextInput";
 
 type IProps = {
@@ -55,9 +55,16 @@ export const TextInputEditable = (props: IProps) => {
 
       <Animated.View style={actionGroupAnimatedStyle}>
         {showActions && (
-          <HStack>
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 8,
+              justifyContent: "center",
+            }}
+          >
             <Button
-              variant="light"
+              variant="outline"
+              style={{ flex: 1 }}
               title="Update"
               onPress={() => {
                 setShowActions(false);
@@ -66,12 +73,13 @@ export const TextInputEditable = (props: IProps) => {
             />
             <Button
               variant="secondary"
+              style={{ flex: 1 }}
               title="Cancel"
               onPress={() => {
                 setShowActions(false);
               }}
             />
-          </HStack>
+          </View>
         )}
       </Animated.View>
     </View>

@@ -3,7 +3,6 @@ import Octicons from "@expo/vector-icons/Octicons";
 import { BlurView } from "expo-blur";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { uiStyles } from "../Theme";
 type Props = {
   id: string;
   title: string;
@@ -109,10 +108,10 @@ export const AssetCard = (props: Props) => {
           height: 300,
           borderWidth: 0.6,
           borderColor: Colors.border,
-          borderRadius: App.ui.borderRadius.md,
+          borderRadius: App.ui.borderRadius.sm,
           marginRight: 16,
           backgroundColor: Colors.background,
-          ...uiStyles.shadow,
+          // ...uiStyles.shadow,
         }}
       >
         <Image
@@ -120,8 +119,8 @@ export const AssetCard = (props: Props) => {
           style={{
             width: 300,
             height: 160,
-            borderTopLeftRadius: App.ui.borderRadius.md,
-            borderTopRightRadius: App.ui.borderRadius.md,
+            borderTopLeftRadius: App.ui.borderRadius.sm,
+            borderTopRightRadius: App.ui.borderRadius.sm,
           }}
         />
       </TouchableOpacity>

@@ -20,7 +20,7 @@ export const Header = (props: IProps) => {
         justifyContent: "space-between",
         paddingBottom: 32,
         paddingTop: App.isIOS ? 16 : App.ui.padding.xl,
-        paddingHorizontal: App.ui.padding.lg,
+        paddingHorizontal: App.ui.padding.sm,
         alignItems: "center",
         backgroundColor: App.colors.background,
       }}
@@ -63,7 +63,7 @@ export const Header = (props: IProps) => {
           <Pressable
             onPress={() => router.dismiss()}
             style={{
-              paddingRight: App.ui.padding.md,
+              paddingRight: App.ui.padding.sm,
             }}
           >
             {props.showCancelText && <EText variant="medium">Cancel</EText>}

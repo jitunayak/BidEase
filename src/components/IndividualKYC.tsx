@@ -48,8 +48,9 @@ export const IndividualKYC = ({ user }: { user: User }) => {
             borderWidth: 0.6,
             borderRadius: App.ui.borderRadius.sm,
             width: "100%",
-            borderColor: Colors.border,
+            borderColor: App.colors.border,
             gap: 12,
+            backgroundColor: App.colors.card,
           }}
         >
           <View
@@ -83,8 +84,9 @@ export const IndividualKYC = ({ user }: { user: User }) => {
           borderWidth: 0.6,
           borderRadius: App.ui.borderRadius.sm,
           width: "100%",
-          borderColor: Colors.border,
+          borderColor: App.colors.border,
           gap: 12,
+          backgroundColor: App.colors.card,
         }}
       >
         <View

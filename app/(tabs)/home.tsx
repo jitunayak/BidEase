@@ -1,27 +1,130 @@
-import { AssetCard, AssetCategory } from "@/src/components";
+import { AssetCard2 } from "@/src/components/AssetCard2";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import Banner from "@/src/components/Banner";
 import { App, Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { GET_AUCTIONS } from "@/src/lib/graphql/auctions.query";
-import { EText, HStack } from "@/src/ui";
+import { advertisements } from "@/src/mocks/advertisements";
+import { banners } from "@/src/mocks/banner";
+import { useAuctionStore } from "@/src/store/auction-store";
+import { AssetCategory as AssetCategoryType } from "@/src/types";
+import { EText } from "@/src/ui";
+import { AdvertisementCard } from "@/src/ui/AdvertisementCard";
+import { BannerCarousel } from "@/src/ui/BannerCaraousel";
+import { CategoryCard } from "@/src/ui/CategoryCard";
 import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
-import { Link, useRouter } from "expo-router";
-import React from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
-import ShimmerPlaceholder from "react-native-shimmer-placeholder";
+import { useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 export default function Home() {
   const router = useRouter();
 
   const { loading, data, refetch } = useQuery(GET_AUCTIONS);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    assets,
+    featuredAssets,
+    fetchAssets,
+    fetchFeaturedAssets,
+    isLoading,
+  } = useAuctionStore();
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const loadData = async () => {
+    await Promise.all([fetchAssets(), fetchFeaturedAssets()]);
+  };
+
+  const getCategoryCount = (category: AssetCategoryType) => {
+    return assets.filter((asset) => asset.category === category).length;
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
+
+  const categories: AssetCategoryType[] = [
+    "gold",
+    "vehicle",
+    "house",
+    "apartment",
+  ];
 
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
-      <Banner />
+      {/* <Banner /> */}
+      {/* <Animated.View entering={FadeInDown.delay(100).duration(600)}> */}
+      <BannerCarousel banners={banners} />
+      {/* </Animated.View> */}
+
+      {/* Categories */}
+      <View
+        style={styles.section}
+        // entering={FadeInDown.delay(200).duration(600)}
+      >
+        <Text style={styles.sectionTitle}>Categories</Text>
+        <View style={styles.categoriesGrid}>
+          {categories.map((category, index) => (
+            <View
+              key={category}
+              // entering={FadeInRight.delay(300 + index * 100).duration(600)}
+            >
+              <CategoryCard
+                category={category}
+                count={getCategoryCount(category)}
+                // style={styles.categoryCard}
+              />
+            </View>
+          ))}
+        </View>
+      </View>
+
       <View style={{ gap: 24 }}>
-        <HStack>
+        {/* Featured Auctions */}
+        <View
+          style={styles.section}
+          // entering={FadeInDown.delay(400).duration(600)}
+        >
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Featured Auctions</Text>
+            {/* <TouchableOpacity onPress={handleSeeAllFeatured}> */}
+            <Text style={styles.seeAll}>See All</Text>
+            {/* </TouchableOpacity> */}
+          </View>
+
+          <Animated.FlatList
+            data={featuredAssets.slice(0, 5)}
+            keyExtractor={(item) => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.featuredList}
+            renderItem={({ item, index }) => (
+              <View
+                style={styles.featuredItem}
+                // entering={FadeInRight.delay(500 + index * 100).duration(600)}
+              >
+                <AssetCard2 asset={item} size="medium" />
+              </View>
+            )}
+            ListEmptyComponent={
+              <View style={styles.emptyState}>
+                <Text style={styles.emptyStateText}>
+                  No featured auctions available
+                </Text>
+              </View>
+            }
+          />
+        </View>
+
+        {/* <HStack>
           <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
             <Text style={{ fontSize: 20, fontWeight: "600" }}>
               Live Auctions
@@ -31,8 +134,8 @@ export default function Home() {
           <Link href={"/live"} style={{ color: Colors.primary }}>
             See All
           </Link>
-        </HStack>
-        {loading && (
+        </HStack> */}
+        {/* {loading && (
           <View>
             <ShimmerPlaceholder
               style={{
@@ -48,7 +151,8 @@ export default function Home() {
               style={{ marginTop: 16, width: 300, height: 40 }}
             />
           </View>
-        )}
+        )} */}
+        {/* 
         {!loading && data && (
           <FlatList
             data={data.auctions}
@@ -72,8 +176,27 @@ export default function Home() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ paddingBottom: 8 }}
           />
-        )}
-        <AssetCategory />
+        )} */}
+        <Animated.View
+          style={styles.section}
+          entering={FadeInDown.delay(600).duration(600)}
+        >
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Sponsored</Text>
+          </View>
+
+          <FlatList
+            data={advertisements}
+            keyExtractor={(item) => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.adsList}
+            renderItem={({ item, index }) => (
+              <AdvertisementCard ad={item} index={index} />
+            )}
+          />
+        </Animated.View>
+        {/* <AssetCategory /> */}
         <EText variant="title" style={{ marginLeft: 8 }}>
           Wishlists
         </EText>
@@ -138,3 +261,67 @@ export default function Home() {
     // </View>
   );
 }
+
+const styles = StyleSheet.create({
+  section: {
+    // marginTop: 24,
+    // paddingHorizontal: 16,
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: App.colors.text,
+  },
+  adsList: {
+    paddingRight: 16,
+  },
+  featuredList: {
+    paddingRight: 16,
+  },
+  featuredItem: {
+    width: 280,
+    margin: 12,
+    height: 300,
+  },
+
+  liveAuctionItem: {
+    marginBottom: App.ui.padding.md,
+  },
+  emptyState: {
+    padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: App.colors.card,
+    borderRadius: 12,
+    marginVertical: 8,
+  },
+  emptyStateText: {
+    fontSize: 14,
+    color: App.colors.textSecondary,
+  },
+  seeAll: {
+    fontSize: 14,
+    color: App.colors.primary,
+    fontWeight: "600",
+  },
+  categoriesGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginTop: 16,
+    flex: 1,
+    width: "100%",
+    paddingHorizontal: App.ui.padding.md,
+    gap: 16,
+  },
+  categoryCard: {
+    width: "68%",
+    marginBottom: 16,
+  },
+});

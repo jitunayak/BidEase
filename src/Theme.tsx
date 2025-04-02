@@ -31,4 +31,12 @@ export const uiStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: App.colors.background,
   },
+  iconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: App.colors.borderLight,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

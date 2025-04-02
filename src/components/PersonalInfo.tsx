@@ -4,7 +4,6 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { App, Colors } from "../Constant";
 import { useStore } from "../hooks/useStorage";
-import { uiStyles } from "../Theme";
 import { EText, HStack } from "../ui";
 
 export const PersonalInfo = () => {
@@ -135,9 +134,11 @@ export const PersonalInfo = () => {
           style={[
             {
               gap: 14,
-              borderRadius: App.ui.borderRadius.sm,
               width: "100%",
-              ...uiStyles.outlineContainer,
+              backgroundColor: App.colors.card,
+              padding: App.ui.padding.lg,
+              borderRadius: App.ui.borderRadius.sm,
+              // ...uiStyles.outlineContainer,
             },
           ]}
         >
