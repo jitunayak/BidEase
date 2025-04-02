@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Animated,
   LayoutChangeEvent,
@@ -40,38 +40,31 @@ export function PriceRangeSlider({
   const [lowValue, setLowValue] = useState(initialLowValue || minValue);
   const [highValue, setHighValue] = useState(initialHighValue || maxValue);
 
-  const lowThumbPosition = useRef(new Animated.Value(0)).current;
-  const highThumbPosition = useRef(new Animated.Value(0)).current;
+  const lowThumbPosition = React.useRef(new Animated.Value(0)).current;
+  const highThumbPosition = React.useRef(new Animated.Value(0)).current;
 
-  // Store current position values in refs to access in PanResponder
-  const lowPositionRef = useRef(0);
-  const highPositionRef = useRef(0);
+  // Convert value to position
+  const valueToPosition = (value: number) => {
+    return ((value - minValue) / (maxValue - minValue)) * sliderWidth;
+  };
 
-  // Update refs when animated values change
-  useEffect(() => {
-    const lowListener = lowThumbPosition.addListener(({ value }) => {
-      lowPositionRef.current = value;
-    });
-    const highListener = highThumbPosition.addListener(({ value }) => {
-      highPositionRef.current = value;
-    });
+  // Convert position to value
+  const positionToValue = (position: number) => {
+    const ratio = position / sliderWidth;
+    const rawValue = minValue + ratio * (maxValue - minValue);
 
-    return () => {
-      lowThumbPosition.removeListener(lowListener);
-      highThumbPosition.removeListener(highListener);
-    };
-  }, []);
+    // Apply step
+    const steppedValue = Math.round(rawValue / step) * step;
 
-  // Update positions when values change externally
+    // Ensure value is within bounds
+    return Math.max(minValue, Math.min(maxValue, steppedValue));
+  };
+
+  // Update positions when values change
   useEffect(() => {
     if (sliderWidth > 0) {
-      const lowPos =
-        ((lowValue - minValue) / (maxValue - minValue)) * sliderWidth;
-      const highPos =
-        ((highValue - minValue) / (maxValue - minValue)) * sliderWidth;
-
-      lowThumbPosition.setValue(lowPos);
-      highThumbPosition.setValue(highPos);
+      lowThumbPosition.setValue(valueToPosition(lowValue));
+      highThumbPosition.setValue(valueToPosition(highValue));
     }
   }, [sliderWidth, lowValue, highValue, minValue, maxValue]);
 
@@ -93,85 +86,78 @@ export function PriceRangeSlider({
     }
   }, [initialLowValue, initialHighValue, minValue, maxValue]);
 
-  const getValueFromPosition = (position: number): number => {
-    const ratio = position / sliderWidth;
-    const rawValue = minValue + ratio * (maxValue - minValue);
+  // Low thumb pan responder
+  const lowThumbPanResponder = React.useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => !disabled,
+        onMoveShouldSetPanResponder: () => !disabled,
+        onPanResponderGrant: () => {},
+        onPanResponderMove: (_, gestureState) => {
+          const newPosition = Math.max(
+            0,
+            Math.min(valueToPosition(highValue), gestureState.moveX - 20)
+          ); // 20 is offset for thumb width
+          lowThumbPosition.setValue(newPosition);
 
-    // Apply step
-    const steppedValue = Math.round(rawValue / step) * step;
+          const newValue = positionToValue(newPosition);
+          if (newValue !== lowValue) {
+            setLowValue(newValue);
+            onValueChange?.(newValue, highValue);
+          }
+        },
+        onPanResponderRelease: () => {},
+      }),
+    [
+      disabled,
+      highValue,
+      lowValue,
+      onValueChange,
+      sliderWidth,
+      minValue,
+      maxValue,
+    ]
+  );
 
-    // Ensure value is within bounds
-    return Math.max(minValue, Math.min(maxValue, steppedValue));
-  };
+  // High thumb pan responder
+  const highThumbPanResponder = React.useMemo(
+    () =>
+      PanResponder.create({
+        onStartShouldSetPanResponder: () => !disabled,
+        onMoveShouldSetPanResponder: () => !disabled,
+        onPanResponderGrant: () => {},
+        onPanResponderMove: (_, gestureState) => {
+          const newPosition = Math.min(
+            sliderWidth,
+            Math.max(valueToPosition(lowValue), gestureState.moveX - 20)
+          ); // 20 is offset for thumb width
+          highThumbPosition.setValue(newPosition);
 
-  const lowThumbPanResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => !disabled,
-    onMoveShouldSetPanResponder: () => !disabled,
-    onPanResponderGrant: () => {
-      lowThumbPosition.setOffset(lowPositionRef.current);
-      lowThumbPosition.setValue(0);
-    },
-    onPanResponderMove: (_, gestureState) => {
-      const newPosition = Math.max(
-        0,
-        Math.min(
-          highPositionRef.current,
-          gestureState.dx + lowPositionRef.current
-        )
-      );
-      lowThumbPosition.setValue(newPosition - lowPositionRef.current);
-
-      const newValue = getValueFromPosition(newPosition);
-      if (newValue !== lowValue) {
-        setLowValue(newValue);
-        onValueChange?.(newValue, highValue);
-      }
-    },
-    onPanResponderRelease: () => {
-      lowThumbPosition.flattenOffset();
-    },
-  });
-
-  const highThumbPanResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => !disabled,
-    onMoveShouldSetPanResponder: () => !disabled,
-    onPanResponderGrant: () => {
-      highThumbPosition.setOffset(highPositionRef.current);
-      highThumbPosition.setValue(0);
-    },
-    onPanResponderMove: (_, gestureState) => {
-      const newPosition = Math.min(
-        sliderWidth,
-        Math.max(
-          lowPositionRef.current,
-          gestureState.dx + highPositionRef.current
-        )
-      );
-      highThumbPosition.setValue(newPosition - highPositionRef.current);
-
-      const newValue = getValueFromPosition(newPosition);
-      if (newValue !== highValue) {
-        setHighValue(newValue);
-        onValueChange?.(lowValue, newValue);
-      }
-    },
-    onPanResponderRelease: () => {
-      highThumbPosition.flattenOffset();
-    },
-  });
+          const newValue = positionToValue(newPosition);
+          if (newValue !== highValue) {
+            setHighValue(newValue);
+            onValueChange?.(lowValue, newValue);
+          }
+        },
+        onPanResponderRelease: () => {},
+      }),
+    [
+      disabled,
+      lowValue,
+      highValue,
+      onValueChange,
+      sliderWidth,
+      minValue,
+      maxValue,
+    ]
+  );
 
   const handleLayout = (event: LayoutChangeEvent) => {
     const { width } = event.nativeEvent.layout;
     setSliderWidth(width);
-
-    // Initialize thumb positions
-    const lowPos = ((lowValue - minValue) / (maxValue - minValue)) * width;
-    const highPos = ((highValue - minValue) / (maxValue - minValue)) * width;
-
-    lowThumbPosition.setValue(lowPos);
-    highThumbPosition.setValue(highPos);
   };
 
+  // Calculate track styles
   const trackLeftStyle = {
     width: lowThumbPosition,
     backgroundColor: disabled ? App.colors.border : App.colors.textSecondary,
