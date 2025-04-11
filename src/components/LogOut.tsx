@@ -13,7 +13,7 @@ export const LogOut = () => {
   const handleLogout = () => {
     setUser(null);
     RNUtils.giveHapticFeedback();
-    router.replace("/(auth)");
+    router.replace("/(auth)/login");
   };
   return (
     <View

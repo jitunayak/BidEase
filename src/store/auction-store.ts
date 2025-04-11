@@ -2,6 +2,7 @@ import { Asset, AssetCategory, Bid } from "@/src/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { httpClient } from "../lib/http-client";
 import { mockAssets } from "../mocks/assets";
 
 interface AuctionState {
@@ -14,7 +15,7 @@ interface AuctionState {
 
   // Actions
   fetchAssets: () => Promise<void>;
-  fetchAssetById: (id: string) => Promise<Asset | null>;
+  fetchAssetById: (id: string) => Promise<void>;
   fetchAssetsByCategory: (category: AssetCategory) => Promise<Asset[]>;
   fetchFeaturedAssets: () => Promise<void>;
   toggleShortlist: (assetId: string) => void;
@@ -36,9 +37,9 @@ export const useAuctionStore = create<AuctionState>()(
       fetchAssets: async () => {
         set({ isLoading: true });
         try {
-          // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          set({ assets: mockAssets, isLoading: false });
+          const featured = await httpClient.get("/api/auctions");
+          console.log(featured);
+          set({ assets: featured.data, isLoading: false });
         } catch (error) {
           console.error("Error fetching assets:", error);
           set({ isLoading: false });
@@ -48,15 +49,12 @@ export const useAuctionStore = create<AuctionState>()(
       fetchAssetById: async (id: string) => {
         set({ isLoading: true });
         try {
-          // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 500));
-          const asset = mockAssets.find((a) => a.id === id) || null;
-          set({ currentAsset: asset, isLoading: false });
-          return asset;
+          const asset = await httpClient.get("/api/auctions/" + id);
+          console.log(asset);
+          set({ currentAsset: asset.data, isLoading: false });
         } catch (error) {
           console.error("Error fetching asset:", error);
           set({ isLoading: false });
-          return null;
         }
       },
 
@@ -81,9 +79,11 @@ export const useAuctionStore = create<AuctionState>()(
         set({ isLoading: true });
         try {
           // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 800));
-          const featured = mockAssets.filter((a) => a.featured);
-          set({ featuredAssets: featured, isLoading: false });
+          // await new Promise((resolve) => setTimeout(resolve, 800));
+          // const featured = mockAssets.filter((a) => a.featured);
+          const featured = await httpClient.get("/api/auctions");
+          console.log(featured);
+          set({ featuredAssets: featured.data, isLoading: false });
         } catch (error) {
           console.error("Error fetching featured assets:", error);
           set({ isLoading: false });

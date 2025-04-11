@@ -3,42 +3,78 @@ schema {
   mutation: Mutation
 }
 
-type Auction {
-  bid: Float!
-  category: String!
+type Advertisement {
+  actionUrl: String!
+  active: Boolean!
   createdAt: String!
-  description: String
-  emd: Float!
-  endsAt: String!
+  description: String!
   id: ID!
-  images: [String!]!
-  location: String!
-  status: String!
+  imageUrl: String!
+  sponsor: String!
   title: String!
   updatedAt: String!
 }
 
-input AuctionInput {
-  bid: Float!
+type Auction {
+  bankId: Int!
+  bankName: String!
+  basePrice: Float!
+  bidCount: Int!
   category: String!
-  description: String
-  emd: Float!
-  endsAt: String!
+  createdAt: String!
+  currentBid: Float
+  description: String!
+  emd: Float
+  endTime: String!
+  featured: Boolean!
+  id: ID!
   images: [String!]!
+  incrementAmount: Float!
   location: String!
+  startTime: String!
+  startingBid: Float
+  status: String!
+  title: String!
+  updatedAt: String!
+  viewCount: Int!
+}
+
+input AuctionInput {
+  bankId: Int!
+  bankName: String!
+  basePrice: Float!
+  category: String!
+  description: String!
+  emd: Float
+  endTime: String!
+  featured: Boolean
+  images: [String!]!
+  incrementAmount: Float!
+  location: String!
+  startTime: String!
+  startingBid: Float
+  status: String!
   title: String!
 }
 
 input AuctionUpdateInput {
-  bid: Float
+  bankName: String
+  basePrice: Float
+  bidCount: Int
   category: String
+  currentBid: Float
   description: String
   emd: Float
-  endsAt: String
+  endTime: String
+  featured: Boolean
   images: [String!]
+  incrementAmount: Float
   location: String
+  startTime: String
+  startingBid: Float
   status: String
   title: String
+  viewCount: Int
 }
 
 type AuthResponse {
@@ -74,6 +110,40 @@ input BankUpdateInput {
   phone: String
 }
 
+type Banner {
+  actionText: String!
+  actionUrl: String!
+  active: Boolean!
+  backgroundColor: String!
+  createdAt: String!
+  id: ID!
+  imageUrl: String!
+  subtitle: String!
+  textColor: String!
+  title: String!
+  updatedAt: String!
+}
+
+input BannerInput {
+  actionText: String!
+  actionUrl: String!
+  backgroundColor: String!
+  imageUrl: String!
+  subtitle: String!
+  textColor: String!
+  title: String!
+}
+
+input BannerUpdateInput {
+  actionText: String
+  actionUrl: String
+  backgroundColor: String
+  imageUrl: String
+  subtitle: String
+  textColor: String
+  title: String
+}
+
 scalar JSON
 
 type KYC {
@@ -89,19 +159,41 @@ input KYCInput {
 }
 
 type Mutation {
+  addToWishlist(auctionId: Int!): Wishlist
   createAuction(input: AuctionInput!): Auction!
   createBank(input: BankInput!): Bank!
+  createBanner(input: BannerInput!): Banner!
   deleteAuction(id: ID!): Boolean!
-  deleteUser(id: ID!): Boolean!
+  deleteBanner(id: ID!): Boolean!
+  deleteNotification(id: ID!): Boolean!
+  deleteUser(id: ID!): ID!
+  markNotificationAsRead(id: ID!): Notification!
+  removeFromWishlist(auctionId: Int!): Boolean
   sendOtp(phoneNumber: String!): String!
   toggleBankStatus(id: ID!): Bank!
+  toggleBannerStatus(id: ID!): Banner!
   updateAuction(id: ID!, input: AuctionUpdateInput!): Auction!
   updateBank(id: ID!, input: BankUpdateInput!): Bank!
+  updateBanner(id: ID!, input: BannerUpdateInput!): Banner!
   updateUser(id: ID!, input: UserUpdateInput!): User!
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
-  updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
+  updateUserNotificationPreferences(
+    id: ID!
+    input: NotificationPreferencesInput!
+  ): User!
   verifyOtp(otp: String!, phoneNumber: String!): AuthResponse!
+}
+
+type Notification {
+  id: ID!
+  message: String!
+  read: Boolean!
+  relatedId: String
+  timestamp: String!
+  title: String!
+  type: String!
+  userId: Int!
 }
 
 type NotificationPreferences {
@@ -117,11 +209,23 @@ input NotificationPreferencesInput {
 }
 
 type Query {
+  advertisement(id: ID!): Advertisement
+  advertisements: [Advertisement]
   auction(id: ID!): Auction
-  auctions(bidRange: [Float], category: String, location: String): [Auction!]!
+  auctions(
+    bidRange: [Float]
+    category: String
+    featured: Boolean
+    location: String
+  ): [Auction!]!
   bank(id: ID!): Bank
   banks: [Bank!]!
+  banner(id: ID!): Banner
+  banners: [Banner!]!
+  isWishlisted(auctionId: Int!): WishlistStatus!
+  notifications: [Notification!]!
   user(id: ID!): User
+  userWishlist: [Wishlist!]!
   users: [User!]!
 }
 
@@ -154,4 +258,14 @@ input UserUpdateInput {
   name: String
   phoneNumber: String
   preferences: UserPreferencesInput
+}
+
+type Wishlist {
+  auction: Auction!
+  createdAt: String!
+  wishlistId: Int!
+}
+
+type WishlistStatus {
+  isWishlisted: Boolean!
 }

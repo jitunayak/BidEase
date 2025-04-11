@@ -37,7 +37,6 @@ export const useOTPScreen = () => {
       console.log(userResponse);
       if (!userResponse) return;
       if (userResponse.data?.user) {
-        console.log(userResponse.data?.user);
         setUser(userResponse.data?.user);
         router.replace("/(tabs)/home");
       }
@@ -73,6 +72,7 @@ export const useOTPScreen = () => {
         },
       });
       if (!res) return;
+      console.log(res.data?.verifyOtp.token);
       storage.set("user.token", res.data?.verifyOtp.token ?? "");
       const userId = res.data?.verifyOtp.id!;
       console.log(userId);

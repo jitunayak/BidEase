@@ -18,43 +18,80 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-export type Auction = {
-  __typename?: 'Auction';
-  bid: Scalars['Float']['output'];
-  category: Scalars['String']['output'];
+export type Advertisement = {
+  __typename?: 'Advertisement';
+  actionUrl: Scalars['String']['output'];
+  active: Scalars['Boolean']['output'];
   createdAt: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  emd: Scalars['Float']['output'];
-  endsAt: Scalars['String']['output'];
+  description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  images: Array<Scalars['String']['output']>;
-  location: Scalars['String']['output'];
-  status: Scalars['String']['output'];
+  imageUrl: Scalars['String']['output'];
+  sponsor: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
 };
 
+export type Auction = {
+  __typename?: 'Auction';
+  bankId: Scalars['Int']['output'];
+  bankName: Scalars['String']['output'];
+  basePrice: Scalars['Float']['output'];
+  bidCount: Scalars['Int']['output'];
+  category: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  currentBid?: Maybe<Scalars['Float']['output']>;
+  description: Scalars['String']['output'];
+  emd?: Maybe<Scalars['Float']['output']>;
+  endTime: Scalars['String']['output'];
+  featured: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  images: Array<Scalars['String']['output']>;
+  incrementAmount: Scalars['Float']['output'];
+  location: Scalars['String']['output'];
+  startTime: Scalars['String']['output'];
+  startingBid?: Maybe<Scalars['Float']['output']>;
+  status: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  viewCount: Scalars['Int']['output'];
+};
+
 export type AuctionInput = {
-  bid: Scalars['Float']['input'];
+  bankId: Scalars['Int']['input'];
+  bankName: Scalars['String']['input'];
+  basePrice: Scalars['Float']['input'];
   category: Scalars['String']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
-  emd: Scalars['Float']['input'];
-  endsAt: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  emd?: InputMaybe<Scalars['Float']['input']>;
+  endTime: Scalars['String']['input'];
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
   images: Array<Scalars['String']['input']>;
+  incrementAmount: Scalars['Float']['input'];
   location: Scalars['String']['input'];
+  startTime: Scalars['String']['input'];
+  startingBid?: InputMaybe<Scalars['Float']['input']>;
+  status: Scalars['String']['input'];
   title: Scalars['String']['input'];
 };
 
 export type AuctionUpdateInput = {
-  bid?: InputMaybe<Scalars['Float']['input']>;
+  bankName?: InputMaybe<Scalars['String']['input']>;
+  basePrice?: InputMaybe<Scalars['Float']['input']>;
+  bidCount?: InputMaybe<Scalars['Int']['input']>;
   category?: InputMaybe<Scalars['String']['input']>;
+  currentBid?: InputMaybe<Scalars['Float']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   emd?: InputMaybe<Scalars['Float']['input']>;
-  endsAt?: InputMaybe<Scalars['String']['input']>;
+  endTime?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
+  incrementAmount?: InputMaybe<Scalars['Float']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
+  startTime?: InputMaybe<Scalars['String']['input']>;
+  startingBid?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+  viewCount?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type AuthResponse = {
@@ -92,6 +129,41 @@ export type BankUpdateInput = {
   phone?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type Banner = {
+  __typename?: 'Banner';
+  actionText: Scalars['String']['output'];
+  actionUrl: Scalars['String']['output'];
+  active: Scalars['Boolean']['output'];
+  backgroundColor: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  imageUrl: Scalars['String']['output'];
+  subtitle: Scalars['String']['output'];
+  textColor: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+};
+
+export type BannerInput = {
+  actionText: Scalars['String']['input'];
+  actionUrl: Scalars['String']['input'];
+  backgroundColor: Scalars['String']['input'];
+  imageUrl: Scalars['String']['input'];
+  subtitle: Scalars['String']['input'];
+  textColor: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type BannerUpdateInput = {
+  actionText?: InputMaybe<Scalars['String']['input']>;
+  actionUrl?: InputMaybe<Scalars['String']['input']>;
+  backgroundColor?: InputMaybe<Scalars['String']['input']>;
+  imageUrl?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  textColor?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Kyc = {
   __typename?: 'KYC';
   aadharNumber: Scalars['String']['output'];
@@ -107,19 +179,32 @@ export type KycInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addToWishlist?: Maybe<Wishlist>;
   createAuction: Auction;
   createBank: Bank;
+  createBanner: Banner;
   deleteAuction: Scalars['Boolean']['output'];
-  deleteUser: Scalars['Boolean']['output'];
+  deleteBanner: Scalars['Boolean']['output'];
+  deleteNotification: Scalars['Boolean']['output'];
+  deleteUser: Scalars['ID']['output'];
+  markNotificationAsRead: Notification;
+  removeFromWishlist?: Maybe<Scalars['Boolean']['output']>;
   sendOtp: Scalars['String']['output'];
   toggleBankStatus: Bank;
+  toggleBannerStatus: Banner;
   updateAuction: Auction;
   updateBank: Bank;
+  updateBanner: Banner;
   updateUser: User;
   updateUserInterests: User;
   updateUserKYC: User;
   updateUserNotificationPreferences: User;
   verifyOtp: AuthResponse;
+};
+
+
+export type MutationAddToWishlistArgs = {
+  auctionId: Scalars['Int']['input'];
 };
 
 
@@ -133,13 +218,38 @@ export type MutationCreateBankArgs = {
 };
 
 
+export type MutationCreateBannerArgs = {
+  input: BannerInput;
+};
+
+
 export type MutationDeleteAuctionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteBannerArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteNotificationArgs = {
   id: Scalars['ID']['input'];
 };
 
 
 export type MutationDeleteUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationMarkNotificationAsReadArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveFromWishlistArgs = {
+  auctionId: Scalars['Int']['input'];
 };
 
 
@@ -153,6 +263,11 @@ export type MutationToggleBankStatusArgs = {
 };
 
 
+export type MutationToggleBannerStatusArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateAuctionArgs = {
   id: Scalars['ID']['input'];
   input: AuctionUpdateInput;
@@ -162,6 +277,12 @@ export type MutationUpdateAuctionArgs = {
 export type MutationUpdateBankArgs = {
   id: Scalars['ID']['input'];
   input: BankUpdateInput;
+};
+
+
+export type MutationUpdateBannerArgs = {
+  id: Scalars['ID']['input'];
+  input: BannerUpdateInput;
 };
 
 
@@ -194,6 +315,18 @@ export type MutationVerifyOtpArgs = {
   phoneNumber: Scalars['String']['input'];
 };
 
+export type Notification = {
+  __typename?: 'Notification';
+  id: Scalars['ID']['output'];
+  message: Scalars['String']['output'];
+  read: Scalars['Boolean']['output'];
+  relatedId?: Maybe<Scalars['String']['output']>;
+  timestamp: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  userId: Scalars['Int']['output'];
+};
+
 export type NotificationPreferences = {
   __typename?: 'NotificationPreferences';
   emailNotifications: Scalars['Boolean']['output'];
@@ -209,12 +342,24 @@ export type NotificationPreferencesInput = {
 
 export type Query = {
   __typename?: 'Query';
+  advertisement?: Maybe<Advertisement>;
+  advertisements?: Maybe<Array<Maybe<Advertisement>>>;
   auction?: Maybe<Auction>;
   auctions: Array<Auction>;
   bank?: Maybe<Bank>;
   banks: Array<Bank>;
+  banner?: Maybe<Banner>;
+  banners: Array<Banner>;
+  isWishlisted: WishlistStatus;
+  notifications: Array<Notification>;
   user?: Maybe<User>;
+  userWishlist: Array<Wishlist>;
   users: Array<User>;
+};
+
+
+export type QueryAdvertisementArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -226,12 +371,23 @@ export type QueryAuctionArgs = {
 export type QueryAuctionsArgs = {
   bidRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   category?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
   location?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryBankArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryBannerArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryIsWishlistedArgs = {
+  auctionId: Scalars['Int']['input'];
 };
 
 
@@ -272,17 +428,34 @@ export type UserUpdateInput = {
   preferences?: InputMaybe<UserPreferencesInput>;
 };
 
-export type AuctionsQueryVariables = Exact<{ [key: string]: never; }>;
+export type Wishlist = {
+  __typename?: 'Wishlist';
+  auction: Auction;
+  createdAt: Scalars['String']['output'];
+  wishlistId: Scalars['Int']['output'];
+};
+
+export type WishlistStatus = {
+  __typename?: 'WishlistStatus';
+  isWishlisted: Scalars['Boolean']['output'];
+};
+
+export type AuctionsQueryVariables = Exact<{
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  bidRange?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>> | InputMaybe<Scalars['Float']['input']>>;
+}>;
 
 
-export type AuctionsQuery = { __typename?: 'Query', auctions: Array<{ __typename?: 'Auction', id: string, title: string, description?: string | null, images: Array<string>, bid: number }> };
+export type AuctionsQuery = { __typename?: 'Query', auctions: Array<{ __typename?: 'Auction', id: string, title: string, currentBid?: number | null, description: string, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null }> };
 
 export type AuctionQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description?: string | null, bid: number, emd: number, category: string, location: string, images: Array<string>, endsAt: string, createdAt: string, updatedAt: string, status: string } | null };
+export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null } | null };
 
 export type UserFragmentFragment = { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } };
 
@@ -336,6 +509,13 @@ export type VerifyOtpMutationVariables = Exact<{
 
 export type VerifyOtpMutation = { __typename?: 'Mutation', verifyOtp: { __typename?: 'AuthResponse', token: string, id: string, user?: { __typename?: 'User', id: string } | null } };
 
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
+
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
   id
@@ -362,13 +542,32 @@ export const UserFragmentFragmentDoc = gql`
 }
     `;
 export const AuctionsDocument = gql`
-    query Auctions {
-  auctions {
+    query Auctions($featured: Boolean, $category: String, $location: String, $bidRange: [Float]) {
+  auctions(
+    featured: $featured
+    category: $category
+    location: $location
+    bidRange: $bidRange
+  ) {
     id
     title
+    currentBid
     description
+    category
+    location
     images
-    bid
+    createdAt
+    updatedAt
+    status
+    bankId
+    featured
+    location
+    basePrice
+    location
+    startTime
+    endTime
+    viewCount
+    startingBid
   }
 }
     `;
@@ -385,6 +584,10 @@ export const AuctionsDocument = gql`
  * @example
  * const { data, loading, error } = useAuctionsQuery({
  *   variables: {
+ *      featured: // value for 'featured'
+ *      category: // value for 'category'
+ *      location: // value for 'location'
+ *      bidRange: // value for 'bidRange'
  *   },
  * });
  */
@@ -410,15 +613,22 @@ export const AuctionDocument = gql`
     id
     title
     description
-    bid
     emd
     category
     location
     images
-    endsAt
     createdAt
     updatedAt
     status
+    bankId
+    featured
+    location
+    basePrice
+    location
+    startTime
+    endTime
+    viewCount
+    startingBid
   }
 }
     `;
@@ -676,3 +886,34 @@ export function useVerifyOtpMutation(baseOptions?: Apollo.MutationHookOptions<Ve
 export type VerifyOtpMutationHookResult = ReturnType<typeof useVerifyOtpMutation>;
 export type VerifyOtpMutationResult = Apollo.MutationResult<VerifyOtpMutation>;
 export type VerifyOtpMutationOptions = Apollo.BaseMutationOptions<VerifyOtpMutation, VerifyOtpMutationVariables>;
+export const DeleteUserDocument = gql`
+    mutation deleteUser($id: ID!) {
+  deleteUser(id: $id)
+}
+    `;
+export type DeleteUserMutationFn = Apollo.MutationFunction<DeleteUserMutation, DeleteUserMutationVariables>;
+
+/**
+ * __useDeleteUserMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<DeleteUserMutation, DeleteUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, options);
+      }
+export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
+export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;

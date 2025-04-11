@@ -59,6 +59,7 @@ export default function AssetDetailScreen() {
 
   useEffect(() => {
     if (id) {
+      setAsset(null);
       loadAssetData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -220,6 +221,7 @@ export default function AssetDetailScreen() {
             source={{ uri: asset.images[activeImageIndex] }}
             style={styles.image}
             contentFit="cover"
+            placeholder={{ blurhash: "LjIOX|xvV?a#pfSPaxofxvRPt7fl" }}
           />
 
           {asset.images.length > 1 && (

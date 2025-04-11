@@ -1,4 +1,4 @@
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
 import { uiStyles } from "@/src/Theme";
@@ -21,7 +21,7 @@ function RootLayout() {
         },
       }}
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary, 
+        tabBarActiveTintColor: Colors.primary,
         tabBarStyle: {
           position: "absolute",
         },
@@ -54,7 +54,7 @@ function RootLayout() {
           },
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : Colors.secondary}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
               name="home"
               size={22}
             />
@@ -109,7 +109,7 @@ function RootLayout() {
           headerTitle: "",
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : Colors.secondary}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
               name="flame"
               size={22}
             />
@@ -158,7 +158,7 @@ function RootLayout() {
           headerShown: false,
           tabBarIcon: (tab) => (
             <Octicons
-              color={tab.focused ? Colors.primary : Colors.secondary}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
               name="heart"
               size={22}
             />
@@ -175,7 +175,7 @@ function RootLayout() {
             <Octicons
               name="person"
               size={22}
-              color={tab.focused ? Colors.primary : Colors.secondary}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
             />
           ),
         }}

@@ -12,8 +12,14 @@ export const Colors = {
 };
 
 export const App = {
-  isAndroid: Platform.OS === "android",
-  isIOS: Platform.OS === "ios",
+  platform: {
+    isAndroid: Platform.OS === "android",
+    isIOS: Platform.OS === "ios",
+  },
+  api: {
+    baseUrl: "https://ahouse-hono-server.onrender.com",
+    // baseUrl: "http://localhost:3000",
+  },
   colors: {
     primary: "#0052CC",
     secondary: "#757575",

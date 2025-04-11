@@ -6,6 +6,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
+import { storage } from "../hooks/storage";
 
 const removeTypenameLink = removeTypenameFromVariables();
 
@@ -15,7 +16,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = "your-auth-token"; // Replace with your authentication token
+  const token = storage.get("user.token"); // Replace with your authentication token
   return {
     headers: {
       ...headers,

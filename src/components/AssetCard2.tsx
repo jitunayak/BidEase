@@ -18,9 +18,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { App } from "../Constant";
+import { Auction } from "../gql/generated";
 import { formatCurrency, formatTimeLeft } from "../lib/format";
 import { useAuctionStore } from "../store/auction-store";
-import { Asset } from "../types";
 
 // Conditionally use Animated components based on platform
 const AnimatedView = Platform.OS !== "web" ? Animated.View : View;
@@ -30,7 +30,7 @@ const AnimatedTouchable =
     : TouchableOpacity;
 
 interface AssetCardProps {
-  asset: Asset;
+  asset: Auction;
   size?: "small" | "medium" | "large";
 }
 
@@ -102,7 +102,7 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
     toggleShortlist(asset.id);
   };
 
-  const getStatusColor = (status: Asset["status"]) => {
+  const getStatusColor = (status: Auction["status"]) => {
     switch (status) {
       case "live":
         return App.colors.bidActive;
@@ -115,7 +115,7 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
     }
   };
 
-  const getStatusText = (status: Asset["status"]) => {
+  const getStatusText = (status: Auction["status"]) => {
     switch (status) {
       case "live":
         return "Live Now";
@@ -153,9 +153,9 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
   const getTimeLeft = () => {
     if (asset.status === "ended") return "Auction ended";
     if (asset.status === "upcoming") {
-      return `Starts ${formatTimeLeft(new Date(asset.startTime))}`;
+      return `Starts ${formatTimeLeft(new Date(Number(asset.startTime)))}`;
     }
-    return `Ends ${formatTimeLeft(new Date(asset.endTime))}`;
+    return `Ends ${formatTimeLeft(new Date(Number(asset.endTime)))}`;
   };
 
   const cardAnimStyle = useAnimatedStyle(() => {
@@ -180,8 +180,7 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
     };
   });
 
-  const blurhash =
-    "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
+  const blurhash = "LjIOX|xvV?a#pfSPaxofxvRPt7fl";
 
   return (
     <AnimatedTouchable
@@ -238,7 +237,7 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
           {asset.title}
         </Text>
 
-        <Text style={styles.price}>{formatCurrency(asset.currentBid)}</Text>
+        <Text style={styles.price}>{formatCurrency(asset.currentBid!)}</Text>
 
         <View style={styles.footer}>
           <View style={styles.footerItem}>

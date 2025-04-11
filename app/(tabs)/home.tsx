@@ -2,6 +2,7 @@ import { AssetCard2 } from "@/src/components/AssetCard2";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
 import { wishListedAuctions } from "@/src/data/auctions";
+import { useAuctionsQuery } from "@/src/gql/generated";
 import { GET_AUCTIONS } from "@/src/lib/graphql/auctions.query";
 import { advertisements } from "@/src/mocks/advertisements";
 import { banners } from "@/src/mocks/banner";
@@ -17,6 +18,7 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
+import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
 export default function Home() {
   const router = useRouter();
@@ -58,6 +60,9 @@ export default function Home() {
     "apartment",
   ];
 
+  const { data: auctions, loading: loadingAuctions } = useAuctionsQuery();
+
+  console.log("auctions", auctions?.auctions);
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
       {/* <Banner /> */}
@@ -100,28 +105,46 @@ export default function Home() {
             {/* </TouchableOpacity> */}
           </View>
 
-          <Animated.FlatList
-            data={featuredAssets.slice(0, 5)}
-            keyExtractor={(item) => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.featuredList}
-            renderItem={({ item, index }) => (
-              <View
-                style={styles.featuredItem}
-                // entering={FadeInRight.delay(500 + index * 100).duration(600)}
-              >
-                <AssetCard2 asset={item} size="medium" />
-              </View>
-            )}
-            ListEmptyComponent={
-              <View style={styles.emptyState}>
-                <Text style={styles.emptyStateText}>
-                  No featured auctions available
-                </Text>
-              </View>
-            }
-          />
+          {loadingAuctions ? (
+            <View>
+              <ShimmerPlaceholder
+                style={{
+                  width: 300,
+                  height: 180,
+                  borderRadius: App.ui.borderRadius.lg,
+                  marginBottom: 10,
+                }}
+              />
+              <ShimmerPlaceholder />
+              <ShimmerPlaceholder style={{ marginTop: 16, height: 30 }} />
+              <ShimmerPlaceholder
+                style={{ marginTop: 16, width: 300, height: 40 }}
+              />
+            </View>
+          ) : (
+            <Animated.FlatList
+              data={auctions?.auctions}
+              keyExtractor={(item) => item.id}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.featuredList}
+              renderItem={({ item, index }) => (
+                <View
+                  style={styles.featuredItem}
+                  // entering={FadeInRight.delay(500 + index * 100).duration(600)}
+                >
+                  <AssetCard2 asset={item} size="medium" />
+                </View>
+              )}
+              ListEmptyComponent={
+                <View style={styles.emptyState}>
+                  <Text style={styles.emptyStateText}>
+                    No featured auctions available
+                  </Text>
+                </View>
+              }
+            />
+          )}
         </View>
 
         {/* <HStack>

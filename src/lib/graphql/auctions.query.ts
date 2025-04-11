@@ -1,13 +1,37 @@
 import { gql } from "@apollo/client";
 
 export const GET_AUCTIONS = gql`
-  query Auctions {
-    auctions {
+  query Auctions(
+    $featured: Boolean
+    $category: String
+    $location: String
+    $bidRange: [Float]
+  ) {
+    auctions(
+      featured: $featured
+      category: $category
+      location: $location
+      bidRange: $bidRange
+    ) {
       id
       title
+      currentBid
       description
+      category
+      location
       images
-      bid
+      createdAt
+      updatedAt
+      status
+      bankId
+      featured
+      location
+      basePrice
+      location
+      startTime
+      endTime
+      viewCount
+      startingBid
     }
   }
 `;
@@ -18,15 +42,22 @@ export const GET_AUCTION = gql`
       id
       title
       description
-      bid
       emd
       category
       location
       images
-      endsAt
       createdAt
       updatedAt
       status
+      bankId
+      featured
+      location
+      basePrice
+      location
+      startTime
+      endTime
+      viewCount
+      startingBid
     }
   }
 `;
