@@ -245,13 +245,13 @@ export default function Home() {
         />
       }
       data={wishListedAuctions?.wishlist}
-      keyExtractor={(item) => String(item.wishlistId)}
+      keyExtractor={(item) => String(item.id)}
       renderItem={(item) => (
         <AssetCompactCard
           item={item.item.auction as any}
           compact={true}
           onPress={() => {
-            router.navigate(`/(app)/app/${item.item.auction.id}`);
+            router.navigate(`/asset/${item.item.auction.id}`);
           }}
         />
       )}

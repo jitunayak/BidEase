@@ -431,7 +431,7 @@ export type Wishlist = {
   __typename?: 'Wishlist';
   auction: Auction;
   createdAt: Scalars['String']['output'];
-  wishlistId: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
 };
 
 export type WishlistStatus = {
@@ -523,7 +523,14 @@ export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string }
 export type GetWishlistsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetWishlistsQuery = { __typename?: 'Query', wishlist: Array<{ __typename?: 'Wishlist', wishlistId: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
+export type GetWishlistsQuery = { __typename?: 'Query', wishlist: Array<{ __typename?: 'Wishlist', id: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
+
+export type AddToWishlistMutationVariables = Exact<{
+  auctionId: Scalars['Int']['input'];
+}>;
+
+
+export type AddToWishlistMutation = { __typename?: 'Mutation', addToWishlist?: { __typename?: 'Wishlist', id: number } | null };
 
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
@@ -977,7 +984,7 @@ export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMut
 export const GetWishlistsDocument = gql`
     query getWishlists {
   wishlist {
-    wishlistId
+    id
     createdAt
     auction {
       id
@@ -1023,3 +1030,36 @@ export type GetWishlistsQueryHookResult = ReturnType<typeof useGetWishlistsQuery
 export type GetWishlistsLazyQueryHookResult = ReturnType<typeof useGetWishlistsLazyQuery>;
 export type GetWishlistsSuspenseQueryHookResult = ReturnType<typeof useGetWishlistsSuspenseQuery>;
 export type GetWishlistsQueryResult = Apollo.QueryResult<GetWishlistsQuery, GetWishlistsQueryVariables>;
+export const AddToWishlistDocument = gql`
+    mutation addToWishlist($auctionId: Int!) {
+  addToWishlist(auctionId: $auctionId) {
+    id
+  }
+}
+    `;
+export type AddToWishlistMutationFn = Apollo.MutationFunction<AddToWishlistMutation, AddToWishlistMutationVariables>;
+
+/**
+ * __useAddToWishlistMutation__
+ *
+ * To run a mutation, you first call `useAddToWishlistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToWishlistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToWishlistMutation, { data, loading, error }] = useAddToWishlistMutation({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useAddToWishlistMutation(baseOptions?: Apollo.MutationHookOptions<AddToWishlistMutation, AddToWishlistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddToWishlistMutation, AddToWishlistMutationVariables>(AddToWishlistDocument, options);
+      }
+export type AddToWishlistMutationHookResult = ReturnType<typeof useAddToWishlistMutation>;
+export type AddToWishlistMutationResult = Apollo.MutationResult<AddToWishlistMutation>;
+export type AddToWishlistMutationOptions = Apollo.BaseMutationOptions<AddToWishlistMutation, AddToWishlistMutationVariables>;

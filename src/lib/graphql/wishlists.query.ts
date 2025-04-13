@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const GET_WISHLISTS_QUERY = gql`
   query getWishlists {
     wishlist {
-      wishlistId
+      id
       createdAt
       auction {
         id
@@ -14,6 +14,17 @@ export const GET_WISHLISTS_QUERY = gql`
         startingBid
         images
       }
+    }
+  }
+
+  # mutation removeFromWishlist($auctionId: Int!) {
+  #   removeFromWishlist(auctionId: $auctionId) {
+
+  #   }
+  # }
+  mutation addToWishlist($auctionId: Int!) {
+    addToWishlist(auctionId: $auctionId) {
+      id
     }
   }
 `;

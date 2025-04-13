@@ -18,7 +18,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { App } from "../Constant";
-import { Auction } from "../gql/generated";
+import { Auction, useAddToWishlistMutation } from "../gql/generated";
 import { formatCurrency, formatTimeLeft } from "../lib/format";
 import { useAuctionStore } from "../store/auction-store";
 
@@ -40,6 +40,8 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
 }) => {
   const router = useRouter();
   const { shortlistedAssets, toggleShortlist } = useAuctionStore();
+
+  const [addToWishlist] = useAddToWishlistMutation();
 
   const isShortlisted = shortlistedAssets.includes(asset.id);
 
@@ -84,7 +86,7 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
     router.push(`/asset/${asset.id}`);
   };
 
-  const handleShortlistToggle = (e: any) => {
+  const handleShortlistToggle = async (e: any) => {
     e.stopPropagation();
 
     // Heart animation
@@ -99,7 +101,12 @@ export const AssetCard2: React.FC<AssetCardProps> = ({
       withTiming(0, { duration: 100 })
     );
 
-    toggleShortlist(asset.id);
+    // toggleShortlist(asset.id);
+    await addToWishlist({
+      variables: {
+        auctionId: Number(asset.id),
+      },
+    });
   };
 
   const getStatusColor = (status: Auction["status"]) => {

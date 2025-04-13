@@ -1,4 +1,5 @@
 import { App } from "@/src/Constant";
+import { useAuctionQuery } from "@/src/gql/generated";
 import {
   formatCurrency,
   formatDate,
@@ -6,7 +7,7 @@ import {
   formatTimeLeft,
 } from "@/src/lib/format";
 import { useAuctionStore } from "@/src/store/auction-store";
-import { Asset, Bid } from "@/src/types";
+import { Bid } from "@/src/types";
 import { Button } from "@/src/ui";
 import { BidItem } from "@/src/ui/BidItem";
 import { Image } from "expo-image";
@@ -41,9 +42,13 @@ export default function AssetDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
 
+  const auctionQuery = useAuctionQuery({
+    variables: { id },
+  });
+
   const {
     fetchAssetById,
-    currentAsset,
+
     shortlistedAssets,
     toggleShortlist,
     placeBid,
@@ -51,7 +56,6 @@ export default function AssetDetailScreen() {
     isLoading,
   } = useAuctionStore();
 
-  const [asset, setAsset] = useState<Asset | null>(null);
   const [bids, setBids] = useState<Bid[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [bidAmount, setBidAmount] = useState("");
@@ -59,21 +63,10 @@ export default function AssetDetailScreen() {
 
   useEffect(() => {
     if (id) {
-      setAsset(null);
       loadAssetData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
-
-  useEffect(() => {
-    if (currentAsset) {
-      setAsset(currentAsset);
-
-      // Set initial bid amount to current bid + increment
-      const initialBid = currentAsset.currentBid + currentAsset.incrementAmount;
-      setBidAmount(initialBid.toString());
-    }
-  }, [currentAsset]);
 
   const loadAssetData = async () => {
     try {
@@ -86,9 +79,7 @@ export default function AssetDetailScreen() {
   };
 
   const handleShortlistToggle = () => {
-    if (asset) {
-      toggleShortlist(asset.id);
-    }
+    //  FIX ME
   };
 
   const handleShare = () => {
@@ -97,7 +88,10 @@ export default function AssetDetailScreen() {
   };
 
   const handleNextImage = () => {
-    if (asset && activeImageIndex < asset.images.length - 1) {
+    if (
+      auctionQuery.data?.auction?.images &&
+      activeImageIndex < auctionQuery.data.auction.images.length - 1
+    ) {
       setActiveImageIndex(activeImageIndex + 1);
     }
   };
@@ -116,7 +110,7 @@ export default function AssetDetailScreen() {
   };
 
   const handlePlaceBid = async () => {
-    if (!asset) return;
+    if (!auctionQuery.data?.auction) return;
 
     const amount = parseInt(bidAmount, 10);
 
@@ -125,55 +119,59 @@ export default function AssetDetailScreen() {
       return;
     }
 
-    if (amount <= asset.currentBid) {
+    if (amount <= auctionQuery.data.auction.basePrice) {
       Alert.alert(
         "Bid Too Low",
         `Your bid must be higher than the current bid of ${formatCurrency(
-          asset.currentBid
+          auctionQuery.data.auction.basePrice
         )}`
       );
       return;
     }
 
-    if (amount < asset.currentBid + asset.incrementAmount) {
-      Alert.alert(
-        "Bid Too Low",
-        `Minimum bid increment is ${formatCurrency(asset.incrementAmount)}`
-      );
-      return;
-    }
+    // if (amount < auctionQuery.data.auction. + asset.incrementAmount) {
+    //   Alert.alert(
+    //     "Bid Too Low",
+    //     `Minimum bid increment is ${formatCurrency(asset.incrementAmount)}`
+    //   );
+    //   return;
+    // }
 
-    try {
-      await placeBid(asset.id, amount);
+    //   try {
+    //     await placeBid(asset.id, amount);
 
-      // Refresh bids
-      const updatedBids = await fetchBidsForAsset(asset.id);
-      setBids(updatedBids);
+    //     // Refresh bids
+    //     const updatedBids = await fetchBidsForAsset(asset.id);
+    //     setBids(updatedBids);
 
-      // Hide bid form
-      setShowBidForm(false);
+    //     // Hide bid form
+    //     setShowBidForm(false);
 
-      Alert.alert(
-        "Bid Placed",
-        `Your bid of ${formatCurrency(amount)} has been placed successfully`
-      );
-    } catch (error) {
-      Alert.alert("Error", "Failed to place bid. Please try again.");
-    }
+    //     Alert.alert(
+    //       "Bid Placed",
+    //       `Your bid of ${formatCurrency(amount)} has been placed successfully`
+    //     );
+    //   } catch (error) {
+    //     Alert.alert("Error", "Failed to place bid. Please try again.");
+    //   }
+    // };
+
+    // const handleBuyNow = () => {
+    //   if (asset) {
+    //     router.push({
+    //       pathname: "/payment/checkout",
+    //       params: { assetId: asset.id, amount: asset.currentBid.toString() },
+    //     });
+    //   }
   };
 
-  const handleBuyNow = () => {
-    if (asset) {
-      router.push({
-        pathname: "/payment/checkout",
-        params: { assetId: asset.id, amount: asset.currentBid.toString() },
-      });
-    }
-  };
+  // const isShortlisted = asset ? shortlistedAssets.includes(asset.id) : false;
 
-  const isShortlisted = asset ? shortlistedAssets.includes(asset.id) : false;
-
-  if (!asset) {
+  if (
+    auctionQuery.loading ||
+    auctionQuery.error ||
+    !auctionQuery.data?.auction
+  ) {
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <StatusBar style="dark" />
@@ -182,9 +180,9 @@ export default function AssetDetailScreen() {
     );
   }
 
-  const isLive = asset.status === "live";
-  const isEnded = asset.status === "ended";
-  const isUpcoming = asset.status === "upcoming";
+  const isLive = auctionQuery.data.auction.status === "live";
+  const isEnded = auctionQuery.data.auction.status === "ended";
+  const isUpcoming = auctionQuery.data.auction.status === "upcoming";
 
   return (
     <SafeAreaView style={styles.container}>
@@ -200,8 +198,8 @@ export default function AssetDetailScreen() {
               >
                 <Heart
                   size={24}
-                  color={isShortlisted ? App.colors.danger : App.colors.text}
-                  fill={isShortlisted ? App.colors.danger : "none"}
+                  color={true ? App.colors.danger : App.colors.text}
+                  fill={true ? App.colors.danger : "none"}
                 />
               </TouchableOpacity>
               <TouchableOpacity
@@ -218,13 +216,13 @@ export default function AssetDetailScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: asset.images[activeImageIndex] }}
+            source={{ uri: auctionQuery.data.auction.images[activeImageIndex] }}
             style={styles.image}
             contentFit="cover"
             placeholder={{ blurhash: "LjIOX|xvV?a#pfSPaxofxvRPt7fl" }}
           />
 
-          {asset.images.length > 1 && (
+          {auctionQuery.data.auction.images.length > 1 && (
             <>
               <TouchableOpacity
                 style={[styles.imageNavButton, styles.prevButton]}
@@ -237,14 +235,18 @@ export default function AssetDetailScreen() {
               <TouchableOpacity
                 style={[styles.imageNavButton, styles.nextButton]}
                 onPress={handleNextImage}
-                disabled={activeImageIndex === asset.images.length - 1}
+                disabled={
+                  activeImageIndex ===
+                  auctionQuery.data.auction.images.length - 1
+                }
               >
                 <ChevronRight size={24} color={App.colors.card} />
               </TouchableOpacity>
 
               <View style={styles.imagePagination}>
                 <Text style={styles.paginationText}>
-                  {activeImageIndex + 1} / {asset.images.length}
+                  {activeImageIndex + 1} /{" "}
+                  {auctionQuery.data.auction.images.length}
                 </Text>
               </View>
             </>
@@ -270,30 +272,39 @@ export default function AssetDetailScreen() {
 
         <View style={styles.content}>
           <Text style={styles.category}>
-            {asset.category.charAt(0).toUpperCase() + asset.category.slice(1)}
+            {auctionQuery.data.auction.category.charAt(0).toUpperCase() +
+              auctionQuery.data.auction.category.slice(1)}
           </Text>
 
-          <Text style={styles.title}>{asset.title}</Text>
+          <Text style={styles.title}>{auctionQuery.data.auction.title}</Text>
 
           <View style={styles.bankInfo}>
             <Building size={16} color={App.colors.textSecondary} />
-            <Text style={styles.bankName}>{asset.bankName}</Text>
+            <Text style={styles.bankName}>
+              {auctionQuery.data.auction.bankId}
+            </Text>
           </View>
 
           <View style={styles.locationContainer}>
             <MapPin size={16} color={App.colors.textSecondary} />
-            <Text style={styles.location}>{asset.location}</Text>
+            <Text style={styles.location}>
+              {auctionQuery.data.auction.location}
+            </Text>
           </View>
 
           <View style={styles.statsContainer}>
             <View style={styles.stat}>
               <Eye size={16} color={App.colors.textSecondary} />
-              <Text style={styles.statText}>{asset.viewCount} views</Text>
+              <Text style={styles.statText}>
+                {auctionQuery.data.auction.viewCount} views
+              </Text>
             </View>
 
             <View style={styles.stat}>
               <Users size={16} color={App.colors.textSecondary} />
-              <Text style={styles.statText}>{asset.bidCount} bids</Text>
+              <Text style={styles.statText}>
+                {auctionQuery.data.auction.viewCount} bids
+              </Text>
             </View>
 
             <View style={styles.stat}>
@@ -302,17 +313,23 @@ export default function AssetDetailScreen() {
                 {isEnded
                   ? "Auction ended"
                   : isUpcoming
-                  ? `Starts ${formatTimeLeft(new Date(asset.startTime))}`
-                  : `Ends ${formatTimeLeft(new Date(asset.endTime))}`}
+                  ? `Starts ${formatTimeLeft(
+                      new Date(auctionQuery.data.auction.startTime)
+                    )}`
+                  : `Ends ${formatTimeLeft(
+                      new Date(auctionQuery.data.auction.endTime)
+                    )}`}
               </Text>
             </View>
           </View>
 
           <View style={styles.priceContainer}>
             <Text style={styles.priceLabel}>Current Bid</Text>
-            <Text style={styles.price}>{formatCurrency(asset.currentBid)}</Text>
+            <Text style={styles.price}>
+              {formatCurrency(auctionQuery.data.auction.startingBid!)}
+            </Text>
             <Text style={styles.basePrice}>
-              Base Price: {formatCurrency(asset.basePrice)}
+              Base Price: {formatCurrency(auctionQuery.data.auction.basePrice)}
             </Text>
           </View>
 
@@ -322,8 +339,8 @@ export default function AssetDetailScreen() {
                 <View style={styles.bidForm}>
                   <Text style={styles.bidFormTitle}>Place Your Bid</Text>
                   <Text style={styles.bidFormSubtitle}>
-                    Minimum bid:{" "}
-                    {formatCurrency(asset.currentBid + asset.incrementAmount)}
+                    {/* Minimum bid:{" "}
+                    {formatCurrency(auctionQuery.data.auction.currentBid + auctionQuery.data.auction.incrementAmount)} */}
                   </Text>
 
                   <View style={styles.bidInputContainer}>
@@ -369,7 +386,7 @@ export default function AssetDetailScreen() {
                     title="Buy Now"
                     variant="secondary"
                     size="md"
-                    onPress={handleBuyNow}
+                    // onPress={handleBuyNow}
                     style={{ flex: 1 }}
                   />
                 </View>
@@ -380,8 +397,9 @@ export default function AssetDetailScreen() {
           {isEnded && (
             <View style={styles.endedMessage}>
               <Text style={styles.endedText}>
-                This auction has ended on {formatDate(new Date(asset.endTime))}{" "}
-                at {formatTime(new Date(asset.endTime))}
+                This auction has ended on{" "}
+                {formatDate(new Date(auctionQuery.data.auction.endTime))} at{" "}
+                {formatTime(new Date(auctionQuery.data.auction.endTime))}
               </Text>
             </View>
           )}
@@ -390,15 +408,17 @@ export default function AssetDetailScreen() {
             <View style={styles.upcomingMessage}>
               <Text style={styles.upcomingText}>
                 This auction will start on{" "}
-                {formatDate(new Date(asset.startTime))} at{" "}
-                {formatTime(new Date(asset.startTime))}
+                {formatDate(new Date(auctionQuery.data.auction.startTime))} at{" "}
+                {formatTime(new Date(auctionQuery.data.auction.startTime))}
               </Text>
             </View>
           )}
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Description</Text>
-            <Text style={styles.description}>{asset.description}</Text>
+            <Text style={styles.description}>
+              {auctionQuery.data.auction.description}
+            </Text>
           </View>
 
           <View style={styles.section}>

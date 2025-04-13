@@ -6,6 +6,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   FlatList,
+  RefreshControl,
   SafeAreaView,
   Text,
   TouchableOpacity,
@@ -16,7 +17,11 @@ export default function Wishlist() {
   const router = useRouter();
   const [monthRangeFilter, setMonthRangeFilter] = useState(12);
 
-  const { data: wishlists, loading: wishlistsLoading } = useGetWishlistsQuery();
+  const {
+    data: wishlists,
+    loading: wishlistsLoading,
+    refetch: refetchWishlists,
+  } = useGetWishlistsQuery();
 
   // const filteredAuctions = useMemo(
   //   () =>
@@ -88,6 +93,14 @@ export default function Wishlist() {
       </HStack>
 
       <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={wishlistsLoading}
+            onRefresh={() => {
+              refetchWishlists();
+            }}
+          />
+        }
         data={wishlists.wishlist}
         keyExtractor={(item) => item.auction.id}
         renderItem={(item) => (
@@ -95,7 +108,7 @@ export default function Wishlist() {
             item={item.item.auction as any}
             compact={true}
             onPress={() => {
-              router.navigate(`/(app)/app/${item.item.auction.id}`);
+              router.navigate(`/asset/${item.item.auction.id}`);
             }}
           />
         )}

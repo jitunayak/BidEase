@@ -254,7 +254,7 @@ input UserUpdateInput {
 type Wishlist {
   auction: Auction!
   createdAt: String!
-  wishlistId: Int!
+  id: Int!
 }
 
 type WishlistStatus {

@@ -1,5 +1,6 @@
 import { App, Colors } from "@/src/Constant";
 import { notifications } from "@/src/data/notifications";
+import { useGetWishlistsQuery } from "@/src/gql/generated";
 import { uiStyles } from "@/src/Theme";
 import { Badge } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
@@ -12,6 +13,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function RootLayout() {
   const router = useRouter();
+  const wishListsQuery = useGetWishlistsQuery();
   return (
     <Tabs
       screenListeners={{
@@ -162,7 +164,7 @@ function RootLayout() {
               size={22}
             />
           ),
-          tabBarBadge: 3,
+          tabBarBadge: wishListsQuery.data?.wishlist.length || 0,
         }}
       />
       <Tabs.Screen
