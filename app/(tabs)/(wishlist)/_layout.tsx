@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 
 function RootLayout() {
   return (
@@ -7,11 +7,19 @@ function RootLayout() {
         name="index"
         options={{
           headerLargeTitle: true,
-          headerTitle: "Wishlists",
-          title: "Wishlist",
+          headerTitle: "Your, Wishlists",
           headerTitleAlign: "left",
           headerBlurEffect: "light",
           headerTransparent: true,
+          headerSearchBarOptions: {
+            placeholder: "Search for assets",
+            shouldShowHintSearchIcon: true,
+            onChangeText: (e) => {
+              router.setParams({
+                search: e.nativeEvent.text,
+              });
+            },
+          },
         }}
       />
     </Stack>

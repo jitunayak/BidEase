@@ -1,4 +1,4 @@
-import { App, Colors } from "@/src/Constant";
+import { App } from "@/src/Constant";
 import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
 import { UPDATE_USER_NOTIFICATIONS_PREFERENCE } from "@/src/lib/graphql/users.query";
@@ -32,7 +32,11 @@ const NotificationItem = ({
         }}
       >
         <View
-          style={{ flexDirection: "row", justifyContent: "flex-start", gap: 8 }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            gap: 12,
+          }}
         >
           {icon}
           <EText variant="body">{title}</EText>
@@ -80,11 +84,10 @@ export default function NotificationPreference() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: App.colors.background }}>
       <View
         style={{
           flex: 1,
-          backgroundColor: Colors.background,
           padding: 8,
         }}
       >
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
   container: {
     gap: 16,
     margin: App.ui.padding.sm,
-    backgroundColor: App.colors.secondaryBackground,
+    backgroundColor: App.colors.card,
     borderRadius: App.ui.borderRadius.sm,
     padding: App.ui.padding.lg,
     // ...uiStyles.outlineContainer,
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: App.colors.secondaryBackground,
+    // backgroundColor: App.colors.secondaryBackground,
     paddingHorizontal: 8,
     margin: 8,
     borderRadius: App.ui.borderRadius.sm,

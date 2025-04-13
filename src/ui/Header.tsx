@@ -22,7 +22,6 @@ export const Header = (props: IProps) => {
         paddingTop: App.platform.isIOS ? 16 : App.ui.padding.xl,
         paddingHorizontal: App.ui.padding.sm,
         alignItems: "center",
-        backgroundColor: App.colors.background,
       }}
     >
       {props.backButton && (

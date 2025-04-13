@@ -1,13 +1,15 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { useGetWishlistsQuery } from "@/src/gql/generated";
 import { EText } from "@/src/ui";
-import { useRouter } from "expo-router";
+import { useGlobalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, RefreshControl, Text, View } from "react-native";
 
 export default function Wishlist() {
   const router = useRouter();
   const [monthRangeFilter, setMonthRangeFilter] = useState(12);
+
+  const { search } = useGlobalSearchParams();
 
   const {
     data: wishlists,
@@ -92,6 +94,7 @@ export default function Wishlist() {
             }}
           />
         }
+        showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{
           paddingBottom: 16,
@@ -112,7 +115,11 @@ export default function Wishlist() {
             </EText>
           </View>
         )}
-        data={wishlists.wishlist}
+        data={wishlists.wishlist.filter((item) => {
+          return item.auction.title
+            .toLowerCase()
+            .includes((typeof search === "string" ? search : "").toLowerCase());
+        })}
         keyExtractor={(item) => item.auction.id}
         renderItem={(item) => (
           <AssetCompactCard
