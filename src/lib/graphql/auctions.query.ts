@@ -58,6 +58,9 @@ export const GET_AUCTION = gql`
       endTime
       viewCount
       startingBid
+      currentBid
+      incrementAmount
+      bidCount
     }
   }
 `;

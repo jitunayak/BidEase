@@ -454,7 +454,7 @@ export type AuctionQueryVariables = Exact<{
 }>;
 
 
-export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null } | null };
+export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null, currentBid?: number | null, incrementAmount: number, bidCount: number } | null };
 
 export type GetBannersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -644,6 +644,9 @@ export const AuctionDocument = gql`
     endTime
     viewCount
     startingBid
+    currentBid
+    incrementAmount
+    bidCount
   }
 }
     `;

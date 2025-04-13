@@ -87,6 +87,20 @@ export default function AssetDetailScreen() {
     Alert.alert("Share", "Sharing functionality would be implemented here");
   };
 
+  if (
+    auctionQuery.loading ||
+    auctionQuery.error ||
+    !auctionQuery.data ||
+    !auctionQuery.data.auction
+  ) {
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <StatusBar style="dark" />
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
+
   const handleNextImage = () => {
     if (
       auctionQuery.data?.auction?.images &&
@@ -119,66 +133,60 @@ export default function AssetDetailScreen() {
       return;
     }
 
-    if (amount <= auctionQuery.data.auction.basePrice) {
+    if (amount <= auctionQuery.data.auction.currentBid!) {
       Alert.alert(
         "Bid Too Low",
         `Your bid must be higher than the current bid of ${formatCurrency(
-          auctionQuery.data.auction.basePrice
+          auctionQuery.data.auction.currentBid!
         )}`
       );
       return;
     }
 
-    // if (amount < auctionQuery.data.auction. + asset.incrementAmount) {
-    //   Alert.alert(
-    //     "Bid Too Low",
-    //     `Minimum bid increment is ${formatCurrency(asset.incrementAmount)}`
-    //   );
-    //   return;
-    // }
+    if (
+      amount <
+      auctionQuery.data.auction.startingBid! +
+        auctionQuery.data.auction.incrementAmount
+    ) {
+      Alert.alert(
+        "Bid Too Low",
+        `Minimum bid increment is ${formatCurrency(
+          auctionQuery.data.auction.incrementAmount
+        )}`
+      );
+      return;
+    }
 
-    //   try {
-    //     await placeBid(asset.id, amount);
+    try {
+      await placeBid(auctionQuery.data.auction.id, amount);
 
-    //     // Refresh bids
-    //     const updatedBids = await fetchBidsForAsset(asset.id);
-    //     setBids(updatedBids);
+      // Refresh bids
+      const updatedBids = await fetchBidsForAsset(auctionQuery.data.auction.id);
+      setBids(updatedBids);
 
-    //     // Hide bid form
-    //     setShowBidForm(false);
+      // Hide bid form
+      setShowBidForm(false);
 
-    //     Alert.alert(
-    //       "Bid Placed",
-    //       `Your bid of ${formatCurrency(amount)} has been placed successfully`
-    //     );
-    //   } catch (error) {
-    //     Alert.alert("Error", "Failed to place bid. Please try again.");
-    //   }
-    // };
+      Alert.alert(
+        "Bid Placed",
+        `Your bid of ${formatCurrency(amount)} has been placed successfully`
+      );
+    } catch (error) {
+      Alert.alert("Error", "Failed to place bid. Please try again.");
+    }
+  };
 
-    // const handleBuyNow = () => {
-    //   if (asset) {
-    //     router.push({
-    //       pathname: "/payment/checkout",
-    //       params: { assetId: asset.id, amount: asset.currentBid.toString() },
-    //     });
-    //   }
+  const handleBuyNow = () => {
+    if (auctionQuery.data?.auction) {
+      const asset = auctionQuery.data.auction;
+      router.push({
+        pathname: "/payment/checkout",
+        params: { assetId: asset.id, amount: String(asset?.currentBid) },
+      });
+    }
   };
 
   // const isShortlisted = asset ? shortlistedAssets.includes(asset.id) : false;
-
-  if (
-    auctionQuery.loading ||
-    auctionQuery.error ||
-    !auctionQuery.data?.auction
-  ) {
-    return (
-      <SafeAreaView style={styles.loadingContainer}>
-        <StatusBar style="dark" />
-        <Text>Loading...</Text>
-      </SafeAreaView>
-    );
-  }
 
   const isLive = auctionQuery.data.auction.status === "live";
   const isEnded = auctionQuery.data.auction.status === "ended";
@@ -216,7 +224,9 @@ export default function AssetDetailScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.imageContainer}>
           <Image
-            source={{ uri: auctionQuery.data.auction.images[activeImageIndex] }}
+            source={{
+              uri: auctionQuery.data.auction.images[activeImageIndex],
+            }}
             style={styles.image}
             contentFit="cover"
             placeholder={{ blurhash: "LjIOX|xvV?a#pfSPaxofxvRPt7fl" }}
@@ -303,7 +313,7 @@ export default function AssetDetailScreen() {
             <View style={styles.stat}>
               <Users size={16} color={App.colors.textSecondary} />
               <Text style={styles.statText}>
-                {auctionQuery.data.auction.viewCount} bids
+                {auctionQuery.data.auction.bidCount} bids
               </Text>
             </View>
 
@@ -314,10 +324,10 @@ export default function AssetDetailScreen() {
                   ? "Auction ended"
                   : isUpcoming
                   ? `Starts ${formatTimeLeft(
-                      new Date(auctionQuery.data.auction.startTime)
+                      new Date(Number(auctionQuery.data.auction.startTime))
                     )}`
                   : `Ends ${formatTimeLeft(
-                      new Date(auctionQuery.data.auction.endTime)
+                      new Date(Number(auctionQuery.data.auction.endTime))
                     )}`}
               </Text>
             </View>
@@ -326,7 +336,7 @@ export default function AssetDetailScreen() {
           <View style={styles.priceContainer}>
             <Text style={styles.priceLabel}>Current Bid</Text>
             <Text style={styles.price}>
-              {formatCurrency(auctionQuery.data.auction.startingBid!)}
+              {formatCurrency(auctionQuery.data.auction.currentBid!)}
             </Text>
             <Text style={styles.basePrice}>
               Base Price: {formatCurrency(auctionQuery.data.auction.basePrice)}
@@ -339,8 +349,11 @@ export default function AssetDetailScreen() {
                 <View style={styles.bidForm}>
                   <Text style={styles.bidFormTitle}>Place Your Bid</Text>
                   <Text style={styles.bidFormSubtitle}>
-                    {/* Minimum bid:{" "}
-                    {formatCurrency(auctionQuery.data.auction.currentBid + auctionQuery.data.auction.incrementAmount)} */}
+                    Minimum bid:{" "}
+                    {formatCurrency(
+                      auctionQuery.data.auction.currentBid! +
+                        auctionQuery.data.auction.incrementAmount
+                    )}
                   </Text>
 
                   <View style={styles.bidInputContainer}>
@@ -386,7 +399,7 @@ export default function AssetDetailScreen() {
                     title="Buy Now"
                     variant="secondary"
                     size="md"
-                    // onPress={handleBuyNow}
+                    onPress={handleBuyNow}
                     style={{ flex: 1 }}
                   />
                 </View>
