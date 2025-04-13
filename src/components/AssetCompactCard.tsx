@@ -1,9 +1,10 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import dayjs from "dayjs";
 import React from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 import { App, Colors } from "../Constant";
 import { Wishlist } from "../gql/generated";
+import { EText } from "../ui";
 import { HStack } from "../ui/HStack";
 import { VStack } from "../ui/VStack";
 
@@ -24,7 +25,6 @@ export default function AssetCompactCard({
       style={{
         flexDirection: "row",
         alignItems: "center",
-        gap: 8,
         flex: 1,
         // borderColor: Colors.border,
         // borderWidth: 0.6,
@@ -37,7 +37,6 @@ export default function AssetCompactCard({
       <View
         style={{
           flexDirection: compact ? "column" : "row",
-          gap: 8,
           padding: 8,
         }}
       >
@@ -51,30 +50,32 @@ export default function AssetCompactCard({
         />
         <VStack alignItems="flex-start">
           <HStack justifyContent="space-between">
-            <Text
+            <EText
               style={{
-                fontWeight: "bold",
+                fontWeight: "500",
                 fontSize: 16,
                 maxWidth: compact ? "50%" : "auto",
               }}
             >
               {item.title}
-            </Text>
+            </EText>
             <Octicons
               name={true ? "heart-fill" : "heart"}
               size={16}
               color={Colors.error}
             />
           </HStack>
-          <Text>EMD : ₹{item.emd}</Text>
-          <Text style={{ color: Colors.primary }}>
-            Starting : ₹{Number(item.startingBid).toLocaleString()}
-          </Text>
-          <HStack alignItems="center" justifyContent="flex-start">
-            <Octicons name="location" size={16} color={Colors.secondary} />
-            <Text>{item.location}</Text>
-          </HStack>
-          <Text>{dayjs(item.endTime).format("MMM DD, YYYY")}</Text>
+          <View style={{ width: "100%", gap: 6 }}>
+            <EText>EMD : ₹{item.emd}</EText>
+            <EText style={{ color: Colors.primary }}>
+              Starting : ₹{Number(item.startingBid).toLocaleString()}
+            </EText>
+            <HStack alignItems="center" justifyContent="flex-start">
+              <Octicons name="location" size={16} color={Colors.secondary} />
+              <EText>{item.location}</EText>
+            </HStack>
+            <EText>{dayjs(item.endTime).format("MMM DD, YYYY")}</EText>
+          </View>
         </VStack>
       </View>
     </Pressable>

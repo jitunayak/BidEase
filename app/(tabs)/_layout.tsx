@@ -153,9 +153,8 @@ function RootLayout() {
       />
 
       <Tabs.Screen
-        name="wishlist"
+        name="(wishlist)"
         options={{
-          title: "Wishlist",
           headerShown: false,
           tabBarIcon: (tab) => (
             <Octicons

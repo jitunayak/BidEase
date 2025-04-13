@@ -13,7 +13,6 @@ export const useLoginScreen = () => {
   };
 
   const onChangePhoneNumber = (number: string) => {
-    console.log(typeof number);
     const cleanedPhoneNumber = sanitizePhoneNumber(number);
     setPhoneNumber(formatPhoneNumber(cleanedPhoneNumber));
   };

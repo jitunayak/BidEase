@@ -64,7 +64,6 @@ export default function NotificationPreference() {
   const router = useRouter();
   const { setUser, user } = useStore();
 
-  console.log(user);
   // console.log(user);
   const [preferences, setPreferences] = useState(
     user?.preferences.interests.length === 0

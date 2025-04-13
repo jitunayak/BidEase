@@ -1,5 +1,6 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import { liveAuctions } from "@/src/data/auctions";
+import { useAuctionsQuery } from "@/src/gql/generated";
+import { EText } from "@/src/ui";
 import { useRouter } from "expo-router";
 import React from "react";
 import { FlatList, SafeAreaView, View } from "react-native";
@@ -14,17 +15,27 @@ export default function Live() {
   // console.log("handleSheetChanges", index);
   // }, []);
 
+  const { data: liveAuctions, loading } = useAuctionsQuery();
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <EText>Loading...</EText>
+      </View>
+    );
+  }
+
   return (
     <GestureHandlerRootView>
       <View style={{ paddingHorizontal: 8, flex: 1 }}>
         <SafeAreaView style={{ marginVertical: 4 }} />
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={liveAuctions}
+          data={liveAuctions?.auctions}
           keyExtractor={(item) => item.id}
           renderItem={(item) => (
             <AssetCompactCard
-              item={item.item}
+              item={item.item as any}
               compact={false}
               onPress={() => {
                 router.push(`/(app)/app/${item.item.id}`);

@@ -1,17 +1,9 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
-import { App, Colors } from "@/src/Constant";
 import { useGetWishlistsQuery } from "@/src/gql/generated";
-import { HStack } from "@/src/ui/HStack";
+import { EText } from "@/src/ui";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, RefreshControl, Text, View } from "react-native";
 
 export default function Wishlist() {
   const router = useRouter();
@@ -57,8 +49,7 @@ export default function Wishlist() {
 
   return (
     <View style={{ padding: 8, flex: 1 }}>
-      <SafeAreaView style={{ marginVertical: 16 }} />
-      <HStack
+      {/* <HStack
         justifyContent="flex-start"
         style={{ paddingHorizontal: 8 }}
         gap={8}
@@ -90,7 +81,7 @@ export default function Wishlist() {
             </Text>
           </TouchableOpacity>
         ))}
-      </HStack>
+      </HStack> */}
 
       <FlatList
         refreshControl={
@@ -101,6 +92,26 @@ export default function Wishlist() {
             }}
           />
         }
+        contentInsetAdjustmentBehavior="automatic"
+        contentContainerStyle={{
+          paddingBottom: 16,
+          paddingHorizontal: 8,
+          flexGrow: 1,
+          gap: 8,
+        }}
+        ListEmptyComponent={() => (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <EText style={{ fontSize: 16, fontWeight: "500" }}>
+              You have no wishlists
+            </EText>
+          </View>
+        )}
         data={wishlists.wishlist}
         keyExtractor={(item) => item.auction.id}
         renderItem={(item) => (

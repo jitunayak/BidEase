@@ -9,7 +9,7 @@ export default function RootLayout() {
   const router = useRouter();
   const { user } = useStore();
 
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     if (user?.phoneNumber != null) {
       router.replace("/");

@@ -9,7 +9,6 @@ export const httpClient = axios.create({
 httpClient.interceptors.request.use(
   async (config) => {
     let token = storage.get("user.token");
-    console.log("token", token);
     if (token) {
       config.headers = new axios.AxiosHeaders({
         ...config.headers,
