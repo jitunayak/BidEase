@@ -7,7 +7,6 @@ export const USER_FRAGMENT = gql`
     email
     role
     phoneNumber
-    phoneVerified
     image
     preferences {
       interests

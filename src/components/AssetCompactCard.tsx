@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import { App, Colors } from "../Constant";
-import { wishListedAuctions } from "../data/auctions";
+import { Wishlist } from "../gql/generated";
 import { HStack } from "../ui/HStack";
 import { VStack } from "../ui/VStack";
 
@@ -12,13 +12,14 @@ export default function AssetCompactCard({
   compact,
   onPress,
 }: {
-  item: (typeof wishListedAuctions)[0];
+  item: Wishlist["auction"];
   compact?: boolean;
   onPress?: () => void;
 }) {
+  if (!item) return null;
   return (
     <Pressable
-      disabled={dayjs(item.date).isBefore(new Date())}
+      disabled={dayjs(Number(item.endTime)).isBefore(new Date())}
       onPress={onPress}
       style={{
         flexDirection: "row",
@@ -28,7 +29,7 @@ export default function AssetCompactCard({
         borderColor: Colors.border,
         borderWidth: 0.6,
         borderRadius: App.ui.borderRadius.md,
-        opacity: dayjs(item.date).isBefore(new Date()) ? 0.5 : 1,
+        opacity: dayjs(item.endTime).isBefore(new Date()) ? 0.5 : 1,
         backgroundColor: Colors.background,
         maxWidth: compact ? "50%" : "auto",
       }}
@@ -41,7 +42,7 @@ export default function AssetCompactCard({
         }}
       >
         <Image
-          source={item.image}
+          source={{ uri: item.images[0] }}
           style={{
             width: compact ? "auto" : 140,
             height: 120,
@@ -60,20 +61,20 @@ export default function AssetCompactCard({
               {item.title}
             </Text>
             <Octicons
-              name={item.isWishListed ? "heart-fill" : "heart"}
+              name={true ? "heart-fill" : "heart"}
               size={16}
               color={Colors.error}
             />
           </HStack>
-          <Text>EMD : ₹{item.emd.toLocaleString()}</Text>
+          <Text>EMD : ₹{item.emd}</Text>
           <Text style={{ color: Colors.primary }}>
-            Starting : ₹{item.bid.toLocaleString()}
+            Starting : ₹{Number(item.startingBid).toLocaleString()}
           </Text>
           <HStack alignItems="center" justifyContent="flex-start">
             <Octicons name="location" size={16} color={Colors.secondary} />
             <Text>{item.location}</Text>
           </HStack>
-          <Text>{dayjs(item.date).format("MMM DD, YYYY")}</Text>
+          <Text>{dayjs(item.endTime).format("MMM DD, YYYY")}</Text>
         </VStack>
       </View>
     </Pressable>

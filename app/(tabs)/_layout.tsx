@@ -1,5 +1,4 @@
 import { App, Colors } from "@/src/Constant";
-import { wishListedAuctions } from "@/src/data/auctions";
 import { notifications } from "@/src/data/notifications";
 import { uiStyles } from "@/src/Theme";
 import { Badge } from "@/src/ui";
@@ -163,7 +162,7 @@ function RootLayout() {
               size={22}
             />
           ),
-          tabBarBadge: wishListedAuctions.length,
+          tabBarBadge: 3,
         }}
       />
       <Tabs.Screen

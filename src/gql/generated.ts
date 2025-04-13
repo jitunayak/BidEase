@@ -350,11 +350,11 @@ export type Query = {
   banks: Array<Bank>;
   banner?: Maybe<Banner>;
   banners: Array<Banner>;
-  isWishlisted: WishlistStatus;
+  isWishListed: WishlistStatus;
   notifications: Array<Notification>;
   user?: Maybe<User>;
-  userWishlist: Array<Wishlist>;
   users: Array<User>;
+  wishlist: Array<Wishlist>;
 };
 
 
@@ -386,7 +386,7 @@ export type QueryBannerArgs = {
 };
 
 
-export type QueryIsWishlistedArgs = {
+export type QueryIsWishListedArgs = {
   auctionId: Scalars['Int']['input'];
 };
 
@@ -403,7 +403,6 @@ export type User = {
   kyc: Kyc;
   name: Scalars['String']['output'];
   phoneNumber?: Maybe<Scalars['String']['output']>;
-  phoneVerified: Scalars['Boolean']['output'];
   preferences: UserPreferences;
   role: Scalars['String']['output'];
 };
@@ -437,7 +436,7 @@ export type Wishlist = {
 
 export type WishlistStatus = {
   __typename?: 'WishlistStatus';
-  isWishlisted: Scalars['Boolean']['output'];
+  isWishListed: Scalars['Boolean']['output'];
 };
 
 export type AuctionsQueryVariables = Exact<{
@@ -457,14 +456,19 @@ export type AuctionQueryVariables = Exact<{
 
 export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null } | null };
 
-export type UserFragmentFragment = { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } };
+export type GetBannersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetBannersQuery = { __typename?: 'Query', banners: Array<{ __typename?: 'Banner', id: string, title: string, imageUrl: string, actionText: string, updatedAt: string, actionUrl: string, active: boolean, backgroundColor: string, createdAt: string, subtitle: string, textColor: string }> };
+
+export type UserFragmentFragment = { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } };
 
 export type GetUserQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } | null };
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } | null };
 
 export type UpdateUserInterestsMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -472,7 +476,7 @@ export type UpdateUserInterestsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserInterestsMutation = { __typename?: 'Mutation', updateUserInterests: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
+export type UpdateUserInterestsMutation = { __typename?: 'Mutation', updateUserInterests: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
 
 export type UpdateUserNotificationPreferencesMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -492,7 +496,7 @@ export type UpdateUserBasicInfoMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, phoneVerified: boolean, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
+export type UpdateUserBasicInfoMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: string, phoneNumber?: string | null, image?: string | null, preferences: { __typename?: 'UserPreferences', interests: Array<string>, notifications: { __typename?: 'NotificationPreferences', smsNotifications: boolean, pushNotifications: boolean, emailNotifications: boolean } }, kyc: { __typename?: 'KYC', panNumber: string, isPanVerified: boolean, aadharNumber: string, isAadharVerified: boolean } } };
 
 export type SendOtpMutationVariables = Exact<{
   phoneNumber: Scalars['String']['input'];
@@ -516,6 +520,11 @@ export type DeleteUserMutationVariables = Exact<{
 
 export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string };
 
+export type GetWishlistsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetWishlistsQuery = { __typename?: 'Query', wishlist: Array<{ __typename?: 'Wishlist', wishlistId: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
+
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
   id
@@ -523,7 +532,6 @@ export const UserFragmentFragmentDoc = gql`
   email
   role
   phoneNumber
-  phoneVerified
   image
   preferences {
     interests
@@ -665,6 +673,55 @@ export type AuctionQueryHookResult = ReturnType<typeof useAuctionQuery>;
 export type AuctionLazyQueryHookResult = ReturnType<typeof useAuctionLazyQuery>;
 export type AuctionSuspenseQueryHookResult = ReturnType<typeof useAuctionSuspenseQuery>;
 export type AuctionQueryResult = Apollo.QueryResult<AuctionQuery, AuctionQueryVariables>;
+export const GetBannersDocument = gql`
+    query getBanners {
+  banners {
+    id
+    title
+    imageUrl
+    actionText
+    updatedAt
+    actionUrl
+    active
+    backgroundColor
+    createdAt
+    subtitle
+    textColor
+  }
+}
+    `;
+
+/**
+ * __useGetBannersQuery__
+ *
+ * To run a query within a React component, call `useGetBannersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBannersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBannersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBannersQuery(baseOptions?: Apollo.QueryHookOptions<GetBannersQuery, GetBannersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetBannersQuery, GetBannersQueryVariables>(GetBannersDocument, options);
+      }
+export function useGetBannersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBannersQuery, GetBannersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetBannersQuery, GetBannersQueryVariables>(GetBannersDocument, options);
+        }
+export function useGetBannersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetBannersQuery, GetBannersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetBannersQuery, GetBannersQueryVariables>(GetBannersDocument, options);
+        }
+export type GetBannersQueryHookResult = ReturnType<typeof useGetBannersQuery>;
+export type GetBannersLazyQueryHookResult = ReturnType<typeof useGetBannersLazyQuery>;
+export type GetBannersSuspenseQueryHookResult = ReturnType<typeof useGetBannersSuspenseQuery>;
+export type GetBannersQueryResult = Apollo.QueryResult<GetBannersQuery, GetBannersQueryVariables>;
 export const GetUserDocument = gql`
     query getUser($id: ID!) {
   user(id: $id) {
@@ -917,3 +974,52 @@ export function useDeleteUserMutation(baseOptions?: Apollo.MutationHookOptions<D
 export type DeleteUserMutationHookResult = ReturnType<typeof useDeleteUserMutation>;
 export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>;
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
+export const GetWishlistsDocument = gql`
+    query getWishlists {
+  wishlist {
+    wishlistId
+    createdAt
+    auction {
+      id
+      title
+      location
+      emd
+      startTime
+      startingBid
+      images
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetWishlistsQuery__
+ *
+ * To run a query within a React component, call `useGetWishlistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWishlistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWishlistsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetWishlistsQuery(baseOptions?: Apollo.QueryHookOptions<GetWishlistsQuery, GetWishlistsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetWishlistsQuery, GetWishlistsQueryVariables>(GetWishlistsDocument, options);
+      }
+export function useGetWishlistsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWishlistsQuery, GetWishlistsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetWishlistsQuery, GetWishlistsQueryVariables>(GetWishlistsDocument, options);
+        }
+export function useGetWishlistsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetWishlistsQuery, GetWishlistsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetWishlistsQuery, GetWishlistsQueryVariables>(GetWishlistsDocument, options);
+        }
+export type GetWishlistsQueryHookResult = ReturnType<typeof useGetWishlistsQuery>;
+export type GetWishlistsLazyQueryHookResult = ReturnType<typeof useGetWishlistsLazyQuery>;
+export type GetWishlistsSuspenseQueryHookResult = ReturnType<typeof useGetWishlistsSuspenseQuery>;
+export type GetWishlistsQueryResult = Apollo.QueryResult<GetWishlistsQuery, GetWishlistsQueryVariables>;

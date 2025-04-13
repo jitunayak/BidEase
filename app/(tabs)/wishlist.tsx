@@ -1,10 +1,9 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
-import { wishListedAuctions } from "@/src/data/auctions";
+import { useGetWishlistsQuery } from "@/src/gql/generated";
 import { HStack } from "@/src/ui/HStack";
-import dayjs from "dayjs";
 import { useRouter } from "expo-router";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -17,19 +16,39 @@ export default function Wishlist() {
   const router = useRouter();
   const [monthRangeFilter, setMonthRangeFilter] = useState(12);
 
-  const filteredAuctions = useMemo(
-    () =>
-      wishListedAuctions
-        .sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        })
-        .filter((item) => {
-          return dayjs(item.date).isBefore(
-            dayjs().add(monthRangeFilter, "month").toDate()
-          );
-        }),
-    [monthRangeFilter]
-  );
+  const { data: wishlists, loading: wishlistsLoading } = useGetWishlistsQuery();
+
+  // const filteredAuctions = useMemo(
+  //   () =>
+  //     wishListedAuctions
+  //       .sort((a, b) => {
+  //         return new Date(b.date).getTime() - new Date(a.date).getTime();
+  //       })
+  //       .filter((item) => {
+  //         return dayjs(item.date).isBefore(
+  //           dayjs().add(monthRangeFilter, "month").toDate()
+  //         );
+  //       }),
+  //   [monthRangeFilter]
+  // );
+
+  console.log("wishlists", wishlists?.wishlist);
+  if (wishlistsLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+  if (!wishlists?.wishlist || wishlists.wishlist.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text style={{ fontSize: 16, fontWeight: "500" }}>
+          You have no wishlists
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ padding: 8, flex: 1 }}>
@@ -69,14 +88,14 @@ export default function Wishlist() {
       </HStack>
 
       <FlatList
-        data={filteredAuctions.filter((item) => item.isWishListed)}
-        keyExtractor={(item) => item.id}
+        data={wishlists.wishlist}
+        keyExtractor={(item) => item.auction.id}
         renderItem={(item) => (
           <AssetCompactCard
-            item={item.item}
+            item={item.item.auction as any}
             compact={true}
             onPress={() => {
-              router.navigate(`/(app)/app/${item.item.id}`);
+              router.navigate(`/(app)/app/${item.item.auction.id}`);
             }}
           />
         )}

@@ -17,6 +17,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = storage.get("user.token"); // Replace with your authentication token
+  console.log("token", token);
   return {
     headers: {
       ...headers,
@@ -27,9 +28,8 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: from([removeTypenameLink, httpLink]),
+  link: from([removeTypenameLink, authLink, httpLink]),
   cache: new InMemoryCache(),
-
 });
 
 export default client;

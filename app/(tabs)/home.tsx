@@ -1,18 +1,17 @@
 import { AssetCard2 } from "@/src/components/AssetCard2";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
-import { wishListedAuctions } from "@/src/data/auctions";
-import { useAuctionsQuery } from "@/src/gql/generated";
-import { GET_AUCTIONS } from "@/src/lib/graphql/auctions.query";
+import {
+  useAuctionsQuery,
+  useGetBannersQuery,
+  useGetWishlistsQuery,
+} from "@/src/gql/generated";
 import { advertisements } from "@/src/mocks/advertisements";
-import { banners } from "@/src/mocks/banner";
 import { useAuctionStore } from "@/src/store/auction-store";
 import { AssetCategory as AssetCategoryType } from "@/src/types";
 import { EText } from "@/src/ui";
 import { AdvertisementCard } from "@/src/ui/AdvertisementCard";
 import { BannerCarousel } from "@/src/ui/BannerCaraousel";
-import { CategoryCard } from "@/src/ui/CategoryCard";
-import { useQuery } from "@apollo/client";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -20,11 +19,24 @@ import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
+const categories: AssetCategoryType[] = [
+  "gold",
+  "vehicle",
+  "house",
+  "apartment",
+];
+
 export default function Home() {
   const router = useRouter();
 
-  const { loading, data, refetch } = useQuery(GET_AUCTIONS);
   const [refreshing, setRefreshing] = useState(false);
+
+  const bannersQuery = useGetBannersQuery();
+  const {
+    data: auctions,
+    loading: loadingAuctions,
+    refetch: refetchAuctions,
+  } = useAuctionsQuery();
 
   const {
     assets,
@@ -33,6 +45,9 @@ export default function Home() {
     fetchFeaturedAssets,
     isLoading,
   } = useAuctionStore();
+
+  const { data: wishListedAuctions, refetch: refetchWishlists } =
+    useGetWishlistsQuery();
 
   useEffect(() => {
     loadData();
@@ -50,28 +65,20 @@ export default function Home() {
   const handleRefresh = async () => {
     setRefreshing(true);
     await loadData();
+    bannersQuery.refetch();
+    refetchAuctions();
+    refetchWishlists();
     setRefreshing(false);
   };
 
-  const categories: AssetCategoryType[] = [
-    "gold",
-    "vehicle",
-    "house",
-    "apartment",
-  ];
-
-  const { data: auctions, loading: loadingAuctions } = useAuctionsQuery();
-
-  console.log("auctions", auctions?.auctions);
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
-      {/* <Banner /> */}
-      {/* <Animated.View entering={FadeInDown.delay(100).duration(600)}> */}
-      <BannerCarousel banners={banners} />
-      {/* </Animated.View> */}
+      {bannersQuery.loading || !bannersQuery.data ? null : (
+        <BannerCarousel banners={bannersQuery.data.banners} />
+      )}
 
       {/* Categories */}
-      <View
+      {/* <View
         style={styles.section}
         // entering={FadeInDown.delay(200).duration(600)}
       >
@@ -90,7 +97,7 @@ export default function Home() {
             </View>
           ))}
         </View>
-      </View>
+      </View> */}
 
       <View style={{ gap: 24 }}>
         {/* Featured Auctions */}
@@ -133,7 +140,7 @@ export default function Home() {
                   style={styles.featuredItem}
                   // entering={FadeInRight.delay(500 + index * 100).duration(600)}
                 >
-                  <AssetCard2 asset={item} size="medium" />
+                  <AssetCard2 asset={item as any} size="medium" />
                 </View>
               )}
               ListEmptyComponent={
@@ -232,19 +239,19 @@ export default function Home() {
     <FlatList
       refreshControl={
         <RefreshControl
-          refreshing={loading}
-          onRefresh={refetch}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
           title="Pull to refresh"
         />
       }
-      data={wishListedAuctions.filter((item) => item.isWishListed)}
-      keyExtractor={(item) => item.id}
+      data={wishListedAuctions?.wishlist}
+      keyExtractor={(item) => String(item.wishlistId)}
       renderItem={(item) => (
         <AssetCompactCard
-          item={item.item}
+          item={item.item.auction as any}
           compact={true}
           onPress={() => {
-            router.navigate(`/(app)/app/${item.item.id}`);
+            router.navigate(`/(app)/app/${item.item.auction.id}`);
           }}
         />
       )}

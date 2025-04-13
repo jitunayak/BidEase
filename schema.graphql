@@ -178,10 +178,7 @@ type Mutation {
   updateUser(id: ID!, input: UserUpdateInput!): User!
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
-  updateUserNotificationPreferences(
-    id: ID!
-    input: NotificationPreferencesInput!
-  ): User!
+  updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
   verifyOtp(otp: String!, phoneNumber: String!): AuthResponse!
 }
 
@@ -212,21 +209,16 @@ type Query {
   advertisement(id: ID!): Advertisement
   advertisements: [Advertisement]
   auction(id: ID!): Auction
-  auctions(
-    bidRange: [Float]
-    category: String
-    featured: Boolean
-    location: String
-  ): [Auction!]!
+  auctions(bidRange: [Float], category: String, featured: Boolean, location: String): [Auction!]!
   bank(id: ID!): Bank
   banks: [Bank!]!
   banner(id: ID!): Banner
   banners: [Banner!]!
-  isWishlisted(auctionId: Int!): WishlistStatus!
+  isWishListed(auctionId: Int!): WishlistStatus!
   notifications: [Notification!]!
   user(id: ID!): User
-  userWishlist: [Wishlist!]!
   users: [User!]!
+  wishlist: [Wishlist!]!
 }
 
 type User {
@@ -236,7 +228,6 @@ type User {
   kyc: KYC!
   name: String!
   phoneNumber: String
-  phoneVerified: Boolean!
   preferences: UserPreferences!
   role: String!
 }
@@ -267,5 +258,5 @@ type Wishlist {
 }
 
 type WishlistStatus {
-  isWishlisted: Boolean!
+  isWishListed: Boolean!
 }
