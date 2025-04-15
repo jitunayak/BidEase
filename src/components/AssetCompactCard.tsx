@@ -48,16 +48,19 @@ export default function AssetCompactCard({
             borderRadius: App.ui.borderRadius.sm,
           }}
         />
-        <VStack alignItems="flex-start">
+        <VStack
+          alignItems="flex-start"
+          style={compact ? { marginTop: 4 } : { marginLeft: 12 }}
+        >
           <HStack justifyContent="space-between">
             <EText
               style={{
                 fontWeight: "500",
-                fontSize: 16,
-                maxWidth: compact ? "50%" : "auto",
+                maxWidth: compact ? "60%" : "auto",
               }}
             >
-              {item.title}
+              {item.title.trim().substring(0, 26)}
+              {item.title.length > 26 && ".."}
             </EText>
             <Octicons
               name={true ? "heart-fill" : "heart"}

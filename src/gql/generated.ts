@@ -439,6 +439,11 @@ export type WishlistStatus = {
   isWishListed: Scalars['Boolean']['output'];
 };
 
+export type GetAdvertisementsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements?: Array<{ __typename?: 'Advertisement', id: string, title: string, imageUrl: string, actionUrl: string, updatedAt: string, active: boolean, createdAt: string, description: string, sponsor: string } | null> | null };
+
 export type AuctionsQueryVariables = Exact<{
   featured?: InputMaybe<Scalars['Boolean']['input']>;
   category?: InputMaybe<Scalars['String']['input']>;
@@ -556,6 +561,54 @@ export const UserFragmentFragmentDoc = gql`
   }
 }
     `;
+export const GetAdvertisementsDocument = gql`
+    query getAdvertisements {
+  advertisements {
+    id
+    title
+    imageUrl
+    actionUrl
+    updatedAt
+    actionUrl
+    active
+    createdAt
+    description
+    sponsor
+  }
+}
+    `;
+
+/**
+ * __useGetAdvertisementsQuery__
+ *
+ * To run a query within a React component, call `useGetAdvertisementsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAdvertisementsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAdvertisementsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAdvertisementsQuery(baseOptions?: Apollo.QueryHookOptions<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>(GetAdvertisementsDocument, options);
+      }
+export function useGetAdvertisementsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>(GetAdvertisementsDocument, options);
+        }
+export function useGetAdvertisementsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>(GetAdvertisementsDocument, options);
+        }
+export type GetAdvertisementsQueryHookResult = ReturnType<typeof useGetAdvertisementsQuery>;
+export type GetAdvertisementsLazyQueryHookResult = ReturnType<typeof useGetAdvertisementsLazyQuery>;
+export type GetAdvertisementsSuspenseQueryHookResult = ReturnType<typeof useGetAdvertisementsSuspenseQuery>;
+export type GetAdvertisementsQueryResult = Apollo.QueryResult<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
 export const AuctionsDocument = gql`
     query Auctions($featured: Boolean, $category: String, $location: String, $bidRange: [Float]) {
   auctions(

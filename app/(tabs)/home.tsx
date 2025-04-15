@@ -3,15 +3,16 @@ import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
 import {
   useAuctionsQuery,
+  useGetAdvertisementsQuery,
   useGetBannersQuery,
   useGetWishlistsQuery,
 } from "@/src/gql/generated";
-import { advertisements } from "@/src/mocks/advertisements";
 import { useAuctionStore } from "@/src/store/auction-store";
 import { AssetCategory as AssetCategoryType } from "@/src/types";
 import { EText } from "@/src/ui";
 import { AdvertisementCard } from "@/src/ui/AdvertisementCard";
 import { BannerCarousel } from "@/src/ui/BannerCaraousel";
+import { CategoryCard } from "@/src/ui/CategoryCard";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -31,13 +32,6 @@ export default function Home() {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  const bannersQuery = useGetBannersQuery();
-  const {
-    data: auctions,
-    loading: loadingAuctions,
-    refetch: refetchAuctions,
-  } = useAuctionsQuery();
-
   const {
     assets,
     featuredAssets,
@@ -45,9 +39,23 @@ export default function Home() {
     fetchFeaturedAssets,
     isLoading,
   } = useAuctionStore();
-
+  const {
+    data: banners,
+    loading: loadingBanners,
+    refetch: refetchBanners,
+  } = useGetBannersQuery();
+  const {
+    data: auctions,
+    loading: loadingAuctions,
+    refetch: refetchAuctions,
+  } = useAuctionsQuery();
   const { data: wishListedAuctions, refetch: refetchWishlists } =
     useGetWishlistsQuery();
+  const {
+    data: advertisements,
+    refetch: refetchAdvertisements,
+    loading: loadingAdvertisements,
+  } = useGetAdvertisementsQuery();
 
   useEffect(() => {
     loadData();
@@ -59,26 +67,28 @@ export default function Home() {
   };
 
   const getCategoryCount = (category: AssetCategoryType) => {
-    return assets.filter((asset) => asset.category === category).length;
+    return auctions?.auctions.filter((asset) => asset.category === category)
+      .length;
   };
 
   const handleRefresh = async () => {
     setRefreshing(true);
     await loadData();
-    bannersQuery.refetch();
+    refetchBanners();
     refetchAuctions();
     refetchWishlists();
+    refetchAdvertisements();
     setRefreshing(false);
   };
 
   const renderHeader = () => (
     <View style={{ flex: 1, padding: 8, gap: 16 }}>
-      {bannersQuery.loading || !bannersQuery.data ? null : (
-        <BannerCarousel banners={bannersQuery.data.banners} />
+      {loadingBanners || !banners?.banners ? null : (
+        <BannerCarousel banners={banners.banners} />
       )}
 
       {/* Categories */}
-      {/* <View
+      <View
         style={styles.section}
         // entering={FadeInDown.delay(200).duration(600)}
       >
@@ -91,13 +101,13 @@ export default function Home() {
             >
               <CategoryCard
                 category={category}
-                count={getCategoryCount(category)}
-                // style={styles.categoryCard}
+                count={getCategoryCount(category) ?? 0}
+                style={styles.categoryCard}
               />
             </View>
           ))}
         </View>
-      </View> */}
+      </View>
 
       <View style={{ gap: 24 }}>
         {/* Featured Auctions */}
@@ -215,16 +225,40 @@ export default function Home() {
             <Text style={styles.sectionTitle}>Sponsored</Text>
           </View>
 
-          <FlatList
-            data={advertisements}
-            keyExtractor={(item) => item.id}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.adsList}
-            renderItem={({ item, index }) => (
-              <AdvertisementCard ad={item} index={index} />
+          {loadingAdvertisements ? (
+            <View>
+              <ShimmerPlaceholder
+                style={{
+                  width: 300,
+                  height: 180,
+                  borderRadius: App.ui.borderRadius.lg,
+                  marginBottom: 10,
+                }}
+              />
+            </View>
+          ) : advertisements?.advertisements &&
+            advertisements?.advertisements.length === 0 ? (
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyStateText}>
+                No advertisements available
+              </Text>
+            </View>
+          ) : null}
+          {!loadingAdvertisements &&
+            advertisements &&
+            advertisements.advertisements &&
+            advertisements?.advertisements.length > 0 && (
+              <FlatList
+                data={advertisements.advertisements}
+                keyExtractor={(item) => item?.id ?? ""}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.adsList}
+                renderItem={({ item, index }) =>
+                  item ? <AdvertisementCard ad={item} index={index} /> : null
+                }
+              />
             )}
-          />
         </Animated.View>
         {/* <AssetCategory /> */}
         <EText variant="title" style={{ marginLeft: 8 }}>
@@ -352,6 +386,5 @@ const styles = StyleSheet.create({
   },
   categoryCard: {
     width: "68%",
-    marginBottom: 16,
   },
 });

@@ -16,17 +16,10 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { App } from "../Constant";
+import { Advertisement } from "../gql/generated";
 
 const { width } = Dimensions.get("window");
 
-export interface Advertisement {
-  id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  actionUrl: string;
-  sponsor: string;
-}
 
 interface AdvertisementCardProps {
   ad: Advertisement;
