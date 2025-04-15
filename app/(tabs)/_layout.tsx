@@ -181,6 +181,20 @@ function RootLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="support"
+        options={{
+          tabBarIcon: (tab) => (
+            <Octicons
+              name="code-review"
+              size={22}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
+            />
+          ),
+          title: "Support",
+          headerTitle: "Support",
+        }}
+      />
       <Tabs.Screen name="account" options={{ href: null }} />
       <Tabs.Screen name="search" options={{ href: null }} />
       <Tabs.Screen name="shortlist" options={{ href: null }} />
