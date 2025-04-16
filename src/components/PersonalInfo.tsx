@@ -100,8 +100,8 @@ export const PersonalInfo = () => {
                 : require("../../assets/images/profile.png")
             }
             style={{
-              width: 60,
-              height: 60,
+              width: 70,
+              height: 70,
               borderRadius: 50,
               display: "flex",
               alignSelf: "center",

@@ -58,6 +58,7 @@ export default function Support() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: App.platform.isIOS ? 100 : 0,
   },
   chatContainer: {
     flex: 1,
