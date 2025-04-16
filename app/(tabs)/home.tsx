@@ -96,17 +96,11 @@ export default function Home() {
       )}
 
       {/* Categories */}
-      <View
-        style={styles.section}
-        // entering={FadeInDown.delay(200).duration(600)}
-      >
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>Categories</Text>
         <View style={styles.categoriesGrid}>
           {categories.map((category, index) => (
-            <View
-              key={category}
-              // entering={FadeInRight.delay(300 + index * 100).duration(600)}
-            >
+            <View key={category}>
               <CategoryCard
                 category={category}
                 count={getCategoryCount(category) ?? 0}
@@ -362,8 +356,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
   },
   featuredItem: {
-    width: 280,
-    marginRight: 20,
+    marginRight: 16,
     height: 300,
   },
 

@@ -198,6 +198,8 @@ export default function AssetDetailScreen() {
 
       <Stack.Screen
         options={{
+          headerShown: true,
+          headerTitle: auctionQuery.data.auction.title.substring(0, 20),
           headerRight: () => (
             <View style={styles.headerActions}>
               <TouchableOpacity

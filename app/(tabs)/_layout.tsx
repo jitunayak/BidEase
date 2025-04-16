@@ -26,20 +26,17 @@ function RootLayout() {
         tabBarStyle: {
           position: "absolute",
         },
-        tabBarBackground: () => (
-          <BlurView
-            intensity={100}
-            tint="light"
-            style={
-              App.platform.isIOS
-                ? {
-                    ...StyleSheet.absoluteFillObject,
-                    backgroundColor: "transparent",
-                  }
-                : {}
-            }
-          />
-        ),
+        tabBarBackground: () =>
+          App.platform.isIOS ? (
+            <BlurView
+              intensity={100}
+              tint="light"
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                backgroundColor: "transparent",
+              }}
+            />
+          ) : null,
       }}
     >
       <Tabs.Screen

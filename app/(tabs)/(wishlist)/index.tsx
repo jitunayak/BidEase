@@ -50,8 +50,9 @@ export default function Wishlist() {
   }
 
   return (
-    <View style={{ padding: 8, flex: 1 }}>
-      {/* <HStack
+    <>
+      <View style={{ padding: 8, flex: 1 }}>
+        {/* <HStack
         justifyContent="flex-start"
         style={{ paddingHorizontal: 8 }}
         gap={8}
@@ -85,55 +86,58 @@ export default function Wishlist() {
         ))}
       </HStack> */}
 
-      <FlatList
-        refreshControl={
-          <RefreshControl
-            refreshing={wishlistsLoading}
-            onRefresh={() => {
-              refetchWishlists();
-            }}
-          />
-        }
-        showsVerticalScrollIndicator={false}
-        contentInsetAdjustmentBehavior="automatic"
-        // contentContainerStyle={{
-        //   paddingBottom: 16,
-        //   paddingHorizontal: 8,
-        //   flexGrow: 1,
-        //   gap: 8,
-        // }}
-        ListEmptyComponent={() => (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <EText style={{ fontSize: 16, fontWeight: "500" }}>
-              You have no wishlists
-            </EText>
-          </View>
-        )}
-        data={wishlists.wishlist.filter((item) => {
-          return item.auction.title
-            .toLowerCase()
-            .includes((typeof search === "string" ? search : "").toLowerCase());
-        })}
-        keyExtractor={(item) => item.auction.id}
-        renderItem={(item) => (
-          <AssetCompactCard
-            item={item.item.auction as any}
-            compact={false}
-            onPress={() => {
-              router.navigate(`/asset/${item.item.auction.id}`);
-            }}
-          />
-        )}
-        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-        // numColumns={2}
-        // columnWrapperStyle={{ gap: 8 }}
-      />
-    </View>
+        <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={wishlistsLoading}
+              onRefresh={() => {
+                refetchWishlists();
+              }}
+            />
+          }
+          showsVerticalScrollIndicator={false}
+          contentInsetAdjustmentBehavior="automatic"
+          // contentContainerStyle={{
+          //   paddingBottom: 16,
+          //   paddingHorizontal: 8,
+          //   flexGrow: 1,
+          //   gap: 8,
+          // }}
+          ListEmptyComponent={() => (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <EText style={{ fontSize: 16, fontWeight: "500" }}>
+                You have no wishlists
+              </EText>
+            </View>
+          )}
+          data={wishlists.wishlist.filter((item) => {
+            return item.auction.title
+              .toLowerCase()
+              .includes(
+                (typeof search === "string" ? search : "").toLowerCase()
+              );
+          })}
+          keyExtractor={(item) => item.auction.id}
+          renderItem={(item) => (
+            <AssetCompactCard
+              item={item.item.auction as any}
+              compact={false}
+              onPress={() => {
+                router.navigate(`/asset/${item.item.auction.id}`);
+              }}
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+          // numColumns={2}
+          // columnWrapperStyle={{ gap: 8 }}
+        />
+      </View>
+    </>
   );
 }

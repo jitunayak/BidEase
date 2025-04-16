@@ -1,3 +1,4 @@
+import { App } from "@/src/Constant";
 import { router, Stack } from "expo-router";
 
 function RootLayout() {
@@ -6,11 +7,11 @@ function RootLayout() {
       <Stack.Screen
         name="index"
         options={{
-          headerLargeTitle: true,
+          headerLargeTitle: App.platform.isIOS,
           headerTitle: "Your, Wishlists",
           headerTitleAlign: "left",
           headerBlurEffect: "light",
-          headerTransparent: true,
+          headerTransparent: App.platform.isIOS,
           headerSearchBarOptions: {
             placeholder: "Search for assets",
             shouldShowHintSearchIcon: true,

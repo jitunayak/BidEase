@@ -84,7 +84,8 @@ export default function NotificationPreference() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: App.colors.background }}>
+    <>
+      <SafeAreaView />
       <View
         style={{
           flex: 1,
@@ -138,7 +139,7 @@ export default function NotificationPreference() {
           />
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 }
 

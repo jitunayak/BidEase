@@ -22,6 +22,9 @@ export const Header = (props: IProps) => {
         paddingTop: App.platform.isIOS ? 16 : App.ui.padding.xl,
         paddingHorizontal: App.ui.padding.sm,
         alignItems: "center",
+        borderTopEndRadius: 20,
+        borderTopStartRadius: 20,
+        marginTop: App.platform.isAndroid ? 30 : 0,
       }}
     >
       {props.backButton && (
@@ -47,7 +50,7 @@ export const Header = (props: IProps) => {
         {props.title}
       </EText>
 
-      {App.platform.isIOS && props.closeButton && (
+      {(App.platform.isAndroid || props.closeButton) && (
         <Pressable onPress={() => router.dismiss()}>
           <MaterialCommunityIcons
             name="close-circle"

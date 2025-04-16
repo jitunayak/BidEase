@@ -1,4 +1,5 @@
 import { CsStack } from "@/src/components/CsStack";
+import { App } from "@/src/Constant";
 import Octicons from "@expo/vector-icons/Octicons";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -8,7 +9,11 @@ export default function RootLayout() {
   const router = useRouter();
   return (
     <>
-      <StatusBar style="light" translucent backgroundColor="transparent" />
+      <StatusBar
+        style={App.platform.isAndroid ? "dark" : "light"}
+        translucent
+        backgroundColor="transparent"
+      />
       <CsStack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="edit-profile"

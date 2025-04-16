@@ -5,7 +5,9 @@ import {
   from,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
 import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
+import { Alert } from "react-native";
 import { storage } from "../hooks/storage";
 
 const removeTypenameLink = removeTypenameFromVariables();
@@ -16,7 +18,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = storage.get("user.token"); // Replace with your authentication token
+  const token = storage.get("user.token");
   console.log("token", token);
   return {
     headers: {
@@ -27,8 +29,43 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const errorLink = onError(
+  ({ graphQLErrors, networkError, operation, forward }) => {
+    // console.log("🚀 ~ forward:", forward);
+    // console.log("🚀 ~ operation:", operation);
+    console.log("🚀 ~ graphQLErrors:", graphQLErrors);
+
+    if (graphQLErrors) {
+      for (let err of graphQLErrors) {
+        console.error(`[GraphQL error]: Message: ${err.message}`);
+        if (
+          err.extensions?.code === "UNAUTHENTICATED" ||
+          err.message === "Unauthorized"
+        ) {
+          console.log("Authentication error detected. Logging out.");
+          // Dispatch a logout action (if using Redux or Zustand)
+          // Or directly update state and navigate
+          storage.remove("user.token");
+          Alert.alert("Error", "Session expired. Please login again.");
+          // Assuming you have a navigation object accessible
+          // if (navigationRef.current) {
+          //   navigationRef.current.dispatch(StackActions.replace("Login"));
+          // }
+        }
+      }
+    }
+
+    if (networkError) {
+      console.error(
+        `[Network error]: ${networkError}, [Operation]: ${operation.operationName}`
+      );
+      // Handle network errors (e.g., display a "No internet" message)
+    }
+  }
+);
+
 const client = new ApolloClient({
-  link: from([removeTypenameLink, authLink, httpLink]),
+  link: from([removeTypenameLink, authLink, errorLink, httpLink]),
   cache: new InMemoryCache(),
 });
 
