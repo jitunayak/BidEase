@@ -1,5 +1,4 @@
 import { AssetCategory } from "@/src/types";
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
@@ -57,15 +56,16 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
       activeOpacity={0.9}
       style={[styles.container, style]}
     >
-      <LinearGradient
-        colors={getCategoryGradient(category)}
+      {/* <LinearGradient
+        colors={[App.colors.card, App.colors.secondary]}
+        // colors={getCategoryGradient(category)}]}
         // start={{ x: 0, y: 0 }}
         // end={{ x: 0, y: 0 }}
         style={styles.gradient}
-      >
-        <Text style={styles.name}>{getCategoryName(category)}</Text>
-        <Text style={styles.count}>{count} items</Text>
-      </LinearGradient>
+      > */}
+      <Text style={styles.name}>{getCategoryName(category)}</Text>
+      <Text style={styles.count}>{count} items</Text>
+      {/* </LinearGradient> */}
     </TouchableOpacity>
   );
 };
@@ -75,7 +75,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: "hidden",
     height: 100,
-    minWidth: 160,
+    minWidth: "48%",
+    backgroundColor: App.colors.card,
+    padding: 16,
+    borderColor: App.colors.secondary,
+    flex: 1,
   },
   gradient: {
     flex: 1,
@@ -85,12 +89,10 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "700",
-    color: App.colors.card,
+    color: App.colors.primary,
   },
   count: {
     fontSize: 14,
-    fontWeight: "500",
-    color: App.colors.card,
-    opacity: 0.9,
+    color: App.colors.textSecondary,
   },
 });

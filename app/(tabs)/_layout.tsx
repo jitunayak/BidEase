@@ -30,10 +30,14 @@ function RootLayout() {
           <BlurView
             intensity={100}
             tint="light"
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: "transparent",
-            }}
+            style={
+              App.platform.isIOS
+                ? {
+                    ...StyleSheet.absoluteFillObject,
+                    backgroundColor: "transparent",
+                  }
+                : {}
+            }
           />
         ),
       }}

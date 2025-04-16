@@ -96,12 +96,12 @@ export default function Wishlist() {
         }
         showsVerticalScrollIndicator={false}
         contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={{
-          paddingBottom: 16,
-          paddingHorizontal: 8,
-          flexGrow: 1,
-          gap: 8,
-        }}
+        // contentContainerStyle={{
+        //   paddingBottom: 16,
+        //   paddingHorizontal: 8,
+        //   flexGrow: 1,
+        //   gap: 8,
+        // }}
         ListEmptyComponent={() => (
           <View
             style={{
@@ -124,15 +124,15 @@ export default function Wishlist() {
         renderItem={(item) => (
           <AssetCompactCard
             item={item.item.auction as any}
-            compact={true}
+            compact={false}
             onPress={() => {
               router.navigate(`/asset/${item.item.auction.id}`);
             }}
           />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-        numColumns={2}
-        columnWrapperStyle={{ gap: 8 }}
+        // numColumns={2}
+        // columnWrapperStyle={{ gap: 8 }}
       />
     </View>
   );

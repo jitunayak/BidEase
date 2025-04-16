@@ -15,8 +15,16 @@ import { BannerCarousel } from "@/src/ui/BannerCaraousel";
 import { CategoryCard } from "@/src/ui/CategoryCard";
 import Octicons from "@expo/vector-icons/Octicons";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import ShimmerPlaceholder from "react-native-shimmer-placeholder";
 
@@ -270,58 +278,63 @@ export default function Home() {
 
   return (
     // <View style={uiStyles.container}>
-    <FlatList
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={handleRefresh}
-          title="Pull to refresh"
-        />
-      }
-      data={wishListedAuctions?.wishlist}
-      keyExtractor={(item) => String(item.id)}
-      renderItem={(item) => (
-        <AssetCompactCard
-          item={item.item.auction as any}
-          compact={true}
-          onPress={() => {
-            router.navigate(`/asset/${item.item.auction.id}`);
-          }}
-        />
-      )}
-      ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-      numColumns={2}
-      columnWrapperStyle={{ gap: 8, padding: 8 }}
-      ListHeaderComponent={renderHeader}
-      showsVerticalScrollIndicator={false}
-      ListFooterComponent={() => (
-        <>
-          <View
-            style={{
-              height: 200,
-              flex: 1,
-              justifyContent: "center",
-              alignSelf: "center",
-              marginTop: 16,
+    <SafeAreaView>
+      <StatusBar style="dark" />
+
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+            title="Pull to refresh"
+          />
+        }
+        data={wishListedAuctions?.wishlist}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={(item) => (
+          <AssetCompactCard
+            item={item.item.auction as any}
+            compact={false}
+            onPress={() => {
+              router.navigate(`/asset/${item.item.auction.id}`);
             }}
-          >
-            <EText
-              variant="body"
-              style={{ marginLeft: 8, fontSize: 18, color: Colors.border }}
+          />
+        )}
+        ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+        // numColumns={2}
+        // columnWrapperStyle={{ gap: 8, padding: 8 }}
+        ListHeaderComponent={renderHeader}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={() => (
+          <>
+            <View
+              style={{
+                height: 200,
+                flex: 1,
+                justifyContent: "center",
+                alignSelf: "center",
+                marginTop: 16,
+              }}
             >
-              Build with Love{"  "}
-              <Octicons name="heart-fill" size={14} color={Colors.error} />
-            </EText>
-            <EText
-              variant="title"
-              style={{ marginLeft: 8, fontSize: 32, color: Colors.border }}
-            >
-              in Banglore
-            </EText>
-          </View>
-        </>
-      )}
-    />
+              <EText
+                variant="body"
+                style={{ marginLeft: 8, fontSize: 18, color: Colors.border }}
+              >
+                Build with Love{"  "}
+                <Octicons name="heart-fill" size={14} color={Colors.error} />
+              </EText>
+              <EText
+                variant="title"
+                style={{ marginLeft: 8, fontSize: 32, color: Colors.border }}
+              >
+                in Banglore
+              </EText>
+            </View>
+          </>
+        )}
+      />
+    </SafeAreaView>
+
     // </View>
   );
 }
@@ -350,7 +363,7 @@ const styles = StyleSheet.create({
   },
   featuredItem: {
     width: 280,
-    margin: 12,
+    marginRight: 20,
     height: 300,
   },
 
@@ -377,14 +390,13 @@ const styles = StyleSheet.create({
   categoriesGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginTop: 16,
     flex: 1,
-    width: "100%",
-    paddingHorizontal: App.ui.padding.md,
-    gap: 16,
+    paddingHorizontal: App.ui.padding.sm,
+    gap: 8,
   },
   categoryCard: {
-    width: "68%",
+    width: "100%",
   },
 });

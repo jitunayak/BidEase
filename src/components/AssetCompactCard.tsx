@@ -29,7 +29,9 @@ export default function AssetCompactCard({
         // borderColor: Colors.border,
         // borderWidth: 0.6,
         borderRadius: App.ui.borderRadius.md,
-        opacity: dayjs(item.endTime).isBefore(new Date()) ? 0.5 : 1,
+        opacity: dayjs(new Date(Number(item.endTime))).isBefore(new Date())
+          ? 0.5
+          : 1,
         backgroundColor: Colors.background,
         maxWidth: compact ? "50%" : "auto",
       }}
@@ -77,7 +79,9 @@ export default function AssetCompactCard({
               <Octicons name="location" size={16} color={Colors.secondary} />
               <EText>{item.location}</EText>
             </HStack>
-            <EText>{dayjs(item.endTime).format("MMM DD, YYYY")}</EText>
+            <EText>
+              {dayjs(new Date(Number(item.endTime))).format("MMM DD, YYYY")}
+            </EText>
           </View>
         </VStack>
       </View>

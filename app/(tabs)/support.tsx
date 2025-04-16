@@ -35,10 +35,9 @@ export default function Support() {
           </View>
           <View style={styles.inputContainer}>
             <ETextInput
-              label="Message"
+              label={inputValue.length === 0 ? "Type a message..." : "Message"}
               value={inputValue}
               onChangeText={setInputValue}
-              placeholder="Type a message..."
               style={styles.input}
             />
             <Button
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 8,
+    padding: 4,
   },
   input: {
     flex: 1,
