@@ -5,6 +5,7 @@ import {
   PersonalInfo,
 } from "@/src/components";
 import { App, Colors } from "@/src/Constant";
+import { useGetUserQuery } from "@/src/gql/generated";
 import { useStore } from "@/src/hooks/useStorage";
 import { useNotificationStore } from "@/src/store/notification-store";
 import { usePaymentStore } from "@/src/store/payment-store";
@@ -19,6 +20,7 @@ import {
 } from "lucide-react-native";
 import React, { useEffect } from "react";
 import {
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -33,6 +35,15 @@ export default function Profile() {
   // const { user, logout } = useAuthStore();
   const { paymentMethods, fetchPaymentMethods } = usePaymentStore();
   const { unreadCount, fetchNotifications } = useNotificationStore();
+
+  const { loading: loadingUser, refetch: refetchUser } = useGetUserQuery({
+    variables: {
+      id: user?.id ?? "",
+    },
+    onCompleted: (data) => {
+      setUser(data?.user as any);
+    },
+  });
 
   useEffect(() => {
     fetchPaymentMethods();
@@ -94,9 +105,17 @@ export default function Profile() {
     <ScrollView
       showsVerticalScrollIndicator={false}
       style={{ flex: 1, backgroundColor: App.colors.background }}
-      // refreshControl={
-      // <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
-      // }
+      refreshControl={
+        <RefreshControl
+          refreshing={loadingUser}
+          tintColor={Colors.primary}
+          onRefresh={() => {
+            // fetchPaymentMethods();
+            // fetchNotifications();
+            refetchUser();
+          }}
+        />
+      }
     >
       <View
         style={{
@@ -345,3 +364,4 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 });
+
