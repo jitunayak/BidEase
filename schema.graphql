@@ -179,6 +179,8 @@ type Mutation {
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
   updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
+  uploadAuctionImage(file: Upload!, id: ID!): String!
+  uploadUserImage(file: Upload!, id: ID!): String!
   verifyOtp(otp: String!, phoneNumber: String!): AuthResponse!
 }
 
@@ -220,6 +222,8 @@ type Query {
   users: [User!]!
   wishlist: [Wishlist!]!
 }
+
+scalar Upload
 
 type User {
   email: String!

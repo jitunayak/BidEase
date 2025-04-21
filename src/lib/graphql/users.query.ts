@@ -104,3 +104,4 @@ export const DELETE_USER = gql`
     deleteUser(id: $id)
   }
 `;
+

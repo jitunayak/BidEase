@@ -27,4 +27,8 @@ export const GET_WISHLISTS_QUERY = gql`
       id
     }
   }
+
+  mutation removeFromWishlist($auctionId: Int!) {
+    removeFromWishlist(auctionId: $auctionId)
+  }
 `;

@@ -16,6 +16,7 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   JSON: { input: any; output: any; }
+  Upload: { input: any; output: any; }
 };
 
 export type Advertisement = {
@@ -199,6 +200,8 @@ export type Mutation = {
   updateUserInterests: User;
   updateUserKYC: User;
   updateUserNotificationPreferences: User;
+  uploadAuctionImage: Scalars['String']['output'];
+  uploadUserImage: Scalars['String']['output'];
   verifyOtp: AuthResponse;
 };
 
@@ -307,6 +310,18 @@ export type MutationUpdateUserKycArgs = {
 export type MutationUpdateUserNotificationPreferencesArgs = {
   id: Scalars['ID']['input'];
   input: NotificationPreferencesInput;
+};
+
+
+export type MutationUploadAuctionImageArgs = {
+  file: Scalars['Upload']['input'];
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUploadUserImageArgs = {
+  file: Scalars['Upload']['input'];
+  id: Scalars['ID']['input'];
 };
 
 
@@ -536,6 +551,13 @@ export type AddToWishlistMutationVariables = Exact<{
 
 
 export type AddToWishlistMutation = { __typename?: 'Mutation', addToWishlist?: { __typename?: 'Wishlist', id: number } | null };
+
+export type RemoveFromWishlistMutationVariables = Exact<{
+  auctionId: Scalars['Int']['input'];
+}>;
+
+
+export type RemoveFromWishlistMutation = { __typename?: 'Mutation', removeFromWishlist?: boolean | null };
 
 export const UserFragmentFragmentDoc = gql`
     fragment UserFragment on User {
@@ -1119,3 +1141,34 @@ export function useAddToWishlistMutation(baseOptions?: Apollo.MutationHookOption
 export type AddToWishlistMutationHookResult = ReturnType<typeof useAddToWishlistMutation>;
 export type AddToWishlistMutationResult = Apollo.MutationResult<AddToWishlistMutation>;
 export type AddToWishlistMutationOptions = Apollo.BaseMutationOptions<AddToWishlistMutation, AddToWishlistMutationVariables>;
+export const RemoveFromWishlistDocument = gql`
+    mutation removeFromWishlist($auctionId: Int!) {
+  removeFromWishlist(auctionId: $auctionId)
+}
+    `;
+export type RemoveFromWishlistMutationFn = Apollo.MutationFunction<RemoveFromWishlistMutation, RemoveFromWishlistMutationVariables>;
+
+/**
+ * __useRemoveFromWishlistMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromWishlistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromWishlistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromWishlistMutation, { data, loading, error }] = useRemoveFromWishlistMutation({
+ *   variables: {
+ *      auctionId: // value for 'auctionId'
+ *   },
+ * });
+ */
+export function useRemoveFromWishlistMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromWishlistMutation, RemoveFromWishlistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFromWishlistMutation, RemoveFromWishlistMutationVariables>(RemoveFromWishlistDocument, options);
+      }
+export type RemoveFromWishlistMutationHookResult = ReturnType<typeof useRemoveFromWishlistMutation>;
+export type RemoveFromWishlistMutationResult = Apollo.MutationResult<RemoveFromWishlistMutation>;
+export type RemoveFromWishlistMutationOptions = Apollo.BaseMutationOptions<RemoveFromWishlistMutation, RemoveFromWishlistMutationVariables>;

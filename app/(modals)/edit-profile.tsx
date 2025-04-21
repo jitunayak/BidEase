@@ -1,11 +1,13 @@
 import { TextInputEditable } from "@/src/components";
-import { Colors } from "@/src/Constant";
+import { App, Colors } from "@/src/Constant";
 import { useUpdateUserBasicInfoMutation } from "@/src/gql/generated";
+import { storage } from "@/src/hooks/storage";
 import { useStore } from "@/src/hooks/useStorage";
 import { Button, EText } from "@/src/ui";
 import { Header } from "@/src/ui/Header";
 import { ETextInput } from "@/src/ui/TextInput";
 import Octicons from "@expo/vector-icons/Octicons";
+import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
@@ -46,10 +48,34 @@ export default function EditProfile() {
       aspect: [4, 3],
       quality: 1,
     });
+    console.log(result);
 
     if (!result.canceled) {
-      if (user)
-        setUser({ ...user, image: result.assets[0].uri ?? user?.image ?? "" });
+      if (user) {
+        const token = storage.get("user.token");
+
+        const response = await FileSystem.uploadAsync(
+          `${App.api.baseUrl}/api/users/${user.id}/image`,
+          result.assets[0].uri,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+            httpMethod: "POST",
+            uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+            fieldName: "file", // Replace with the field name expected by your server
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("Image uploaded successfully");
+          const imageUri = result.assets[0].uri ?? user?.image ?? "";
+          setUser({ ...user, image: imageUri });
+        } else {
+          console.error("Failed to upload image", response);
+        }
+      }
     }
   };
 
