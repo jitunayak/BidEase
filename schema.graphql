@@ -144,6 +144,8 @@ input BannerUpdateInput {
   title: String
 }
 
+scalar File
+
 scalar JSON
 
 type KYC {
@@ -159,7 +161,7 @@ input KYCInput {
 }
 
 type Mutation {
-  addToWishlist(auctionId: Int!): Wishlist
+  addToWishlist(auctionId: ID!): Wishlist
   createAuction(input: AuctionInput!): Auction!
   createBank(input: BankInput!): Bank!
   createBanner(input: BannerInput!): Banner!
@@ -168,7 +170,7 @@ type Mutation {
   deleteNotification(id: ID!): Boolean!
   deleteUser(id: ID!): ID!
   markNotificationAsRead(id: ID!): Notification!
-  removeFromWishlist(auctionId: Int!): Boolean
+  removeFromWishlist(auctionId: ID!): Boolean
   sendOtp(phoneNumber: String!): String!
   toggleBankStatus(id: ID!): Bank!
   toggleBannerStatus(id: ID!): Banner!
@@ -179,8 +181,8 @@ type Mutation {
   updateUserInterests(id: ID!, interests: [String!]!): User!
   updateUserKYC(id: ID!, input: KYCInput!): User!
   updateUserNotificationPreferences(id: ID!, input: NotificationPreferencesInput!): User!
-  uploadAuctionImage(file: Upload!, id: ID!): String!
-  uploadUserImage(file: Upload!, id: ID!): String!
+  uploadAuctionImage(file: File!, id: ID!): String!
+  uploadUserImage(file: File!, id: ID!): String!
   verifyOtp(otp: String!, phoneNumber: String!): AuthResponse!
 }
 
@@ -216,14 +218,12 @@ type Query {
   banks: [Bank!]!
   banner(id: ID!): Banner
   banners: [Banner!]!
-  isWishListed(auctionId: Int!): WishlistStatus!
+  isWishListed(auctionId: ID!): WishlistStatus!
   notifications: [Notification!]!
   user(id: ID!): User
   users: [User!]!
   wishlist: [Wishlist!]!
 }
-
-scalar Upload
 
 type User {
   email: String!

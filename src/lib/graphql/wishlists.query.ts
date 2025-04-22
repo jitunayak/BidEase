@@ -22,13 +22,13 @@ export const GET_WISHLISTS_QUERY = gql`
 
   #   }
   # }
-  mutation addToWishlist($auctionId: Int!) {
+  mutation addToWishlist($auctionId: ID!) {
     addToWishlist(auctionId: $auctionId) {
       id
     }
   }
 
-  mutation removeFromWishlist($auctionId: Int!) {
+  mutation removeFromWishlist($auctionId: ID!) {
     removeFromWishlist(auctionId: $auctionId)
   }
 `;

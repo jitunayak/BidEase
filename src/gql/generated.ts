@@ -15,8 +15,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  File: { input: any; output: any; }
   JSON: { input: any; output: any; }
-  Upload: { input: any; output: any; }
 };
 
 export type Advertisement = {
@@ -207,7 +207,7 @@ export type Mutation = {
 
 
 export type MutationAddToWishlistArgs = {
-  auctionId: Scalars['Int']['input'];
+  auctionId: Scalars['ID']['input'];
 };
 
 
@@ -252,7 +252,7 @@ export type MutationMarkNotificationAsReadArgs = {
 
 
 export type MutationRemoveFromWishlistArgs = {
-  auctionId: Scalars['Int']['input'];
+  auctionId: Scalars['ID']['input'];
 };
 
 
@@ -314,13 +314,13 @@ export type MutationUpdateUserNotificationPreferencesArgs = {
 
 
 export type MutationUploadAuctionImageArgs = {
-  file: Scalars['Upload']['input'];
+  file: Scalars['File']['input'];
   id: Scalars['ID']['input'];
 };
 
 
 export type MutationUploadUserImageArgs = {
-  file: Scalars['Upload']['input'];
+  file: Scalars['File']['input'];
   id: Scalars['ID']['input'];
 };
 
@@ -402,7 +402,7 @@ export type QueryBannerArgs = {
 
 
 export type QueryIsWishListedArgs = {
-  auctionId: Scalars['Int']['input'];
+  auctionId: Scalars['ID']['input'];
 };
 
 
@@ -474,7 +474,7 @@ export type AuctionQueryVariables = Exact<{
 }>;
 
 
-export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null, currentBid?: number | null, incrementAmount: number, bidCount: number } | null };
+export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null, currentBid?: number | null, incrementAmount: number, bidCount: number } | null, isWishListed: { __typename?: 'WishlistStatus', isWishListed: boolean } };
 
 export type GetBannersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -546,14 +546,14 @@ export type GetWishlistsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetWishlistsQuery = { __typename?: 'Query', wishlist: Array<{ __typename?: 'Wishlist', id: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
 
 export type AddToWishlistMutationVariables = Exact<{
-  auctionId: Scalars['Int']['input'];
+  auctionId: Scalars['ID']['input'];
 }>;
 
 
 export type AddToWishlistMutation = { __typename?: 'Mutation', addToWishlist?: { __typename?: 'Wishlist', id: number } | null };
 
 export type RemoveFromWishlistMutationVariables = Exact<{
-  auctionId: Scalars['Int']['input'];
+  auctionId: Scalars['ID']['input'];
 }>;
 
 
@@ -722,6 +722,9 @@ export const AuctionDocument = gql`
     currentBid
     incrementAmount
     bidCount
+  }
+  isWishListed(auctionId: $id) {
+    isWishListed
   }
 }
     `;
@@ -1109,7 +1112,7 @@ export type GetWishlistsLazyQueryHookResult = ReturnType<typeof useGetWishlistsL
 export type GetWishlistsSuspenseQueryHookResult = ReturnType<typeof useGetWishlistsSuspenseQuery>;
 export type GetWishlistsQueryResult = Apollo.QueryResult<GetWishlistsQuery, GetWishlistsQueryVariables>;
 export const AddToWishlistDocument = gql`
-    mutation addToWishlist($auctionId: Int!) {
+    mutation addToWishlist($auctionId: ID!) {
   addToWishlist(auctionId: $auctionId) {
     id
   }
@@ -1142,7 +1145,7 @@ export type AddToWishlistMutationHookResult = ReturnType<typeof useAddToWishlist
 export type AddToWishlistMutationResult = Apollo.MutationResult<AddToWishlistMutation>;
 export type AddToWishlistMutationOptions = Apollo.BaseMutationOptions<AddToWishlistMutation, AddToWishlistMutationVariables>;
 export const RemoveFromWishlistDocument = gql`
-    mutation removeFromWishlist($auctionId: Int!) {
+    mutation removeFromWishlist($auctionId: ID!) {
   removeFromWishlist(auctionId: $auctionId)
 }
     `;

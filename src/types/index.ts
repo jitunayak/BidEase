@@ -32,6 +32,13 @@ export interface Asset {
   featured: boolean;
   viewCount: number;
   bidCount: number;
+  startingBid: number;
+}
+
+export interface Wishlist {
+  id: number;
+  createdAt: string;
+  auction: Asset;
 }
 
 export interface Bid {

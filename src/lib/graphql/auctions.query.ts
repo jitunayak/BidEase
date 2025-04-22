@@ -62,5 +62,8 @@ export const GET_AUCTION = gql`
       incrementAmount
       bidCount
     }
+    isWishListed(auctionId: $id) {
+      isWishListed
+    }
   }
 `;

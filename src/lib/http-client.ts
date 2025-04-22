@@ -1,4 +1,5 @@
 import axios from "axios";
+import { router } from "expo-router";
 import { App } from "../Constant";
 import { storage } from "../hooks/storage";
 
@@ -14,6 +15,8 @@ httpClient.interceptors.request.use(
         ...config.headers,
         Authorization: `Bearer ${token}`,
       });
+    } else {
+      router.replace("/(auth)/login");
     }
     return config;
   },

@@ -1,5 +1,6 @@
-import { Asset, AssetCategory, Bid } from "@/src/types";
+import { Asset, AssetCategory, Bid, Wishlist } from "@/src/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AxiosResponse } from "axios";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { httpClient } from "../lib/http-client";
@@ -17,6 +18,7 @@ interface AuctionState {
   fetchAssets: () => Promise<void>;
   fetchAssetById: (id: string) => Promise<void>;
   fetchAssetsByCategory: (category: AssetCategory) => Promise<Asset[]>;
+  fetchShortListedAssets: () => Promise<void>;
   fetchFeaturedAssets: () => Promise<void>;
   toggleShortlist: (assetId: string) => void;
   placeBid: (assetId: string, amount: number) => Promise<void>;
@@ -34,6 +36,26 @@ export const useAuctionStore = create<AuctionState>()(
       bids: {},
       isLoading: false,
 
+      fetchShortListedAssets: async () => {
+        set({ isLoading: true });
+        try {
+          const shortlisted = (await httpClient.get(
+            "/api/wishlist"
+          )) as AxiosResponse<Wishlist[]>;
+          console.log(shortlisted);
+          if (shortlisted) {
+            set({
+              shortlistedAssets: shortlisted.data.map((item) =>
+                String(item.auction.id)
+              ),
+              isLoading: false,
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching shortlisted assets:", error);
+          set({ isLoading: false });
+        }
+      },
       fetchAssets: async () => {
         set({ isLoading: true });
         try {
@@ -81,7 +103,7 @@ export const useAuctionStore = create<AuctionState>()(
           // Simulating API call
           // await new Promise((resolve) => setTimeout(resolve, 800));
           // const featured = mockAssets.filter((a) => a.featured);
-          const featured = await httpClient.get("/api/auctions");
+          const featured = await httpClient.get("/api/auctions?featured=true");
           console.log(featured);
           set({ featuredAssets: featured.data, isLoading: false });
         } catch (error) {
@@ -90,14 +112,20 @@ export const useAuctionStore = create<AuctionState>()(
         }
       },
 
-      toggleShortlist: (assetId: string) => {
+      toggleShortlist: async (assetId: string) => {
         set((state) => {
           const isShortlisted = state.shortlistedAssets.includes(assetId);
-          return {
+          const updatedState = {
             shortlistedAssets: isShortlisted
               ? state.shortlistedAssets.filter((id) => id !== assetId)
               : [...state.shortlistedAssets, assetId],
           };
+
+          isShortlisted
+            ? httpClient.delete("/api/wishlist/" + assetId)
+            : httpClient.post("/api/wishlist/" + assetId, null);
+
+          return updatedState;
         });
       },
 
