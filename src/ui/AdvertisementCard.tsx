@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Animated, {
+import {
   useAnimatedStyle,
   useSharedValue,
   withDelay,
@@ -19,7 +19,6 @@ import { App } from "../Constant";
 import { Advertisement } from "../gql/generated";
 
 const { width } = Dimensions.get("window");
-
 
 interface AdvertisementCardProps {
   ad: Advertisement;
@@ -59,12 +58,12 @@ export const AdvertisementCard: React.FC<AdvertisementCardProps> = ({
       // In a real app, we would use Linking.openURL(ad.actionUrl)
       console.log("Opening external URL:", ad.actionUrl);
     } else {
-      router.push(ad.actionUrl);
+      router.push(ad.actionUrl as any);
     }
   };
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
+    <View style={[styles.container, animatedStyle]}>
       <TouchableOpacity
         style={styles.card}
         onPress={handlePress}
@@ -97,7 +96,7 @@ export const AdvertisementCard: React.FC<AdvertisementCardProps> = ({
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
-    </Animated.View>
+    </View>
   );
 };
 

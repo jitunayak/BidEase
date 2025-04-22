@@ -10,10 +10,12 @@ import { Tabs, useRouter } from "expo-router";
 import { LucideBell, LucideSearch } from "lucide-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { startNetworkLogging } from "react-native-network-logger";
 
 function RootLayout() {
   const router = useRouter();
   const wishListsQuery = useGetWishlistsQuery();
+  startNetworkLogging();
   return (
     <Tabs
       screenListeners={{
@@ -194,6 +196,18 @@ function RootLayout() {
           ),
           title: "Support",
           headerTitle: "Support",
+        }}
+      />
+      <Tabs.Screen
+        name="network"
+        options={{
+          tabBarIcon: (tab) => (
+            <Octicons
+              name="link"
+              size={22}
+              color={tab.focused ? Colors.primary : App.colors.textSecondary}
+            />
+          ),
         }}
       />
       <Tabs.Screen name="account" options={{ href: null }} />

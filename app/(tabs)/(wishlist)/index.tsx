@@ -1,9 +1,10 @@
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { useGetWishlistsQuery } from "@/src/gql/generated";
 import { EText } from "@/src/ui";
+import { FlashList } from "@shopify/flash-list";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, RefreshControl, Text, View } from "react-native";
+import { RefreshControl, Text, View } from "react-native";
 
 export default function Wishlist() {
   const router = useRouter();
@@ -86,7 +87,7 @@ export default function Wishlist() {
         ))}
       </HStack> */}
 
-        <FlatList
+        <FlashList
           refreshControl={
             <RefreshControl
               refreshing={wishlistsLoading}
@@ -95,6 +96,7 @@ export default function Wishlist() {
               }}
             />
           }
+          estimatedItemSize={200}
           showsVerticalScrollIndicator={false}
           contentInsetAdjustmentBehavior="automatic"
           // contentContainerStyle={{

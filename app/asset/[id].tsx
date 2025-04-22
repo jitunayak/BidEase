@@ -75,8 +75,11 @@ export default function AssetDetailScreen() {
 
   const loadAssetData = async () => {
     try {
-      await Promise.all([fetchAssetById(id), fetchShortListedAssets()]);
-      const assetBid = await fetchBidsForAsset(id);
+      const [_, __, assetBid] = await Promise.all([
+        fetchAssetById(id),
+        fetchShortListedAssets(),
+        fetchBidsForAsset(id),
+      ]);
       setBids(assetBid);
     } catch (error) {
       console.error("Error loading asset data:", error);
@@ -94,7 +97,7 @@ export default function AssetDetailScreen() {
     Alert.alert("Share", "Sharing functionality would be implemented here");
   };
 
-  if (isLoading || !currentAsset) {
+  if (isLoading || !currentAsset || currentAsset?.id != id) {
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <StatusBar style="dark" />

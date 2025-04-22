@@ -2,7 +2,6 @@ import { AssetCard2 } from "@/src/components/AssetCard2";
 import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
 import {
-  useAuctionsQuery,
   useGetAdvertisementsQuery,
   useGetBannersQuery,
   useGetWishlistsQuery,
@@ -14,6 +13,7 @@ import { AdvertisementCard } from "@/src/ui/AdvertisementCard";
 import { BannerCarousel } from "@/src/ui/BannerCaraousel";
 import { CategoryCard } from "@/src/ui/CategoryCard";
 import Octicons from "@expo/vector-icons/Octicons";
+import { FlashList } from "@shopify/flash-list";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
@@ -52,11 +52,7 @@ export default function Home() {
     loading: loadingBanners,
     refetch: refetchBanners,
   } = useGetBannersQuery();
-  const {
-    data: auctions,
-    loading: loadingAuctions,
-    refetch: refetchAuctions,
-  } = useAuctionsQuery();
+
   const { data: wishListedAuctions, refetch: refetchWishlists } =
     useGetWishlistsQuery();
   const {
@@ -75,15 +71,14 @@ export default function Home() {
   };
 
   const getCategoryCount = (category: AssetCategoryType) => {
-    return auctions?.auctions.filter((asset) => asset.category === category)
-      .length;
+    return assets.filter((asset) => asset.category === category).length;
   };
 
   const handleRefresh = async () => {
     setRefreshing(true);
     await loadData();
     refetchBanners();
-    refetchAuctions();
+    fetchAssets();
     refetchWishlists();
     refetchAdvertisements();
     setRefreshing(false);
@@ -124,7 +119,7 @@ export default function Home() {
             {/* </TouchableOpacity> */}
           </View>
 
-          {loadingAuctions ? (
+          {isLoading ? (
             <View>
               <ShimmerPlaceholder
                 style={{
@@ -141,8 +136,9 @@ export default function Home() {
               />
             </View>
           ) : (
-            <Animated.FlatList
-              data={auctions?.auctions}
+            <FlashList
+              estimatedItemSize={346}
+              data={assets}
               keyExtractor={(item) => item.id}
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -250,7 +246,8 @@ export default function Home() {
             advertisements &&
             advertisements.advertisements &&
             advertisements?.advertisements.length > 0 && (
-              <FlatList
+              <FlashList
+                estimatedItemSize={420}
                 data={advertisements.advertisements}
                 keyExtractor={(item) => item?.id ?? ""}
                 horizontal

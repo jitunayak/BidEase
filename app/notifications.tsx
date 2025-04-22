@@ -1,12 +1,12 @@
 import { App } from "@/src/Constant";
 import { useNotificationStore } from "@/src/store/notification-store";
 import { NotificationItem } from "@/src/ui/NoitficationItem";
+import { FlashList } from "@shopify/flash-list";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   ActivityIndicator,
-  FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -43,7 +43,7 @@ export default function NotificationsScreen() {
           <ActivityIndicator size="large" color={App.colors.primary} />
         </View>
       ) : (
-        <FlatList
+        <FlashList
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <NotificationItem notification={item} />}

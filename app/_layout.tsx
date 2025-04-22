@@ -4,6 +4,7 @@ import client from "@/src/lib/GraphQlClient";
 import { ApolloProvider } from "@apollo/client";
 import { Slot, Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
+import { startNetworkLogging } from "react-native-network-logger";
 
 export default function RootLayout() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function RootLayout() {
 
   // console.log(user);
   useEffect(() => {
+    startNetworkLogging();
     if (user?.phoneNumber != null) {
       router.replace("/");
       return;
