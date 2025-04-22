@@ -9,13 +9,13 @@ import { onError } from "@apollo/client/link/error";
 import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
 import { router } from "expo-router";
 import { Alert } from "react-native";
+import { App } from "../Constant";
 import { storage } from "../hooks/storage";
 
 const removeTypenameLink = removeTypenameFromVariables();
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:3000/graphql",
-  // uri: "https://ahouse-hono-server.onrender.com/graphql",
+  uri: `${App.api.baseUrl}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {

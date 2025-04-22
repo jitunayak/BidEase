@@ -12,7 +12,9 @@ export default function RootLayout() {
 
   // console.log(user);
   useEffect(() => {
-    startNetworkLogging();
+    startNetworkLogging({
+      maxRequests: 100,
+    });
     if (user?.phoneNumber != null) {
       router.replace("/");
       return;

@@ -10,12 +10,10 @@ import { Tabs, useRouter } from "expo-router";
 import { LucideBell, LucideSearch } from "lucide-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { startNetworkLogging } from "react-native-network-logger";
 
 function RootLayout() {
   const router = useRouter();
   const wishListsQuery = useGetWishlistsQuery();
-  startNetworkLogging();
   return (
     <Tabs
       screenListeners={{
