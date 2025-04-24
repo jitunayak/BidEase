@@ -32,7 +32,7 @@ export default function Wishlist() {
   //   [monthRangeFilter]
   // );
 
-  console.log("wishlists", wishlists?.wishlist);
+  console.log("wishlists", wishlists?.wishlists);
   if (wishlistsLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -40,7 +40,7 @@ export default function Wishlist() {
       </View>
     );
   }
-  if (!wishlists?.wishlist || wishlists.wishlist.length === 0) {
+  if (!wishlists?.wishlists || wishlists.wishlists.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text style={{ fontSize: 16, fontWeight: "500" }}>
@@ -118,7 +118,7 @@ export default function Wishlist() {
               </EText>
             </View>
           )}
-          data={wishlists.wishlist.filter((item) => {
+          data={wishlists.wishlists.filter((item) => {
             return item.auction.title
               .toLowerCase()
               .includes(

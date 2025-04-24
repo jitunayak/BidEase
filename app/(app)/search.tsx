@@ -1,15 +1,36 @@
+import AssetCompactCard from "@/src/components/AssetCompactCard";
 import { App, Colors } from "@/src/Constant";
+import { useAuctionsWithSearchLazyQuery } from "@/src/gql/generated";
 import Octicons from "@expo/vector-icons/Octicons";
+import { FlashList } from "@shopify/flash-list";
+import { router } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Easing, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Animated,
+  Easing,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
-const keywords = ["auction", "gold", "property"];
+const keywords = ["suv", "gold", "home"];
 export default function search() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchKeyword, setSearchKeyword] = useState(keywords[0]);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [fetch, { data, loading }] = useAuctionsWithSearchLazyQuery();
+
   const keywordIndex = useRef(0);
   const slideAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 400); // 400ms debounce
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,12 +77,20 @@ export default function search() {
     color: Colors.secondary,
   };
 
+  useEffect(() => {
+    if (debouncedQuery.length > 0) {
+      fetch({
+        variables: {
+          keyword: debouncedQuery,
+        },
+      });
+    }
+  }, [debouncedQuery]);
+
   return (
     <View
       style={{
         flex: 1,
-        // alignItems: "center",
-        paddingHorizontal: 16,
         backgroundColor: Colors.background,
         paddingTop: 16,
       }}
@@ -74,6 +103,7 @@ export default function search() {
           borderColor: App.colors.border,
           borderRadius: App.ui.borderRadius.sm,
           gap: 8,
+          marginHorizontal: 10,
           alignItems: "center",
           backgroundColor: App.colors.secondaryBackground,
         }}
@@ -111,9 +141,45 @@ export default function search() {
         />
       </View>
 
-      <Text style={{ color: Colors.text, marginTop: 50, textAlign: "center" }}>
-        No matching results found
-      </Text>
+      {data?.searchAuctions && data.searchAuctions.length > 0 && (
+        <Text
+          style={{
+            color: App.colors.textSecondary,
+            marginVertical: 10,
+            textAlign: "center",
+          }}
+        >
+          {data?.searchAuctions.length} matching results found
+        </Text>
+      )}
+      {data?.searchAuctions && data?.searchAuctions.length > 0 ? (
+        <FlashList
+          data={data?.searchAuctions}
+          renderItem={({ item }) => {
+            return (
+              <AssetCompactCard
+                item={item as any}
+                onPress={() =>
+                  router.navigate(`/asset/${(item as { id: string }).id}`)
+                }
+              />
+            );
+          }}
+          estimatedItemSize={400}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{}}
+        />
+      ) : loading ? (
+        <View style={{ flex: 1, alignItems: "center", marginTop: 50 }}>
+          <ActivityIndicator />
+        </View>
+      ) : (
+        <Text
+          style={{ color: Colors.text, marginTop: 50, textAlign: "center" }}
+        >
+          No matching results found
+        </Text>
+      )}
     </View>
   );
 }

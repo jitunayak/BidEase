@@ -19,7 +19,7 @@ type Auction {
   bankId: Int!
   bankName: String!
   basePrice: Float!
-  bidCount: Int!
+  bidCount: String!
   category: String!
   createdAt: String!
   currentBid: Float
@@ -36,7 +36,7 @@ type Auction {
   status: String!
   title: String!
   updatedAt: String!
-  viewCount: Int!
+  viewCount: String!
 }
 
 input AuctionInput {
@@ -60,7 +60,7 @@ input AuctionInput {
 input AuctionUpdateInput {
   bankName: String
   basePrice: Float
-  bidCount: Int
+  bidCount: String
   category: String
   currentBid: Float
   description: String
@@ -74,7 +74,7 @@ input AuctionUpdateInput {
   startingBid: Float
   status: String
   title: String
-  viewCount: Int
+  viewCount: String
 }
 
 type AuthResponse {
@@ -211,7 +211,7 @@ input NotificationPreferencesInput {
 
 type Query {
   advertisement(id: ID!): Advertisement
-  advertisements: [Advertisement]
+  advertisements: [Advertisement!]!
   auction(id: ID!): Auction
   auctions(bidRange: [Float], category: String, featured: Boolean, location: String): [Auction!]!
   bank(id: ID!): Bank
@@ -219,10 +219,12 @@ type Query {
   banner(id: ID!): Banner
   banners: [Banner!]!
   isWishListed(auctionId: ID!): WishlistStatus!
+  notification(id: ID!): Notification
   notifications: [Notification!]!
+  searchAuctions(bidRange: [Float!], category: [String!], featured: Boolean, keyword: String, location: [String!]): [Auction!]!
   user(id: ID!): User
   users: [User!]!
-  wishlist: [Wishlist!]!
+  wishlists: [Wishlist!]!
 }
 
 type User {

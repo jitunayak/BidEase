@@ -190,7 +190,7 @@ export default function Home() {
             />
           </View>
         )} */}
-        {/* 
+        {/*
         {!loading && data && (
           <FlatList
             data={data.auctions}
@@ -280,7 +280,7 @@ export default function Home() {
             title="Pull to refresh"
           />
         }
-        data={wishListedAuctions?.wishlist}
+        data={wishListedAuctions?.wishlists}
         keyExtractor={(item) => String(item.id)}
         renderItem={(item) => (
           <AssetCompactCard

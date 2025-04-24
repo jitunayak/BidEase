@@ -165,7 +165,7 @@ function RootLayout() {
               size={22}
             />
           ),
-          tabBarBadge: wishListsQuery.data?.wishlist.length || 0,
+          tabBarBadge: wishListsQuery.data?.wishlists.length || 0,
         }}
       />
       <Tabs.Screen

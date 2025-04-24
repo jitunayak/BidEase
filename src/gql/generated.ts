@@ -37,7 +37,7 @@ export type Auction = {
   bankId: Scalars['Int']['output'];
   bankName: Scalars['String']['output'];
   basePrice: Scalars['Float']['output'];
-  bidCount: Scalars['Int']['output'];
+  bidCount: Scalars['String']['output'];
   category: Scalars['String']['output'];
   createdAt: Scalars['String']['output'];
   currentBid?: Maybe<Scalars['Float']['output']>;
@@ -54,7 +54,7 @@ export type Auction = {
   status: Scalars['String']['output'];
   title: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
-  viewCount: Scalars['Int']['output'];
+  viewCount: Scalars['String']['output'];
 };
 
 export type AuctionInput = {
@@ -78,7 +78,7 @@ export type AuctionInput = {
 export type AuctionUpdateInput = {
   bankName?: InputMaybe<Scalars['String']['input']>;
   basePrice?: InputMaybe<Scalars['Float']['input']>;
-  bidCount?: InputMaybe<Scalars['Int']['input']>;
+  bidCount?: InputMaybe<Scalars['String']['input']>;
   category?: InputMaybe<Scalars['String']['input']>;
   currentBid?: InputMaybe<Scalars['Float']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -92,7 +92,7 @@ export type AuctionUpdateInput = {
   startingBid?: InputMaybe<Scalars['Float']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  viewCount?: InputMaybe<Scalars['Int']['input']>;
+  viewCount?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AuthResponse = {
@@ -358,7 +358,7 @@ export type NotificationPreferencesInput = {
 export type Query = {
   __typename?: 'Query';
   advertisement?: Maybe<Advertisement>;
-  advertisements?: Maybe<Array<Maybe<Advertisement>>>;
+  advertisements: Array<Advertisement>;
   auction?: Maybe<Auction>;
   auctions: Array<Auction>;
   bank?: Maybe<Bank>;
@@ -366,10 +366,12 @@ export type Query = {
   banner?: Maybe<Banner>;
   banners: Array<Banner>;
   isWishListed: WishlistStatus;
+  notification?: Maybe<Notification>;
   notifications: Array<Notification>;
+  searchAuctions: Array<Auction>;
   user?: Maybe<User>;
   users: Array<User>;
-  wishlist: Array<Wishlist>;
+  wishlists: Array<Wishlist>;
 };
 
 
@@ -403,6 +405,20 @@ export type QueryBannerArgs = {
 
 export type QueryIsWishListedArgs = {
   auctionId: Scalars['ID']['input'];
+};
+
+
+export type QueryNotificationArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QuerySearchAuctionsArgs = {
+  bidRange?: InputMaybe<Array<Scalars['Float']['input']>>;
+  category?: InputMaybe<Array<Scalars['String']['input']>>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
@@ -457,7 +473,18 @@ export type WishlistStatus = {
 export type GetAdvertisementsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements?: Array<{ __typename?: 'Advertisement', id: string, title: string, imageUrl: string, actionUrl: string, updatedAt: string, active: boolean, createdAt: string, description: string, sponsor: string } | null> | null };
+export type GetAdvertisementsQuery = { __typename?: 'Query', advertisements: Array<{ __typename?: 'Advertisement', id: string, title: string, imageUrl: string, actionUrl: string, updatedAt: string, active: boolean, createdAt: string, description: string, sponsor: string }> };
+
+export type AuctionsWithSearchQueryVariables = Exact<{
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  category?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  location?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  bidRange?: InputMaybe<Array<Scalars['Float']['input']> | Scalars['Float']['input']>;
+  keyword?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type AuctionsWithSearchQuery = { __typename?: 'Query', searchAuctions: Array<{ __typename?: 'Auction', id: string, title: string, currentBid?: number | null, description: string, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: string, startingBid?: number | null }> };
 
 export type AuctionsQueryVariables = Exact<{
   featured?: InputMaybe<Scalars['Boolean']['input']>;
@@ -467,14 +494,14 @@ export type AuctionsQueryVariables = Exact<{
 }>;
 
 
-export type AuctionsQuery = { __typename?: 'Query', auctions: Array<{ __typename?: 'Auction', id: string, title: string, currentBid?: number | null, description: string, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null }> };
+export type AuctionsQuery = { __typename?: 'Query', auctions: Array<{ __typename?: 'Auction', id: string, title: string, currentBid?: number | null, description: string, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: string, startingBid?: number | null }> };
 
 export type AuctionQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: number, startingBid?: number | null, currentBid?: number | null, incrementAmount: number, bidCount: number } | null, isWishListed: { __typename?: 'WishlistStatus', isWishListed: boolean } };
+export type AuctionQuery = { __typename?: 'Query', auction?: { __typename?: 'Auction', id: string, title: string, description: string, emd?: number | null, category: string, location: string, images: Array<string>, createdAt: string, updatedAt: string, status: string, bankId: number, featured: boolean, basePrice: number, startTime: string, endTime: string, viewCount: string, startingBid?: number | null, currentBid?: number | null, incrementAmount: number, bidCount: string } | null, isWishListed: { __typename?: 'WishlistStatus', isWishListed: boolean } };
 
 export type GetBannersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -543,7 +570,7 @@ export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: string }
 export type GetWishlistsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetWishlistsQuery = { __typename?: 'Query', wishlist: Array<{ __typename?: 'Wishlist', id: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
+export type GetWishlistsQuery = { __typename?: 'Query', wishlists: Array<{ __typename?: 'Wishlist', id: number, createdAt: string, auction: { __typename?: 'Auction', id: string, title: string, location: string, emd?: number | null, startTime: string, startingBid?: number | null, images: Array<string> } }> };
 
 export type AddToWishlistMutationVariables = Exact<{
   auctionId: Scalars['ID']['input'];
@@ -631,6 +658,74 @@ export type GetAdvertisementsQueryHookResult = ReturnType<typeof useGetAdvertise
 export type GetAdvertisementsLazyQueryHookResult = ReturnType<typeof useGetAdvertisementsLazyQuery>;
 export type GetAdvertisementsSuspenseQueryHookResult = ReturnType<typeof useGetAdvertisementsSuspenseQuery>;
 export type GetAdvertisementsQueryResult = Apollo.QueryResult<GetAdvertisementsQuery, GetAdvertisementsQueryVariables>;
+export const AuctionsWithSearchDocument = gql`
+    query AuctionsWithSearch($featured: Boolean, $category: [String!], $location: [String!], $bidRange: [Float!], $keyword: String) {
+  searchAuctions(
+    featured: $featured
+    category: $category
+    location: $location
+    bidRange: $bidRange
+    keyword: $keyword
+  ) {
+    id
+    title
+    currentBid
+    description
+    category
+    location
+    images
+    createdAt
+    updatedAt
+    status
+    bankId
+    featured
+    location
+    basePrice
+    location
+    startTime
+    endTime
+    viewCount
+    startingBid
+  }
+}
+    `;
+
+/**
+ * __useAuctionsWithSearchQuery__
+ *
+ * To run a query within a React component, call `useAuctionsWithSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuctionsWithSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuctionsWithSearchQuery({
+ *   variables: {
+ *      featured: // value for 'featured'
+ *      category: // value for 'category'
+ *      location: // value for 'location'
+ *      bidRange: // value for 'bidRange'
+ *      keyword: // value for 'keyword'
+ *   },
+ * });
+ */
+export function useAuctionsWithSearchQuery(baseOptions?: Apollo.QueryHookOptions<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>(AuctionsWithSearchDocument, options);
+      }
+export function useAuctionsWithSearchLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>(AuctionsWithSearchDocument, options);
+        }
+export function useAuctionsWithSearchSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>(AuctionsWithSearchDocument, options);
+        }
+export type AuctionsWithSearchQueryHookResult = ReturnType<typeof useAuctionsWithSearchQuery>;
+export type AuctionsWithSearchLazyQueryHookResult = ReturnType<typeof useAuctionsWithSearchLazyQuery>;
+export type AuctionsWithSearchSuspenseQueryHookResult = ReturnType<typeof useAuctionsWithSearchSuspenseQuery>;
+export type AuctionsWithSearchQueryResult = Apollo.QueryResult<AuctionsWithSearchQuery, AuctionsWithSearchQueryVariables>;
 export const AuctionsDocument = gql`
     query Auctions($featured: Boolean, $category: String, $location: String, $bidRange: [Float]) {
   auctions(
@@ -1064,7 +1159,7 @@ export type DeleteUserMutationResult = Apollo.MutationResult<DeleteUserMutation>
 export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<DeleteUserMutation, DeleteUserMutationVariables>;
 export const GetWishlistsDocument = gql`
     query getWishlists {
-  wishlist {
+  wishlists {
     id
     createdAt
     auction {

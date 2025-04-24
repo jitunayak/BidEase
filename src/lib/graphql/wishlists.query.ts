@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_WISHLISTS_QUERY = gql`
   query getWishlists {
-    wishlist {
+    wishlists {
       id
       createdAt
       auction {
