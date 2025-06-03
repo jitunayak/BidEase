@@ -64,6 +64,7 @@ export const useOTPScreen = () => {
   const handleOtpVerification = async () => {
     setLoading(true);
     setError(undefined);
+    storage.set("user.route", "auth/otp-verify");
     try {
       const res = await verifyOtp({
         variables: {
@@ -87,6 +88,7 @@ export const useOTPScreen = () => {
       Alert.alert(error.message);
     } finally {
       setLoading(false);
+      storage.set("user.route", "");
     }
   };
 

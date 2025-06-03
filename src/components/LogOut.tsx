@@ -1,3 +1,4 @@
+import { nativeApplicationVersion, nativeBuildVersion } from "expo-application";
 import { useRouter } from "expo-router";
 import { LogOutIcon } from "lucide-react-native";
 import React from "react";
@@ -28,7 +29,9 @@ export const LogOut = () => {
         <LogOutIcon size={20} color={App.colors.danger} />
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
-      <Text style={styles.versionText}>Version 1.0.0</Text>
+      <Text style={styles.versionText}>
+        Version {nativeApplicationVersion} ({nativeBuildVersion})
+      </Text>
     </View>
   );
 };

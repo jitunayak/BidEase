@@ -25,6 +25,8 @@ import {
   View,
 } from "react-native";
 
+import { nativeApplicationVersion, nativeBuildVersion } from "expo-application";
+
 export default function ProfileScreen() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
@@ -179,6 +181,9 @@ export default function ProfileScreen() {
         </TouchableOpacity>
 
         <Text style={styles.versionText}>Version 1.0.0</Text>
+        <Text>
+          Build - {nativeApplicationVersion}( {nativeBuildVersion} )
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

@@ -24,7 +24,7 @@ export const Switch = (props: SwitchProps) => {
     return {
       transform: [
         {
-          translateX: withTiming(toggle ? 22 : 0),
+          translateX: withTiming(toggle ? 16 : 0),
         },
       ],
     };
@@ -41,7 +41,7 @@ export const Switch = (props: SwitchProps) => {
         flexDirection: "row",
         alignItems: "center",
         borderRadius: 60,
-        minWidth: 50,
+        minWidth: 40,
         backgroundColor: toggle
           ? props.color || App.colors.success
           : App.colors.border,
@@ -50,8 +50,8 @@ export const Switch = (props: SwitchProps) => {
       <Animated.View
         style={[
           {
-            width: 20,
-            height: 20,
+            width: 16,
+            height: 16,
             borderRadius: 60,
             backgroundColor: App.colors.background,
             margin: 4,

@@ -1,8 +1,9 @@
 import { MMKV } from "react-native-mmkv";
 
-const store = new MMKV();
+export const store = new MMKV();
 
 export type StorageKeys =
+  | "user.route"
   | "user.phone_number"
   | "user.name"
   | "user.email"

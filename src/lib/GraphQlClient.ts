@@ -20,9 +20,11 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = storage.get("user.token");
-  console.log("token", token);
+  const route = storage.get("user.route");
 
-  if (!token) {
+  console.log("token, route in authLink", { token, route });
+
+  if (!token && route !== "auth/otp-verify") {
     router.replace("/(auth)/login");
   }
   return {
@@ -51,8 +53,12 @@ const errorLink = onError(
           // Dispatch a logout action (if using Redux or Zustand)
           // Or directly update state and navigate
           storage.remove("user.token");
-          Alert.alert("Error", "Session expired. Please login again.");
-          router.replace("/(auth)/login");
+         const route = storage.get("user.route");
+
+         if (route !== "auth/phone") {
+           Alert.alert("Error", "Session expired. Please login again.");
+           router.replace("/(auth)/login");
+         }
           // Assuming you have a navigation object accessible
           // if (navigationRef.current) {
           //   navigationRef.current.dispatch(StackActions.replace("Login"));

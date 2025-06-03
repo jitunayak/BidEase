@@ -35,7 +35,7 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
         </EText>
         <TextInput
           testID="phone-input"
-          placeholder="111-222-3333"
+          placeholder="Enter phone number"
           placeholderTextColor={Colors.border}
           style={{
             fontSize: 22,

@@ -17,8 +17,8 @@ export const App = {
     isIOS: Platform.OS === "ios",
   },
   api: {
-    // baseUrl: "https://ahouse-hono-server.onrender.com",
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://ahouse-hono-server.onrender.com",
+    // baseUrl: "http://localhost:3000",
   },
   colors: {
     primary: "#0052CC",

@@ -1,10 +1,12 @@
 import { App, Colors } from "@/src/Constant";
 import { useLoginScreen } from "@/src/hooks/componentHooks/useLoginScreen";
+import { storage } from "@/src/hooks/storage";
 import { sanitizePhoneNumber } from "@/src/lib/format";
 import { RNUtils } from "@/src/lib/rn-utils";
 import { PhoneNumberInput } from "@/src/ui";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import {
   Image,
   KeyboardAvoidingView,
@@ -17,6 +19,11 @@ import {
 
 export default function Login() {
   const { handleLogin, phoneNumber, onChangePhoneNumber } = useLoginScreen();
+
+  useEffect(() => {
+    storage.set("user.route", "auth/phone");
+  }, []);
+
   return (
     <>
       {/* <SafeAreaView style={{ flex: 1 }}> */}
