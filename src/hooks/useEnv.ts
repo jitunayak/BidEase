@@ -1,0 +1,4 @@
+export const Env = {
+  LAUNCH_DARKLY_MOBILE_SDK_KEY:
+    process.env.EXPO_PUBLIC_LAUNCH_DARKLY_MOBILE_SDK_KEY!,
+};

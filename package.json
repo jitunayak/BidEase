@@ -23,6 +23,7 @@
     "@expo/vector-icons": "^14.0.4",
     "@gorhom/bottom-sheet": "^5.1.1",
     "@graphql-codegen/cli": "^5.0.5",
+    "@launchdarkly/react-native-client-sdk": "^10.10.3",
     "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",

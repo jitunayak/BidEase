@@ -2755,6 +2755,27 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@launchdarkly/js-client-sdk-common@1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@launchdarkly/js-client-sdk-common/-/js-client-sdk-common-1.14.1.tgz#bd3ad58ddf5fa80370e7f6adcb45ed0c30ebd908"
+  integrity sha512-+s2rKUKoIVhZiQqzpo69DetyjFDlvkXkx9i0zYugC3QH9X0fyANC5nsbRe+98jvAqJRugsoYN85VjDWJIKIKWA==
+  dependencies:
+    "@launchdarkly/js-sdk-common" "2.18.0"
+
+"@launchdarkly/js-sdk-common@2.18.0":
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/@launchdarkly/js-sdk-common/-/js-sdk-common-2.18.0.tgz#252b1d7f57fbc0dc6975169eff0940b4a54b130e"
+  integrity sha512-ojfkS8H92qkSmnMkJoIRjL1uh7iLLthVWDiZv4oxHduVurpNP+Eq4ByteaRlfyX1PpXZAgDvnELTyNKU1ZG9mA==
+
+"@launchdarkly/react-native-client-sdk@^10.10.3":
+  version "10.10.3"
+  resolved "https://registry.yarnpkg.com/@launchdarkly/react-native-client-sdk/-/react-native-client-sdk-10.10.3.tgz#982df654d7ace969e469cc7c09078a05b0e7323b"
+  integrity sha512-6gzWHwGPhU2q51YEIugFzdPjzTkrV/goJjCncB5WRapb5e3cF3mxa1kl5Qj+WZOOxjTCH6WGwAUMKlAEOlG0KQ==
+  dependencies:
+    "@launchdarkly/js-client-sdk-common" "1.14.1"
+    "@react-native-async-storage/async-storage" "^1.21.0"
+    base64-js "^1.5.1"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -2896,6 +2917,13 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.0"
+
+"@react-native-async-storage/async-storage@^1.21.0":
+  version "1.24.0"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.24.0.tgz#888efbc62a26f7d9464b32f4d3027b7f2771999b"
+  integrity sha512-W4/vbwUOYOjco0x3toB8QCr7EjIP6nE9G7o8PMguvvjYT5Awg09lyV4enACRx4s++PPulBiBSjL0KTFx2u0Z/g==
+  dependencies:
+    merge-options "^3.0.4"
 
 "@react-native-async-storage/async-storage@^2.1.2":
   version "2.1.2"

@@ -1,6 +1,7 @@
 import { App, Colors } from "@/src/Constant";
 import { notifications } from "@/src/data/notifications";
 import { useGetWishlistsQuery } from "@/src/gql/generated";
+import useFeatureFlag from "@/src/hooks/useFeatureFlags";
 import { uiStyles } from "@/src/Theme";
 import { Badge } from "@/src/ui";
 import Octicons from "@expo/vector-icons/Octicons";
@@ -14,6 +15,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 function RootLayout() {
   const router = useRouter();
   const wishListsQuery = useGetWishlistsQuery();
+
+  const isNetWorkInspectorEnabled = useFeatureFlag("network-inspector", false);
+
   return (
     <Tabs
       screenListeners={{
@@ -199,6 +203,7 @@ function RootLayout() {
       <Tabs.Screen
         name="network"
         options={{
+          href: isNetWorkInspectorEnabled ? "/network" : null,
           tabBarIcon: (tab) => (
             <Octicons
               name="link"
