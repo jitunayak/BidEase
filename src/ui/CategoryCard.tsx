@@ -37,7 +37,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
       case "house":
         return "Houses";
       case "apartment":
-        return "Apartments";
+        return "Apartment";
       default:
         return "";
     }
@@ -76,8 +76,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <Image
             source={require(`@/assets/images/gold.png`)}
             style={{
-              width: 50,
-              height: 50,
+              width: 60,
+              height: 60,
             }}
           />
         )}
@@ -85,8 +85,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <Image
             source={require(`@/assets/images/car.png`)}
             style={{
-              width: 50,
-              height: 50,
+              width: 60,
+              height: 60,
             }}
           />
         )}
@@ -94,8 +94,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <Image
             source={require(`@/assets/images/house.png`)}
             style={{
-              width: 50,
-              height: 50,
+              width: 70,
+              height: 70,
             }}
           />
         )}
@@ -103,8 +103,8 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
           <Image
             source={require(`@/assets/images/apartment.png`)}
             style={{
-              width: 50,
-              height: 50,
+              width: 60,
+              height: 60,
             }}
           />
         )}
@@ -116,7 +116,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    borderRadius: App.ui.borderRadius.md,
     overflow: "hidden",
     height: 100,
     minWidth: "48%",
@@ -131,12 +131,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "700",
-    color: App.colors.primary,
+    color: App.colors.text,
   },
   count: {
     fontSize: 14,
     color: App.colors.textSecondary,
   },
 });
+
