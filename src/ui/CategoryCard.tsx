@@ -1,8 +1,16 @@
 import { AssetCategory } from "@/src/types";
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 import { App } from "../Constant";
+import { HStack } from "./HStack";
+import { VStack } from "./VStack";
 
 interface CategoryCardProps {
   category: AssetCategory;
@@ -39,7 +47,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
     switch (category) {
       case "gold":
         return App.colors.gradients.gold;
-      case "vehicle":
+      case "car":
         return App.colors.gradients.vehicle;
       case "house":
         return App.colors.gradients.primary;
@@ -51,11 +59,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
   };
 
   return (
-    <TouchableOpacity
-      onPress={handlePress}
-      activeOpacity={0.9}
-      style={[styles.container, style]}
-    >
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.9} style={[style]}>
       {/* <LinearGradient
         colors={[App.colors.card, App.colors.secondary]}
         // colors={getCategoryGradient(category)}]}
@@ -63,8 +67,48 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
         // end={{ x: 0, y: 0 }}
         style={styles.gradient}
       > */}
-      <Text style={styles.name}>{getCategoryName(category)}</Text>
-      <Text style={styles.count}>{count} items</Text>
+      <HStack style={styles.container}>
+        <VStack justifyContent="flex-start" alignItems="flex-start">
+          <Text style={styles.name}>{getCategoryName(category)}</Text>
+          <Text style={styles.count}>{count} items</Text>
+        </VStack>
+        {category === "gold" && (
+          <Image
+            source={require(`@/assets/images/gold.png`)}
+            style={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        )}
+        {(category === "car" || category === "vehicle") && (
+          <Image
+            source={require(`@/assets/images/car.png`)}
+            style={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        )}
+        {category === "house" && (
+          <Image
+            source={require(`@/assets/images/house.png`)}
+            style={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        )}
+        {category === "apartment" && (
+          <Image
+            source={require(`@/assets/images/apartment.png`)}
+            style={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        )}
+      </HStack>
       {/* </LinearGradient> */}
     </TouchableOpacity>
   );
@@ -77,7 +121,7 @@ const styles = StyleSheet.create({
     height: 100,
     minWidth: "48%",
     backgroundColor: App.colors.card,
-    padding: 16,
+    padding: 12,
     borderColor: App.colors.secondary,
     flex: 1,
   },

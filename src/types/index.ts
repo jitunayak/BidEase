@@ -12,7 +12,7 @@ export interface User {
   kycVerified: boolean;
 }
 
-export type AssetCategory = "gold" | "vehicle" | "house" | "apartment";
+export type AssetCategory = "gold" | "vehicle" | "house" | "apartment" | "car";
 
 export interface Asset {
   id: string;
