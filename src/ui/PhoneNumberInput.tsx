@@ -39,7 +39,7 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
           placeholderTextColor={App.colors.textSecondary}
           style={{
             fontSize: 22,
-            letterSpacing: 1,
+            letterSpacing: 0.6,
             color: App.colors.text,
             width: "90%",
           }}
