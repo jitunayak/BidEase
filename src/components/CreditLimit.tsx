@@ -1,7 +1,8 @@
 import Octicons from "@expo/vector-icons/Octicons";
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { App, Colors } from "../Constant";
+import { Button } from "../ui";
 
 export const CreditLimit = () => {
   return (
@@ -75,20 +76,7 @@ export const CreditLimit = () => {
             <Text style={{ color: Colors.secondary, fontSize: 14 }}>₹5000</Text>
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: Colors.primary,
-            padding: 14,
-            borderRadius: App.ui.borderRadius.sm,
-            width: "auto",
-            alignItems: "center",
-            marginTop: 12,
-          }}
-        >
-          <Text style={{ color: Colors.background, fontSize: 14 }}>
-            Request limit increase
-          </Text>
-        </TouchableOpacity>
+        <Button size="md" variant="primary" title="Request limit increase" />
       </View>
     </View>
   );

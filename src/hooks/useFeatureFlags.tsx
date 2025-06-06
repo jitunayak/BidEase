@@ -2,8 +2,9 @@ import { useLDClient } from "@launchdarkly/react-native-client-sdk";
 
 import { useEffect, useState } from "react";
 
+type FeatureFlagsKey = "network-inspector" | "chat-support"; 
 export default function useFeatureFlag(
-  flagKey: "network-inspector",
+  flagKey: FeatureFlagsKey,
   defaultValue: boolean | string | number | object
 ) {
   const client = useLDClient();

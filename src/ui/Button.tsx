@@ -1,6 +1,8 @@
 import React from "react";
 import {
   ActivityIndicator,
+  Animated,
+  Easing,
   StyleSheet,
   Text,
   TextStyle,
@@ -38,6 +40,39 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...rest
 }) => {
+  const scale = React.useRef(new Animated.Value(1)).current;
+  const opacity = React.useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.parallel([
+      Animated.spring(scale, {
+        toValue: 0.95,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 0.8,
+        easing: Easing.linear,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.parallel([
+      Animated.spring(scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: 1,
+        easing: Easing.linear,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   const getButtonStyles = (): ViewStyle => {
     const baseStyle: ViewStyle = {
       ...styles.button,
@@ -72,6 +107,8 @@ export const Button: React.FC<ButtonProps> = ({
       ...variantStyle[variant],
       ...disabledStyle,
       ...style,
+      transform: [{ scale: scale }],
+      opacity: opacity,
     };
   };
 
@@ -110,7 +147,9 @@ export const Button: React.FC<ButtonProps> = ({
     <TouchableOpacity
       style={getButtonStyles()}
       disabled={disabled || isLoading}
-      activeOpacity={0.7}
+      activeOpacity={1}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       {...rest}
     >
       {isLoading ? (
@@ -135,12 +174,12 @@ export const Button: React.FC<ButtonProps> = ({
 
 const sizeStyles = {
   sm: {
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 6,
   },
   md: {
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
@@ -171,10 +210,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   text: {
-    fontWeight: "600",
+    fontWeight: "500",
     textAlign: "center",
   },
   fullWidth: {
     width: "100%",
   },
 });
+

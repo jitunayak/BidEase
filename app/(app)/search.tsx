@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Animated,
   Easing,
+  Image,
   Text,
   TextInput,
   View,
@@ -142,15 +143,21 @@ export default function search() {
       </View>
 
       {data?.searchAuctions && data.searchAuctions.length > 0 && (
-        <Text
-          style={{
-            color: App.colors.textSecondary,
-            marginVertical: 10,
-            textAlign: "center",
-          }}
-        >
-          {data?.searchAuctions.length} matching results found
-        </Text>
+        <View style={{ alignItems: "center", marginTop: 10 }}>
+          <Image
+            source={require("@/assets/images/search.png")}
+            style={{ width: 120, height: 120 }}
+          />
+          <Text
+            style={{
+              color: App.colors.textSecondary,
+              marginVertical: 10,
+              textAlign: "center",
+            }}
+          >
+            {data?.searchAuctions.length} matching results found
+          </Text>
+        </View>
       )}
       {data?.searchAuctions && data?.searchAuctions.length > 0 ? (
         <FlashList
@@ -174,11 +181,17 @@ export default function search() {
           <ActivityIndicator />
         </View>
       ) : (
-        <Text
-          style={{ color: Colors.text, marginTop: 50, textAlign: "center" }}
-        >
-          No matching results found
-        </Text>
+        <View style={{ flex: 1, alignItems: "center", marginTop: 50 }}>
+          <Image
+            source={require("@/assets/images/search.png")}
+            style={{ width: 120, height: 120 }}
+          />
+          <Text
+            style={{ color: Colors.text, marginTop: 50, textAlign: "center" }}
+          >
+            No matching results found
+          </Text>
+        </View>
       )}
     </View>
   );

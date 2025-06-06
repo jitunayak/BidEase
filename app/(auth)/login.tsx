@@ -1,9 +1,9 @@
-import { App, Colors } from "@/src/Constant";
+import { App } from "@/src/Constant";
 import { useLoginScreen } from "@/src/hooks/componentHooks/useLoginScreen";
 import { storage } from "@/src/hooks/storage";
 import { sanitizePhoneNumber } from "@/src/lib/format";
 import { RNUtils } from "@/src/lib/rn-utils";
-import { PhoneNumberInput } from "@/src/ui";
+import { Button, PhoneNumberInput } from "@/src/ui";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -13,7 +13,6 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -33,11 +32,12 @@ export default function Login() {
           justifyContent: "flex-start",
           alignItems: "center",
           display: "flex",
-          backgroundColor: Colors.primary,
           paddingTop: 100,
+          paddingHorizontal: App.ui.padding.md,
+          backgroundColor: App.colors.card,
         }}
       >
-        <StatusBar style="light" />
+        <StatusBar style="auto" />
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : undefined}
           style={{ flex: 1 }}
@@ -45,7 +45,7 @@ export default function Login() {
           <View>
             <View style={{ alignItems: "center", marginTop: 10 }}>
               <Image
-                source={require("@/assets/images/logo.png")}
+                source={require("@/assets/images/bidding.png")}
                 style={{ width: 120, height: 120 }}
               />
               <Text style={styles.title}>Welcome to BidEase</Text>
@@ -61,13 +61,15 @@ export default function Login() {
               countryCode="+91"
             />
             {sanitizePhoneNumber(phoneNumber).length >= 10 && (
-              <TouchableOpacity
+              <Button
+                title="Continue"
+                variant="primary"
                 disabled={sanitizePhoneNumber(phoneNumber).length < 10}
                 style={
                   sanitizePhoneNumber(phoneNumber).length < 10
                     ? {
                         ...styles.button,
-                        backgroundColor: Colors.border,
+                        backgroundColor: App.colors.primary,
                       }
                     : styles.button
                 }
@@ -75,27 +77,24 @@ export default function Login() {
                   RNUtils.giveHapticFeedback();
                   handleLogin();
                 }}
-              >
-                <Text style={{ color: Colors.primary, fontWeight: "600" }}>
-                  Continue
-                </Text>
-              </TouchableOpacity>
+              ></Button>
             )}
             <Text
               style={{
                 marginTop: 10,
-                color: Colors.background,
+                color: App.colors.textSecondary,
                 fontSize: 12,
                 paddingHorizontal: 20,
               }}
             >
               By continuing, you agree to our{" "}
               <Link
-                style={{ color: Colors.success }}
+                style={{ color: App.colors.primary }}
                 href="https://www.ahouse.in/privacy-policy"
               >
                 Terms of Service{" "}
-                <Text style={{ color: Colors.border }}>and</Text> Privacy Policy
+                <Text style={{ color: App.colors.textSecondary }}>and</Text>{" "}
+                Privacy Policy
               </Link>
             </Text>
           </View>
@@ -109,7 +108,6 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     lineHeight: 40,
     letterSpacing: 1,
-    color: Colors.background,
+    color: App.colors.text,
   },
   phoneNumberInput: {
     borderWidth: 1,
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    backgroundColor: Colors.background,
+    backgroundColor: App.colors.primary,
     padding: 16,
     borderRadius: App.ui.borderRadius.sm,
     margin: 10,
@@ -142,6 +140,6 @@ const styles = StyleSheet.create({
 
   secondaryText: {
     fontSize: 12,
-    color: Colors.border,
+    color: App.colors.textSecondary,
   },
 });

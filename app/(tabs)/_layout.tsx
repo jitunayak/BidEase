@@ -17,6 +17,7 @@ function RootLayout() {
   const wishListsQuery = useGetWishlistsQuery();
 
   const isNetWorkInspectorEnabled = useFeatureFlag("network-inspector", false);
+  const isChatSupportEnabled = useFeatureFlag("chat-support", false);
 
   return (
     <Tabs
@@ -189,6 +190,7 @@ function RootLayout() {
       <Tabs.Screen
         name="support"
         options={{
+          href: isChatSupportEnabled ? "/support" : null,
           tabBarIcon: (tab) => (
             <Octicons
               name="code-review"

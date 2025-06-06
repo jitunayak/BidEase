@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, TextInputProps, View } from "react-native";
 import { EText } from ".";
-import { App, Colors } from "../Constant";
+import { App } from "../Constant";
 
 type PhoneNumberInputProps = {
   phoneNumber: string;
@@ -12,7 +12,7 @@ type PhoneNumberInputProps = {
 export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
   return (
     <View style={styles.phoneNumberInput}>
-      <EText style={{ fontSize: 12, color: Colors.background }}>
+      <EText style={{ fontSize: 12, color: App.colors.text }}>
         Phone Number
       </EText>
 
@@ -27,7 +27,7 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
           style={{
             fontSize: 18,
             letterSpacing: 1,
-            color: Colors.background,
+            color: App.colors.text,
           }}
         >
           {props.countryCode}
@@ -36,11 +36,11 @@ export const PhoneNumberInput = (props: PhoneNumberInputProps) => {
         <TextInput
           testID="phone-input"
           placeholder="Enter phone number"
-          placeholderTextColor={Colors.border}
+          placeholderTextColor={App.colors.textSecondary}
           style={{
             fontSize: 22,
             letterSpacing: 1,
-            color: Colors.background,
+            color: App.colors.text,
             width: "90%",
           }}
           keyboardType="number-pad"
