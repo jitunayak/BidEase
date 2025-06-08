@@ -132,18 +132,14 @@ export const useAuctionStore = create<AuctionState>()(
       placeBid: async (assetId: string, amount: number) => {
         set({ isLoading: true });
         try {
-          // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          const response = await httpClient.post(
+            `/api/auctions/${assetId}/bid`,
+            {
+              bidAmount: amount,
+            }
+          );
 
-          const newBid: Bid = {
-            id: Date.now().toString(),
-            assetId,
-            userId: "1", // Current user ID
-            userName: "John Doe", // Current user name
-            amount,
-            timestamp: new Date().toISOString(),
-            status: "active",
-          };
+          const newBid = response.data;
 
           set((state) => {
             // Update asset's current bid
@@ -187,35 +183,18 @@ export const useAuctionStore = create<AuctionState>()(
       fetchBidsForAsset: async (assetId: string) => {
         set({ isLoading: true });
         try {
-          // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 800));
+          const response = await httpClient.get(
+            `/api/auctions/${assetId}/bids`
+          );
 
-          // If we already have bids for this asset, return them
-          const existingBids = get().bids[assetId];
-          if (existingBids && existingBids.length > 0) {
-            set({ isLoading: false });
-            return existingBids;
-          }
-
-          // Otherwise, generate mock bids
-          const mockBids: Bid[] = Array(5)
-            .fill(null)
-            .map((_, index) => ({
-              id: `bid-${assetId}-${index}`,
-              assetId,
-              userId: `user-${index}`,
-              userName: `Bidder ${index + 1}`,
-              amount: 1000 * (index + 1),
-              timestamp: new Date(Date.now() - index * 3600000).toISOString(),
-              status: index === 0 ? "winning" : "outbid",
-            }));
+          const bids = response.data;
 
           set((state) => ({
-            bids: { ...state.bids, [assetId]: mockBids },
+            bids: { ...state.bids, [assetId]: bids },
             isLoading: false,
           }));
 
-          return mockBids;
+          return bids;
         } catch (error) {
           console.error("Error fetching bids:", error);
           set({ isLoading: false });

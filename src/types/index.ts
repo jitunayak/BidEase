@@ -21,8 +21,8 @@ export interface Asset {
   category: AssetCategory;
   images: string[];
   basePrice: number;
-  currentBid: number;
-  incrementAmount: number;
+  currentBid: string;
+  incrementAmount: string;
   bankId: string;
   bankName: string;
   location: string;
@@ -42,14 +42,15 @@ export interface Wishlist {
 }
 
 export interface Bid {
-  id: string;
-  assetId: string;
-  userId: string;
+  id: number;
+  userId: number;
   userName: string;
-  amount: number;
-  timestamp: string;
-  status: "active" | "winning" | "outbid" | "lost";
+  auctionId: number;
+  bidAmount: string;
+  createdAt: string;
+  updatedAt: string;
 }
+
 
 export interface BankInfo {
   id: string;

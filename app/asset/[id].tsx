@@ -1,6 +1,8 @@
 import { App } from "@/src/Constant";
+import { useStore } from "@/src/hooks/useStorage";
 
 import {
+  cleanedInput,
   formatCurrency,
   formatDate,
   formatTime,
@@ -59,6 +61,7 @@ export default function AssetDetailScreen() {
     isLoading,
   } = useAuctionStore();
 
+  const { user } = useStore();
   const isWishListed = shortlistedAssets.includes(id);
 
   const [bids, setBids] = useState<Bid[]>([]);
@@ -122,10 +125,10 @@ export default function AssetDetailScreen() {
     }
   };
 
-  const handleBidAmountChange = (text: string) => {
+  const handleBidAmountChange = (amount: string) => {
     // Allow only numbers
-    if (/^\d*$/.test(text)) {
-      setBidAmount(text);
+    if (/^\d*$/.test(amount)) {
+      setBidAmount(cleanedInput(amount, 20));
     }
   };
 
@@ -138,22 +141,27 @@ export default function AssetDetailScreen() {
       Alert.alert("Invalid Amount", "Please enter a valid bid amount");
       return;
     }
-
-    if (amount <= currentAsset.currentBid!) {
+    console.log(amount);
+    console.log(parseInt(currentAsset.currentBid!, 10));
+    if (amount <= parseInt(currentAsset.currentBid!, 10)) {
       Alert.alert(
         "Bid Too Low",
         `Your bid must be higher than the current bid of ${formatCurrency(
-          currentAsset.currentBid!
+          parseInt(currentAsset.currentBid!, 10)
         )}`
       );
       return;
     }
 
-    if (amount < currentAsset.startingBid! + currentAsset.incrementAmount) {
+    if (
+      amount <
+      parseInt(currentAsset.currentBid!, 10) +
+        parseInt(currentAsset.incrementAmount, 10)
+    ) {
       Alert.alert(
         "Bid Too Low",
         `Minimum bid increment is ${formatCurrency(
-          currentAsset.incrementAmount
+          parseInt(currentAsset.incrementAmount, 10)
         )}`
       );
       return;
@@ -331,7 +339,7 @@ export default function AssetDetailScreen() {
           <View style={styles.priceContainer}>
             <Text style={styles.priceLabel}>Current Bid</Text>
             <Text style={styles.price}>
-              {formatCurrency(currentAsset.currentBid!)}
+              {formatCurrency(parseInt(currentAsset.currentBid!, 10))}
             </Text>
             <Text style={styles.basePrice}>
               Base Price: {formatCurrency(currentAsset.basePrice)}
@@ -346,15 +354,16 @@ export default function AssetDetailScreen() {
                   <Text style={styles.bidFormSubtitle}>
                     Minimum bid:{" "}
                     {formatCurrency(
-                      currentAsset.currentBid! + currentAsset.incrementAmount
+                      parseInt(currentAsset.currentBid!, 10) +
+                        parseInt(currentAsset.incrementAmount, 10)
                     )}
                   </Text>
 
                   <View style={styles.bidInputContainer}>
-                    <Text style={styles.currencySymbol}>$</Text>
+                    <Text style={styles.currencySymbol}>INR</Text>
                     <TextInput
                       style={styles.bidInput}
-                      value={bidAmount}
+                      value={formatCurrency(parseInt(bidAmount, 10))}
                       onChangeText={handleBidAmountChange}
                       keyboardType="number-pad"
                       placeholder="Enter bid amount"
@@ -435,7 +444,7 @@ export default function AssetDetailScreen() {
                   <BidItem
                     key={bid.id}
                     bid={bid}
-                    isCurrentUserBid={bid.userId === "1"} // Assuming current user ID is '1'
+                    isCurrentUserBid={bid.userId === Number(user?.id!)} // Assuming current user ID is '1'
                   />
                 ))}
               </View>
@@ -717,4 +726,3 @@ const styles = StyleSheet.create({
     color: App.colors.textSecondary,
   },
 });
-

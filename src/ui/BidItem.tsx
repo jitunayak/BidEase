@@ -1,5 +1,5 @@
 import { Bid } from "@/src/types";
-import { Check, User } from "lucide-react-native";
+import { User } from "lucide-react-native";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { App } from "../Constant";
@@ -23,23 +23,25 @@ export const BidItem: React.FC<BidItemProps> = ({
         <View>
           <Text style={styles.userName}>
             {isCurrentUserBid ? "You" : bid.userName}
-            {bid.status === "winning" && (
+            {/* {bid.status === "winning" && (
               <Text style={styles.winningText}> (Highest Bid)</Text>
-            )}
+            )} */}
           </Text>
           <Text style={styles.timestamp}>
-            {formatRelativeTime(new Date(bid.timestamp))}
+            {formatRelativeTime(new Date(bid.updatedAt))}
           </Text>
         </View>
       </View>
 
       <View style={styles.bidInfo}>
-        <Text style={styles.bidAmount}>{formatCurrency(bid.amount)}</Text>
-        {bid.status === "winning" && (
+        <Text style={styles.bidAmount}>
+          {formatCurrency(parseInt(bid.bidAmount, 10))}
+        </Text>
+        {/* {bid.status === "winning" && (
           <View style={styles.winningBadge}>
             <Check size={12} color={App.colors.card} />
           </View>
-        )}
+        )} */}
       </View>
     </View>
   );
