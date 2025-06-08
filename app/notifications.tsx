@@ -4,7 +4,7 @@ import { NotificationItem } from "@/src/ui/NoitficationItem";
 import { FlashList } from "@shopify/flash-list";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ActivityIndicator,
   SafeAreaView,
@@ -15,11 +15,15 @@ import {
 } from "react-native";
 
 export default function NotificationsScreen() {
-  const { notifications, markAllAsRead, isLoading } = useNotificationStore();
+  const { notifications, markAllAsRead, isLoading, fetchNotifications } =
+    useNotificationStore();
 
   const handleMarkAllAsRead = () => {
     markAllAsRead();
   };
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>

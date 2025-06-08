@@ -64,6 +64,7 @@ export default function AssetDetailScreen() {
   const { user } = useStore();
   const isWishListed = shortlistedAssets.includes(id);
 
+  console.log(user);
   const [bids, setBids] = useState<Bid[]>([]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [bidAmount, setBidAmount] = useState("");
@@ -363,7 +364,7 @@ export default function AssetDetailScreen() {
                     <Text style={styles.currencySymbol}>INR</Text>
                     <TextInput
                       style={styles.bidInput}
-                      value={formatCurrency(parseInt(bidAmount, 10))}
+                      value={bidAmount}
                       onChangeText={handleBidAmountChange}
                       keyboardType="number-pad"
                       placeholder="Enter bid amount"

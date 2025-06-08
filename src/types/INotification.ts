@@ -11,6 +11,7 @@ export interface INotification {
     | "reminder"
     | "successful"
     | "failed"
-    | "general";
+    | "general"
+    | "bid";
   action: string;
 }

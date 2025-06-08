@@ -144,10 +144,6 @@ export default function search() {
 
       {data?.searchAuctions && data.searchAuctions.length > 0 && (
         <View style={{ alignItems: "center", marginTop: 10 }}>
-          <Image
-            source={require("@/assets/images/search.png")}
-            style={{ width: 120, height: 120 }}
-          />
           <Text
             style={{
               color: App.colors.textSecondary,

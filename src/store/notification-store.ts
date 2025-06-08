@@ -1,8 +1,8 @@
-import { mockNotifications } from "@/src/mocks/notifications";
 import { Notification } from "@/src/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import { httpClient } from "../lib/http-client";
 
 interface NotificationState {
   notifications: Notification[];
@@ -26,12 +26,12 @@ export const useNotificationStore = create<NotificationState>()(
       fetchNotifications: async () => {
         set({ isLoading: true });
         try {
-          // Simulating API call
-          await new Promise((resolve) => setTimeout(resolve, 800));
+          const response = await httpClient.get("/api/notifications");
 
           set({
-            notifications: mockNotifications,
-            unreadCount: mockNotifications.filter((n) => !n.read).length,
+            notifications: response.data,
+            unreadCount: response.data.filter((n: Notification) => !n.read)
+              .length,
             isLoading: false,
           });
         } catch (error) {
